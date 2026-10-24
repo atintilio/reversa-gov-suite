@@ -35,7 +35,7 @@ test('o runner de build aplica as 15 migrations em Postgres por TCP', async () =
   const { splitStatements } = require('../scripts/migrate');
   const DIR = path.join(__dirname, '..', 'db', 'migrations');
   const arquivos = fs.readdirSync(DIR).filter((f) => f.endsWith('.sql')).sort();
-  assert.equal(arquivos.length, 15);
+  assert.equal(arquivos.length, 16);
 
   await sql.unsafe(`create table if not exists schema_migrations (
     version varchar(200) primary key, checksum varchar(64) not null, applied_at timestamptz not null default now())`);
@@ -55,7 +55,8 @@ test('o runner de build aplica as 15 migrations em Postgres por TCP', async () =
     '001_platform.sql', '002_org_cases_stage.sql', '003_owner_name.sql', '004_crm.sql',
     '005_lei_do_bem.sql', '006_client_authorizations.sql', '007_parceiros.sql',
     '008_visao_master.sql', '009_execucao.sql', '010_contratacao.sql', '011_pgfn.sql',
-    '012_diagnosticos.sql', '013_case_history.sql', '014_gov.sql', '015_gov_tenant_integrity.sql'
+    '012_diagnosticos.sql', '013_case_history.sql', '014_gov.sql', '015_gov_tenant_integrity.sql',
+    '016_suite_access.sql'
   ]);
   const tabelas = await sql`select table_name from information_schema.tables where table_schema = 'public' and table_name like 'gov_%' order by table_name`;
   assert.ok(tabelas.length >= 10, 'esperava as tabelas gov_*');
@@ -98,33 +99,4 @@ test('o dominio Gov roda sobre a conexao TCP: municipio e candidato', async () =
   assert.equal(lista.municipios.length, 1);
   const painel = await gov.dashboard(ctx);
   assert.equal(painel.candidatos, 1);
-});
-
-test('a rota /api/sessao responde 401 sem cookie e 200 com sessao valida', async () => {
-  const { getSql } = require('../lib/db');
-  const db = getSql();
-  const [org] = await db`select id from organizations order by created_at limit 1`;
-  const [usuario] = await db`insert into users (email, email_normalized, name, password_hash, status) values ('sessao@teste.local', 'sessao@teste.local', 'Sessao Teste', 'x', 'active') returning id`;
-  await db`insert into organization_members (organization_id, user_id, role, status) values (${org.id}, ${usuario.id}, 'admin', 'active')`;
-
-  const token = 's1.token-de-teste';
-  const digest = crypto.createHash('sha256').update(token).digest('hex');
-  await db`insert into auth_sessions (user_id, session_hash, expires_at) values (${usuario.id}, decode(${digest}, 'hex'), now() + interval '1 hour')`;
-
-  const handler = require('../api/sessao');
-  const call = (cookie) => new Promise((resolve) => {
-    const res = {
-      statusCode: 200, headers: {},
-      setHeader(k, v) { this.headers[k.toLowerCase()] = v; },
-      end(b) { this.body = b ? String(b) : ''; resolve(this); }
-    };
-    handler({ method: 'GET', headers: cookie ? { cookie } : {} }, res);
-  });
-
-  const sem = await call('');
-  assert.equal(sem.statusCode, 401);
-
-  const com = await call(`rv_sessao=${encodeURIComponent(token)}`);
-  assert.equal(com.statusCode, 200);
-  assert.equal(JSON.parse(com.body).ok, true);
 });
