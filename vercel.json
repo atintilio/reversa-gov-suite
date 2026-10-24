@@ -18,6 +18,7 @@
       ]
     }
   ],
+  "outputDirectory": ".",
   "functions": {
     "api/v1/[...route].js": {
       "maxDuration": 60,
