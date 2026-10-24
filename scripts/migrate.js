@@ -47,7 +47,8 @@ async function migrate(sql) {
 async function main() {
   const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
   if (!url) throw new Error('POSTGRES_URL ou DATABASE_URL não configurada');
-  const sql = postgres(url, { max: 1, ssl: 'require', onnotice: () => {} });
+  const local = /^postgres(ql)?:\/\/[^@]*@(127\.0\.0\.1|localhost|\[::1\])/i.test(url);
+  const sql = postgres(url, { max: 1, ssl: local ? false : 'require', onnotice: () => {} });
   try { await migrate(sql); } finally { await sql.end({ timeout: 5 }); }
 }
 

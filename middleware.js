@@ -1,11 +1,10 @@
-import { neon } from '@neondatabase/serverless';
-
-// APIs são tratadas por funções Node em /api. O middleware protege somente as páginas.
+// O middleware roda no edge, onde nao ha TCP para o Postgres. A validacao da
+// sessao no banco e feita pela funcao Node /api/sessao, que aplica exatamente a
+// mesma regra (cookie valido, sessao nao revogada, dentro da validade, com
+// atividade nos ultimos 15 minutos e usuario ativo).
 export const config = { matcher: '/((?!login\\.html|reset-password\\.html|aprovacao\\.html|aprovacao\\.js|validacao-contador\\.html|validacao-contador\\.js|assets/reversa-r\\.png|robots\\.txt|api/|favicon\\.ico).*)' };
 
 const COOKIE = 'rv_sessao';
-const enc = new TextEncoder();
-const edgeSql = process.env.POSTGRES_URL ? neon(process.env.POSTGRES_URL) : null;
 
 function cookies(req) {
   const out = {};
@@ -16,28 +15,15 @@ function cookies(req) {
   return out;
 }
 
-async function sha256Hex(value) {
-  const bytes = new Uint8Array(await crypto.subtle.digest('SHA-256', enc.encode(String(value))));
-  return Array.from(bytes).map((x) => x.toString(16).padStart(2, '0')).join('');
-}
-
-async function dbSessionValid(token) {
-  if (!edgeSql || !token || !token.startsWith('s1.')) return false;
+async function dbSessionValid(req, token) {
+  if (!token || !token.startsWith('s1.')) return false;
   try {
-    const digest = await sha256Hex(token);
-    const rows = await edgeSql`
-      select s.id
-      from auth_sessions s
-      join users u on u.id = s.user_id
-      where s.session_hash = decode(${digest}, 'hex')
-        and s.revoked_at is null
-        and s.expires_at > now()
-        and coalesce(s.last_seen_at, s.created_at) > now() - interval '15 minutes'
-        and u.status = 'active'
-      limit 1`;
-    return rows.length > 0;
+    const res = await fetch(new URL('/api/sessao', req.url), {
+      headers: { cookie: req.headers.get('cookie') || '' },
+    });
+    return res.status === 200;
   } catch (error) {
-    console.error('middleware_database_error', error.name || 'Error');
+    console.error('middleware_sessao_error', error.name || 'Error');
     return false;
   }
 }
@@ -54,13 +40,13 @@ function legacyEnabled() {
 async function legacyKey() {
   const users = process.env.REVERSA_USERS || '';
   const secret = process.env.REVERSA_SECRET || process.env.SESSION_SECRET;
-  const digest = await crypto.subtle.digest('SHA-256', enc.encode(`${users}|${secret}`));
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`${users}|${secret}`));
   return crypto.subtle.importKey('raw', digest, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
 }
 
 async function legacySign(value) {
-  const bytes = new Uint8Array(await crypto.subtle.sign('HMAC', await legacyKey(), enc.encode(value)));
-  let binary = ''; for (const byte of bytes) binary += String.fromCharCode(byte);
+  const bytes = await crypto.subtle.sign('HMAC', await legacyKey(), new TextEncoder().encode(value));
+  let binary = ''; for (const byte of new Uint8Array(bytes)) binary += String.fromCharCode(byte);
   return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
@@ -83,6 +69,6 @@ function redirectLogin() {
 
 export default async function middleware(req) {
   const token = cookies(req)[COOKIE];
-  if (await dbSessionValid(token) || await legacySessionValid(token)) return;
+  if (await dbSessionValid(req, token) || await legacySessionValid(token)) return;
   return redirectLogin();
 }
