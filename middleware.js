@@ -4,8 +4,11 @@ import { neon } from '@neondatabase/serverless';
 // A página inicial da marca (/) fica de fora do portão; o Reversa Gov (/gov.html) continua
 // atrás do login, como as demais páginas internas da plataforma.
 // /assets/ e o favicon ficam públicos porque a landing da marca os carrega antes de qualquer login.
+// "entrar" e a entrada por passagem de sessao (handoff): precisa ficar fora do portao,
+// senao o middleware devolveria o usuario ao login antes de a suite validar o token.
+// A rota em si exige um token assinado de vida curta -- o portao nao e a protecao dela.
 // O "$" isenta a raiz: sem ele, "/" casaria com o grupo e cairia no redirecionamento para /login.html.
-export const config = { matcher: '/((?!login\\.html|reset-password\\.html|aprovacao\\.html|aprovacao\\.js|validacao-contador\\.html|validacao-contador\\.js|assets/|favicon\\.ico|favicon\\.png|robots\\.txt|api/|index\\.html|$).*)' };
+export const config = { matcher: '/((?!login\\.html|reset-password\\.html|aprovacao\\.html|aprovacao\\.js|validacao-contador\\.html|validacao-contador\\.js|assets/|favicon\\.ico|favicon\\.png|robots\\.txt|api/|entrar|index\\.html|$).*)' };
 
 const COOKIE = 'rv_sessao';
 const enc = new TextEncoder();
