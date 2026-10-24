@@ -28,6 +28,16 @@ const semDrop = semUpdate
   .replace(/^alter table gov_entities drop constraint if exists gov_entities_cnpj_uq;\s*$/m,
     () => guarda('gov_entities', 'gov_entities_cnpj_uq'));
 
+// Registra as 15 migrations como ja aplicadas, com o checksum real de cada
+// arquivo. Sem isso, o runner do build reaplicaria tudo no proximo deploy —
+// inclusive os UPDATE. Com isso, ele nao toca em nada.
+const crypto = require('node:crypto');
+const DIRM = path.join(__dirname, '..', 'db', 'migrations');
+const registros = fs.readdirSync(DIRM).filter((f) => f.endsWith('.sql')).sort().map((f) => {
+  const checksum = crypto.createHash('sha256').update(fs.readFileSync(path.join(DIRM, f))).digest('hex');
+  return `insert into schema_migrations (version, checksum) values ('${f}', '${checksum}') on conflict (version) do nothing;`;
+}).join('\n');
+
 const cabecalho = `-- Schema seguro da suite Reversa Gov: mesma estrutura, sem tocar em dados.
 -- Diferencas em relacao a db/schema-completo.sql:
 --   - os 2 UPDATE (nome do proprietario e kind da organizacao) foram removidos
@@ -37,7 +47,17 @@ const cabecalho = `-- Schema seguro da suite Reversa Gov: mesma estrutura, sem t
 
 `;
 const destino = path.join(DIR, 'schema-completo-seguro.sql');
-fs.writeFileSync(destino, cabecalho + semDrop);
+const bloco = `
+
+-- ===== migrations registradas (o runner do build nao reaplica nada) =====
+create table if not exists schema_migrations (
+  version varchar(200) primary key,
+  checksum varchar(64) not null,
+  applied_at timestamptz not null default now()
+);
+${registros}
+`;
+fs.writeFileSync(destino, cabecalho + semDrop + bloco);
 console.log('gerado:', destino, fs.statSync(destino).size, 'bytes');
 console.log('update restante:', /^\s*update\s+/im.test(semDrop));
 console.log('drop constraint desprotegido:', /^alter table gov_\w+ drop constraint/m.test(semDrop));

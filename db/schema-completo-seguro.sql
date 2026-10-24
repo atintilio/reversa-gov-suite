@@ -1398,3 +1398,26 @@ do $$ begin if not exists (select 1 from pg_constraint where conrelid = 'gov_cas
 
 do $$ begin if not exists (select 1 from pg_constraint where conrelid = 'gov_candidates'::regclass and conname = 'gov_candidates_amounts_ck') then alter table gov_candidates add constraint gov_candidates_amounts_ck check ( gross_candidate_amount_cents between 0 and 9007199254740991 and withheld_amount_cents between 0 and 9007199254740991 and proven_destination_amount_cents between 0 and 9007199254740991 and (potential_amount_cents is null or potential_amount_cents between 0 and 9007199254740991) ); end if; end $$;
 
+
+
+-- ===== migrations registradas (o runner do build nao reaplica nada) =====
+create table if not exists schema_migrations (
+  version varchar(200) primary key,
+  checksum varchar(64) not null,
+  applied_at timestamptz not null default now()
+);
+insert into schema_migrations (version, checksum) values ('001_platform.sql', '4469adc80784862cb7a75c97c8d9405ad5ffb1c3325e23c5aece9061339a2883') on conflict (version) do nothing;
+insert into schema_migrations (version, checksum) values ('002_org_cases_stage.sql', '75cd47388f73364c7a2831f63ebd8dbab51bc27f2e976dc0a2e868f5a3771d3a') on conflict (version) do nothing;
+insert into schema_migrations (version, checksum) values ('003_owner_name.sql', 'd82cbfaeac5882be5e5adcbec0b5b2c5ae7340cf3a615d452cab9a8045949e3c') on conflict (version) do nothing;
+insert into schema_migrations (version, checksum) values ('004_crm.sql', '5a077c2b423b9f1b94fc8c53de6bba7f32311196a53200b12204133b67738198') on conflict (version) do nothing;
+insert into schema_migrations (version, checksum) values ('005_lei_do_bem.sql', 'bb880c7e231cd281bd04b8fb4b4e86f5ed70e475a333444a46f508c5246acead') on conflict (version) do nothing;
+insert into schema_migrations (version, checksum) values ('006_client_authorizations.sql', '6a4eb480e1f641164ef7ba8fd9eef26a0e4b3ec912f08d7c53108e46b2bf85c3') on conflict (version) do nothing;
+insert into schema_migrations (version, checksum) values ('007_parceiros.sql', '2429f8d7732a6441644f57be78be7d43552ee93a1bc9dd49ca127acd6aa3b239') on conflict (version) do nothing;
+insert into schema_migrations (version, checksum) values ('008_visao_master.sql', '94ba37890dc6e7535e0ffcc17b4502c785d739f3819425a6f6631749939c4e3a') on conflict (version) do nothing;
+insert into schema_migrations (version, checksum) values ('009_execucao.sql', '52f98cf0d529f2ef5c3aec22157c476f0552733b23800ccd02de54cc814f4094') on conflict (version) do nothing;
+insert into schema_migrations (version, checksum) values ('010_contratacao.sql', 'a7c8d0e0417b787a7fc7df6148cb660db4f7e21667e166e59eb2019e851ce620') on conflict (version) do nothing;
+insert into schema_migrations (version, checksum) values ('011_pgfn.sql', 'efb43e027f1bb190251420580f697a40d22bee09402c4308c79a3d7b3d90bb37') on conflict (version) do nothing;
+insert into schema_migrations (version, checksum) values ('012_diagnosticos.sql', '7d901e950c7522d6babb3642b7121075583afa6510bd3f9a5ec80e7607a1276c') on conflict (version) do nothing;
+insert into schema_migrations (version, checksum) values ('013_case_history.sql', '3f91169e4ce9ca74e615350f3fe63ed183cf8f01e596582bca680e6522b80386') on conflict (version) do nothing;
+insert into schema_migrations (version, checksum) values ('014_gov.sql', 'f11c76efe14133ab4714f469755abaff6ef7b7f87660c93e34d3c39c12f602d9') on conflict (version) do nothing;
+insert into schema_migrations (version, checksum) values ('015_gov_tenant_integrity.sql', 'edb6158ccef7b8f50959778e3731f15b89388bdd42545d3d60c629373d4d0d44') on conflict (version) do nothing;
