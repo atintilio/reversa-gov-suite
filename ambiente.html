@@ -45,7 +45,7 @@
 <script src="/shell.js"></script>
 <script>
   document.querySelectorAll('[data-amb]').forEach(function (b) {
-    b.addEventListener('click', function () { RV.definirAmbiente(b.dataset.amb); location.href = b.dataset.amb === 'demo' ? '/demonstracao.html' : '/'; });
+    b.addEventListener('click', function () { RV.definirAmbiente(b.dataset.amb); location.href = b.dataset.amb === 'demo' ? '/demonstracao.html' : '/gov.html'; });
   });
   RV.eu.then(function (eu) { var n = eu && eu.user && eu.user.name; if (n) document.getElementById('ola').textContent = ', ' + n.split(' ')[0]; });
 </script>

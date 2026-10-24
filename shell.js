@@ -128,7 +128,7 @@
   // [caminho, rótulo, ícone, href alternativo, atributo de visibilidade]
   var principais = DEMO_AMB
     ? [['/demonstracao', 'Início', 'inicio'], ['/', 'Diagnosticar', 'diag', '/?demo=1'], ['/lei-do-bem', 'Lei do Bem', 'lei', '/lei-do-bem.html?demo=1'], ['/teses', 'Teses', 'teses', '/teses.html?demo=1'], ['/metodologia', 'Metodologia', 'met'], ['/execucao', 'Retificação', 'exe'], ['/pgfn', 'Transação PGFN', 'pgfn']]
-    : [['/', 'Diagnosticar', 'diag'], ['/gov', 'Reversa Gov', 'gov'], ['/lei-do-bem', 'Lei do Bem', 'lei'], ['/crm', 'CRM', 'crm'], ['/clientes', 'Clientes', 'cli'], ['/teses', 'Teses', 'teses'], ['/metodologia', 'Metodologia', 'met'], ['/dashboard', 'Dashboard', 'dash']];
+    : [['/gov', 'Reversa Gov', 'gov'], ['/dashboard', 'Dashboard', 'dash']];
   var plataforma = DEMO_AMB ? [] : [['/execucao', 'Execução', 'exe', null, 'data-plat'], ['/pgfn', 'Transação PGFN', 'pgfn', null, 'data-plat'], ['/usuarios', 'Usuários', 'users', null, 'data-admin'], ['/master', 'Master', 'master', null, 'data-master']];
   var href = function (p) { return p === '/' ? '/' : p + '.html'; };
   var item = function (l) {
@@ -146,7 +146,7 @@
   };
   var side = document.createElement('aside');
   side.className = 'rv-side'; side.id = 'rv-side'; side.setAttribute('aria-label', 'Menu');
-  side.innerHTML = '<a class="marca" href="' + (DEMO_AMB ? '/demonstracao.html' : '/') + '"><img src="/assets/reversa-r.png" alt=""><span>REVERSA <b>TAX</b><small>Uma solução Argus Prime</small></span></a>' +
+  side.innerHTML = '<a class="marca" href="' + (DEMO_AMB ? '/demonstracao.html' : '/') + '"><img src="/assets/reversa-r.png" alt=""><span>REVERSA <b>GOV</b><small>IRRF municipal · Argus Prime</small></span></a>' +
     '<nav aria-label="Seções">' + principais.map(item).join('') +
     (plataforma.length ? '<div class="grp" data-grp hidden>Plataforma</div>' + plataforma.map(item).join('') : '') + '</nav>' +
     '<div class="pe"><a href="/ambiente.html" class="amb ' + (DEMO_AMB ? 'demo' : 'prod') + '" title="Trocar de ambiente"><strong><i></i>' + (DEMO_AMB ? 'Demonstração' : 'Produção') + '</strong>Trocar para ' + (DEMO_AMB ? 'Produção' : 'Demonstração') + ' →</a></div>';
