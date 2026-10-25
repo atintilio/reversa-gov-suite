@@ -95,6 +95,46 @@
     if (tr) RV.toast(`Candidato ${tr.dataset.id} — detalhamento em próxima fase.`);
   });
 
+  // Cadastro de município: o módulo só serve para diagnóstico se o ente
+  // público estiver mapeado. O formulário grava via API e recarrega a lista.
+  var formMunicipio = document.getElementById('form-municipio');
+  var msgMunicipio = document.getElementById('msg-municipio');
+
+  document.getElementById('btn-novo-municipio').addEventListener('click', function () {
+    formMunicipio.hidden = !formMunicipio.hidden;
+    if (!formMunicipio.hidden) document.getElementById('m-ibge').focus();
+  });
+  document.getElementById('btn-cancelar-municipio').addEventListener('click', function () {
+    formMunicipio.reset();
+    formMunicipio.hidden = true;
+    msgMunicipio.textContent = '';
+  });
+
+  formMunicipio.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var botao = document.getElementById('btn-salvar-municipio');
+    var cnpjRaiz = document.getElementById('m-cnpj').value.trim();
+    botao.disabled = true;
+    msgMunicipio.textContent = 'Salvando…';
+    try {
+      var criado = await RV.api('POST', '/api/v1/gov/municipios', {
+        ibgeCode: document.getElementById('m-ibge').value.trim(),
+        name: document.getElementById('m-nome').value.trim(),
+        state: document.getElementById('m-uf').value,
+        cnpjRoot: cnpjRaiz || null,
+      });
+      formMunicipio.reset();
+      formMunicipio.hidden = true;
+      msgMunicipio.textContent = '';
+      RV.toast(`Município ${criado.name} cadastrado.`);
+      await Promise.all([carregarMunicipios(), carregarKPIs()]);
+    } catch (erro) {
+      msgMunicipio.textContent = erro.message || 'Não foi possível salvar.';
+    } finally {
+      botao.disabled = false;
+    }
+  });
+
   // Inicialização
   Promise.all([carregarMunicipios(), carregarCandidatos(), carregarKPIs()]);
 })();

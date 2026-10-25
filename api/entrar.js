@@ -29,18 +29,31 @@ async function garantirUsuario(sql, payload) {
 }
 
 async function garantirVinculo(sql, payload, userId) {
-  const [org] = await sql`select id from organizations where id = ${payload.o} limit 1`;
-  if (!org) {
-    await sql`insert into organizations (id, name, kind) values (${payload.o}, ${payload.g || 'Reversa Gov'}, 'interna')`;
+  // Organizacao de destino. Se o usuario ja tem organizacao nesta suite
+  // (bootstrap do owner, ou uma entrada anterior), e ela que vale: senao o
+  // mesmo usuario ficaria com os dados partidos em duas organizacoes. Sem
+  // vinculo, cria a organizacao com o id que veio da suite de origem, para a
+  // identidade cross-suite.
+  const [vinculo] = await sql`
+    select organization_id from organization_members
+    where user_id = ${userId} and status = 'active'
+    order by created_at limit 1`;
+  const orgId = vinculo ? vinculo.organization_id : payload.o;
+  if (!vinculo) {
+    await sql`
+      insert into organizations (id, name, kind)
+      values (${orgId}, ${payload.g || 'Reversa Gov'}, 'interna')
+      on conflict (id) do nothing`;
   }
   await sql`
     insert into organization_members (organization_id, user_id, role, status)
-    values (${payload.o}, ${userId}, ${payload.r || 'viewer'}, 'active')
+    values (${orgId}, ${userId}, ${payload.r || 'viewer'}, 'active')
     on conflict (organization_id, user_id) do update set role = excluded.role, status = 'active', updated_at = now()`;
   await sql`
     insert into suite_access (organization_id, user_id, suite)
-    values (${payload.o}, ${userId}, 'gov')
+    values (${orgId}, ${userId}, 'gov')
     on conflict (organization_id, user_id, suite) do nothing`;
+  return orgId;
 }
 
 module.exports = async function handler(req, res) {
