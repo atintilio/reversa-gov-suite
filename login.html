@@ -111,6 +111,7 @@ h1 em { font-family: "Libre Baskerville", Georgia, serif; font-style: italic; fo
 </aside>
 <main>
   <form id="login-form" method="post" action="/api/login" autocomplete="on">
+    <input type="hidden" id="login-next" name="next" value="">
     <div class="wm-texto">REVERSA <b>GOV</b></div>
     <h1>Entrar na <em>plataforma</em></h1>
     <p class="sub">Acesso restrito à equipe e aos parceiros da Argus Prime.</p>
@@ -134,6 +135,13 @@ h1 em { font-family: "Libre Baskerville", Georgia, serif; font-style: italic; fo
 <script>
 (function () {
   var q = new URLSearchParams(location.search), m = document.getElementById('msg');
+  // Destino: o middleware leva para o login com ?next=. Apos entrar, o
+  // usuario volta para a pagina que pediu.
+  var next = q.get('next');
+  if (next && next.charAt(0) === '/' && next.slice(0, 2) !== '//') {
+    document.getElementById('login-next').value = next;
+    document.getElementById('login-form').action = '/api/login?next=' + encodeURIComponent(next);
+  }
   var painel = document.getElementById('recuperar');
   var resetEmail = document.getElementById('email-recuperacao');
   var resetFeedback = document.getElementById('reset-feedback');

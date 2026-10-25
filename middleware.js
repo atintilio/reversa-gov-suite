@@ -84,12 +84,18 @@ async function legacySessionValid(token) {
   return signature === expected;
 }
 
-function redirectLogin() {
-  return new Response(null, { status: 303, headers: { Location: '/login.html', 'Cache-Control': 'no-store' } });
+function redirectLogin(req) {
+  let destino = '/';
+  try {
+    const caminho = new URL(req.url).pathname;
+    if (caminho && !caminho.startsWith('/api/')) destino = caminho + (new URL(req.url).search || '');
+  } catch (_) { destino = '/'; }
+  const Location = '/login.html?next=' + encodeURIComponent(destino);
+  return new Response(null, { status: 303, headers: { Location, 'Cache-Control': 'no-store' } });
 }
 
 export default async function middleware(req) {
   const token = cookies(req)[COOKIE];
   if (await dbSessionValid(token) || await legacySessionValid(token)) return;
-  return redirectLogin();
+  return redirectLogin(req);
 }

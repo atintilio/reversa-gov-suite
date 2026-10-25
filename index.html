@@ -11,6 +11,11 @@
 :root { --teal: #1E8F88; --copper: #C8912F; --ink: #0B1F2A; --muted: #5A6B75; --line: #E3E8EA; }
 * { box-sizing: border-box; }
 body { margin: 0; font-family: Manrope, system-ui, sans-serif; color: var(--ink); background: #F7F9F9; }
+/* Faixa animada no topo: a mesma onda do login e da pagina de escolha. */
+header { position: relative; overflow: hidden; }
+header canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
+header::after { content: ""; position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, rgba(6,17,30,.62), rgba(6,17,30,.38) 55%, rgba(6,17,30,.72)); }
+header > img, header > .sig, header > .dir { position: relative; z-index: 1; }
 header { background: #06121F; color: #fff; padding: 18px 28px; display: flex; align-items: center; gap: 12px; }
 header img { width: 34px; height: auto; filter: brightness(0) invert(1); opacity: .95; }
 header .sig { font: 800 17px/1 "Open Sans", sans-serif; letter-spacing: .14em; }
@@ -36,6 +41,7 @@ footer b { color: var(--ink); }
 </head>
 <body>
 <header>
+  <canvas id="fundo" data-escala="3.2" aria-hidden="true"></canvas>
   <img src="/assets/reversa-r.png" alt="Reversa Gov">
   <div class="sig">REVERSA <b>GOV</b><small>IRRF municipal · Argus Prime</small></div>
   <div class="dir"><a href="https://reversa.argusprime.com.br">Plataforma Reversa</a></div>
@@ -57,5 +63,6 @@ footer b { color: var(--ink); }
   </div>
 </main>
 <footer>Reversa Gov é uma ferramenta <b>Argus Prime</b> · Diagnósticos e análises são preliminares e não constituem crédito reconhecido.</footer>
+<script src="/assets/fundo.js"></script>
 </body>
 </html>
