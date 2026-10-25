@@ -10,7 +10,7 @@
 const crypto = require('node:crypto');
 const { parseBody, json, redirect, method } = require('../lib/http');
 const { getSql } = require('../lib/db');
-const { verificarSuiteToken, segredoSuite } = require('../lib/suites');
+const { verificarSuiteTokenComQualquer } = require('../lib/suites');
 const { randomToken, hashSession } = require('../lib/security');
 
 async function garantirUsuario(sql, payload) {
@@ -65,7 +65,7 @@ module.exports = async function handler(req, res) {
 
   let payload;
   try {
-    payload = verificarSuiteToken(token, segredoSuite());
+    payload = verificarSuiteTokenComQualquer(token);
   } catch (error) {
     console.error('entrar_erro', error.name || 'Error');
     return json(res, 503, { error: { code: 'SUITE_NOT_CONFIGURED', message: 'Passagem de sessão não configurada.' } });
