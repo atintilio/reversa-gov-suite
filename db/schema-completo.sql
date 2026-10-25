@@ -1317,6 +1317,7 @@ create table if not exists gov_candidates (
   confidence varchar(20) check (confidence in ('LOW', 'MEDIUM', 'HIGH', 'VERIFIED')),
   legal_owner varchar(20) check (legal_owner in ('MUNICIPAL', 'FEDERAL', 'UNKNOWN')),
   cnr varchar(20),
+  payment_id uuid references gov_payments(id),
   forward_gain_cents bigint not null default 0,
   rule_id text,
   decision_reason text,

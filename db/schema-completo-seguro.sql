@@ -1321,6 +1321,7 @@ create table if not exists gov_candidates (
   confidence varchar(20) check (confidence in ('LOW', 'MEDIUM', 'HIGH', 'VERIFIED')),
   legal_owner varchar(20) check (legal_owner in ('MUNICIPAL', 'FEDERAL', 'UNKNOWN')),
   cnr varchar(20),
+  payment_id uuid references gov_payments(id),
   forward_gain_cents bigint not null default 0,
   rule_id text,
   decision_reason text,
@@ -1434,4 +1435,4 @@ insert into schema_migrations (version, checksum) values ('013_case_history.sql'
 insert into schema_migrations (version, checksum) values ('014_gov.sql', 'f11c76efe14133ab4714f469755abaff6ef7b7f87660c93e34d3c39c12f602d9') on conflict (version) do nothing;
 insert into schema_migrations (version, checksum) values ('015_gov_tenant_integrity.sql', 'edb6158ccef7b8f50959778e3731f15b89388bdd42545d3d60c629373d4d0d44') on conflict (version) do nothing;
 insert into schema_migrations (version, checksum) values ('016_suite_access.sql', '3023475482fce95d15ccb8c9ab4ece03f7952a82b28f9ae8287a11e976b03942') on conflict (version) do nothing;
-insert into schema_migrations (version, checksum) values ('017_gov_ingestao.sql', '80184c3038c69a78c121052e09f0c22492d067f0460c40fd20ba1b10a2fef2da') on conflict (version) do nothing;
+insert into schema_migrations (version, checksum) values ('017_gov_ingestao.sql', 'd090b695104929cf453987087ac27938e301c797692427bd8d694c3f163023d5') on conflict (version) do nothing;

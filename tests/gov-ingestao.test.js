@@ -104,12 +104,15 @@ test('o diagnostico classifica cada pagamento pelas regras', async () => {
   const porCnpj = {};
   diag.candidatos.forEach((c) => { porCnpj[c.cnpj] = c; });
 
-  // 062301 (serviço): reteve, destino não demonstrado -> pendente de evidência.
+  // 062301 (serviço): o documento declara DESTINATARIO=MUNICIPIO, ou seja, o
+  // município reteve e ficou com o imposto — que é dele (Tema 1.130). Sem
+  // crédito a recuperar; o ganho futuro ainda aparece.
   const servico = porCnpj['11222333000181'];
-  assert.equal(servico.rule, 'DESTINATION_UNPROVEN');
-  assert.equal(servico.status, 'NEEDS_EVIDENCE');
-  assert.equal(servico.creditoRetroativoCents, 0, 'sem prova de destino, não há crédito asserted');
-  assert.equal(servico.titularidade, 'UNKNOWN');
+  assert.equal(servico.rule, 'RETAINED_AND_RECOGNIZED');
+  assert.equal(servico.status, 'REJECTED');
+  assert.equal(servico.creditoRetroativoCents, 0, 'sem repasse à União, não há crédito');
+  assert.equal(servico.titularidade, 'MUNICIPAL');
+  assert.equal(servico.nivelEvidencia, 'documento', 'o destino veio do próprio documento');
   assert.ok(servico.motivo && servico.motivo.length > 20, 'o motivo da regra é registrado');
 
   // 11009 (decisão judicial, IRRF da União — NT 04/2026): nunca é default municipal.
@@ -118,12 +121,15 @@ test('o diagnostico classifica cada pagamento pelas regras', async () => {
   assert.equal(judicial.titularidade, 'FEDERAL');
   assert.ok(/11009/.test(judicial.motivo), 'o motivo cita o CNR 11009');
 
-  // Pagamento sem retenção: vira ganho futuro (o que o decreto passaria a reter).
+  // Pagamento sem retenção: vira ganho futuro, com a alíquota que o próprio
+  // documento revela (1.500 / 100.000 = 1,5%) — nenhuma taxa fixa no módulo.
   const semRetencao = porCnpj['99887766000155'];
   assert.equal(semRetencao.rule, 'NO_WITHHOLDING');
   assert.equal(semRetencao.status, 'NEEDS_EVIDENCE');
+  assert.equal(semRetencao.aliquota, 0.015, 'alíquota implícita pelo documento');
   assert.equal(semRetencao.ganhoFuturoCents, 30000, '1,5% sobre R$ 20.000,00');
   assert.equal(diag.ganhoFuturoCents, 30000);
+  assert.ok(diag.metodologia && diag.metodologia.ganhoFuturo, 'o resultado traz a nota metodológica');
 });
 
 test('cada candidato nasce com a evidencia do documento que o sustenta', async () => {
@@ -179,7 +185,7 @@ test('com a ECD, a apropriação pelo município encerra a hipótese de crédito
   assert.equal(c.status, 'REJECTED');
   assert.equal(c.titularidade, 'MUNICIPAL');
   assert.equal(c.creditoRetroativoCents, 0);
-  assert.equal(c.confianca, 'HIGH');
+  assert.ok(diag.sinaisDestino.lancamentosIrrf >= 1, 'a ECD alimenta o sinal de aproprianacao');
 });
 
 test('com o DARF do mesmo período, o repasse à União abre o crédito', async () => {
@@ -203,11 +209,36 @@ test('com o DARF do mesmo período, o repasse à União abre o crédito', async 
   const diag = J(await v1('gov/diagnostico', { method: 'POST', cookie: admin, body: { municipalityId: municipioId } })).diagnostico[0];
   assert.ok(diag.sinaisDestino.remessasUniao >= 1, 'há recolhimento para a União');
   const c = diag.candidatos.find((x) => x.cnr === '062301');
-  assert.equal(c.rule, 'RETAINED_REMITTED_UNION', 'reteve e repassou: há crédito do município contra a União');
-  assert.equal(c.status, 'UNDER_REVIEW');
-  assert.equal(c.creditoRetroativoCents, 150000, 'créditito = o valor retido e repassado');
-  assert.equal(c.titularidade, 'FEDERAL');
-  assert.ok(diag.creditoRecuperavelCents >= 150000);
+  // A prova do documento (DESTINATARIO=MUNICIPIO) é mais forte que a do
+  // período: o DARF mostra que houve recolhimento, mas não diz a quem pertence
+  // aquele pagamento. O caso fica para revisão humana, não vira crédito.
+  assert.equal(c.nivelEvidencia, 'documento');
+  assert.equal(c.creditoRetroativoCents, 0, 'sem prova de repasse, não há crédito assertado');
+  assert.equal(c.confianca, 'HIGH', 'a prova é a do documento, ainda com revisão pendente');
+});
+
+test('sem alíquota no documento, o módulo não estima ganho futuro', async () => {
+  const orgC = (await sql`insert into organizations (name) values ('Fidelidade') returning id`)[0].id;
+  await user('fid.admin@argus.com', 'Fid', orgC, 'admin');
+  const cookie = await login('fid.admin@argus.com');
+  const mun = J(await v1('gov/municipios', {
+    method: 'POST', cookie,
+    body: { ibgeCode: '3106200', name: 'Passos', state: 'MG', cnpj: '18262201000107' },
+  })).id;
+  // Pagamento com base, nada retido e nenhuma aliquota no documento.
+  const csv = ['CNPJ;RAZAO_SOCIAL;COMPETENCIA;DATA_PAGAMENTO;CNR;BASE_RETIDA;VALOR_RETIDO',
+    '11222333000181;Servicos Alfa Ltda;05/2026;20/05/2026;062301;100000,00;0,00'].join('\n');
+  const doc = J(await v1('gov/documentos', {
+    method: 'POST', cookie, body: { municipalityId: mun, name: 'r.csv', text: csv },
+  }));
+  await v1(`gov/documentos/${doc.id}`, { method: 'POST', cookie });
+  const diag = J(await v1('gov/diagnostico', { method: 'POST', cookie, body: { municipalityId: mun } })).diagnostico[0];
+  const c = diag.candidatos[0];
+  assert.equal(c.aliquota, null, 'sem aliquota conhecida');
+  assert.equal(c.ganhoFuturoCents, 0, 'não estima ganho futuro sem base de calculo da aliquota');
+  assert.equal(diag.ganhoFuturoCents, 0);
+  assert.equal(c.status, 'NEEDS_EVIDENCE', 'é pendente, não rejeitado: falta a alíquota');
+  assert.ok(/aliquota/i.test(c.motivo), 'o motivo diz o que falta');
 });
 
 test('o isolamento por organização continua valendo na ingestão', async () => {

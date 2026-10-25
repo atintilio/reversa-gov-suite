@@ -169,6 +169,17 @@
         <tbody id="tbody-documentos"><tr><td colspan="6" class="gov-empty">Carregando…</td></tr></tbody>
       </table>
     </div>
+
+    <h3 style="margin: 24px 0 6px; font-size: 1rem;">Cobertura da janela de 5 anos</h3>
+    <p class="muted" style="font-size: 13px; margin: 0 0 12px;">O diagnóstico só fecha quando cada ano tem as três peças: o que foi retido (EFD-Reinf ou planilha), o destino contábil (ECD) e o repasse à União (relatório de pagamentos ou DARF).</p>
+    <div class="tabela">
+      <table class="gov-table">
+        <thead>
+          <tr><th>Ano</th><th>Peças</th><th class="num">Pagamentos</th><th class="num">Retido</th><th>Falta</th></tr>
+        </thead>
+        <tbody id="tbody-cobertura"><tr><td colspan="5" class="gov-empty">Carregando…</td></tr></tbody>
+      </table>
+    </div>
   </section>
 
   <section class="gov-card" aria-labelledby="t-diagnostico">
@@ -178,6 +189,20 @@
       <button type="button" class="gov-btn primary" id="btn-diagnostico">Executar diagnóstico</button>
     </div>
     <div class="gov-grid" id="kpis-diagnostico" style="margin-bottom: 18px;"></div>
+    <div class="gov-alert info" id="bloco-metodologia" style="margin-bottom: 18px; display: none;">
+      <strong>Como ler estes números</strong>
+      <div id="texto-metodologia" style="margin-top: 6px; font-size: 13px; line-height: 1.7;"></div>
+    </div>
+
+    <h3 style="margin: 0 0 8px; font-size: 1rem;">Série por ano</h3>
+    <div class="tabela" style="margin-bottom: 18px;">
+      <table class="gov-table">
+        <thead>
+          <tr><th>Ano</th><th class="num">Pagamentos</th><th class="num">Base</th><th class="num">Retido</th><th class="num">Crédito</th><th class="num">Ganho futuro</th></tr>
+        </thead>
+        <tbody id="tbody-serie"><tr><td colspan="6" class="gov-empty">Execute o diagnóstico para ver a série.</td></tr></tbody>
+      </table>
+    </div>
     <div class="tabela">
       <table class="gov-table">
         <thead>

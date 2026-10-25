@@ -244,6 +244,33 @@
     }
   });
 
+  // ------------------------------------------------------------- cobertura
+  async function carregarCobertura() {
+    try {
+      var sel = document.getElementById('d-municipio-diag');
+      var dados = await RV.api('GET', '/api/v1/gov/cobertura' + (sel && sel.value ? '?municipalityId=' + sel.value : ''));
+      var tbody = document.getElementById('tbody-cobertura');
+      tbody.innerHTML = '';
+      if (!dados.cobertura || !dados.cobertura.length) {
+        tbody.innerHTML = '<tr><td colspan="5" class="gov-empty">Cadastre um município para ver a cobertura.</td></tr>';
+        return;
+      }
+      var cob = dados.cobertura[0];
+      cob.cobertura.forEach(function (l) {
+        var badge = l.status === 'completo' ? 'ok' : l.status === 'parcial' ? 'warn' : 'bad';
+        tbody.innerHTML += '<tr>'
+          + '<td><strong>' + esc(l.ano) + '</strong></td>'
+          + '<td><span class="gov-badge ' + badge + '">' + esc(l.status) + '</span></td>'
+          + '<td class="num">' + esc(l.pagamentos) + '</td>'
+          + '<td class="num">' + RV.reaisCurto(l.retidoCents) + '</td>'
+          + '<td>' + esc((l.faltando || []).join(', ') || '—') + '</td>'
+          + '</tr>';
+      });
+    } catch (e) {
+      document.getElementById('tbody-cobertura').innerHTML = '<tr><td colspan="5" class="gov-alert bad">' + esc(e.message) + '</td></tr>';
+    }
+  }
+
   // ------------------------------------------------------------ diagnostico
   document.getElementById('btn-diagnostico').addEventListener('click', async function () {
     var botao = this;
@@ -252,6 +279,7 @@
       var municipalityId = document.getElementById('d-municipio-diag').value;
       var dados = await RV.api('POST', '/api/v1/gov/diagnostico', { municipalityId: municipalityId });
       renderDiagnostico(dados.diagnostico[0]);
+      await carregarCobertura();
     } catch (erro) {
       RV.toast(erro.message || 'Falha no diagnóstico.');
     } finally {
@@ -270,6 +298,29 @@
     document.getElementById('kpis-diagnostico').innerHTML = kpis.map(function (k) {
       return '<div class="gov-kpi"><div class="r">' + esc(k[0]) + '</div><div class="v">' + esc(k[1]) + '</div></div>';
     }).join('');
+
+    var metodo = diag.metodologia || {};
+    var bloco = document.getElementById('bloco-metodologia');
+    var linhas = Object.keys(metodo).map(function (chave) {
+      var rotulo = { retido: 'Retido', creditoRetroativo: 'Crédito recuperável', ganhoFuturo: 'Ganho futuro', aliquota: 'Alíquota', janela: 'Prazo', atualizacao: 'Atualização', validacao: 'Validação', destinoDeclarado: 'Campo destino' }[chave] || chave;
+      return '<div><strong>' + esc(rotulo) + ':</strong> ' + esc(metodo[chave]) + '</div>';
+    });
+    bloco.style.display = linhas.length ? 'block' : 'none';
+    document.getElementById('texto-metodologia').innerHTML = linhas.join('');
+
+    var serie = document.getElementById('tbody-serie');
+    serie.innerHTML = '';
+    (diag.serie || []).forEach(function (a) {
+      serie.innerHTML += '<tr>'
+        + '<td><strong>' + esc(a.ano) + '</strong></td>'
+        + '<td class="num">' + esc(a.pagamentos) + '</td>'
+        + '<td class="num">' + RV.reaisCurto(a.baseCents) + '</td>'
+        + '<td class="num">' + RV.reaisCurto(a.retidoCents) + '</td>'
+        + '<td class="num">' + (a.creditoRetroativoCents ? RV.reaisCurto(a.creditoRetroativoCents) : '—') + '</td>'
+        + '<td class="num">' + (a.ganhoFuturoCents ? RV.reaisCurto(a.ganhoFuturoCents) : '—') + '</td>'
+        + '</tr>';
+    });
+    if (!(diag.serie || []).length) serie.innerHTML = '<tr><td colspan="6" class="gov-empty">Sem série no período.</td></tr>';
 
     var tbody = document.getElementById('tbody-diagnostico');
     tbody.innerHTML = '';
@@ -297,8 +348,10 @@
     dadosMunicipios = dados.municipios || [];
     opcoesMunicipios(document.getElementById('d-municipio'));
     opcoesMunicipios(document.getElementById('d-municipio-diag'));
+    await carregarCobertura();
   }
 
   // Inicialização
+  document.getElementById('d-municipio-diag').addEventListener('change', carregarCobertura);
   Promise.all([carregarMunicipios(), carregarCandidatos(), carregarKPIs(), prepararMunicipios(), carregarDocumentos()]);
 })();
