@@ -35,7 +35,7 @@ test('o runner de build aplica as 15 migrations em Postgres por TCP', async () =
   const { splitStatements } = require('../scripts/migrate');
   const DIR = path.join(__dirname, '..', 'db', 'migrations');
   const arquivos = fs.readdirSync(DIR).filter((f) => f.endsWith('.sql')).sort();
-  assert.equal(arquivos.length, 16);
+  assert.ok(arquivos.length >= 16, 'esperava as migrations da plataforma');
 
   await sql.unsafe(`create table if not exists schema_migrations (
     version varchar(200) primary key, checksum varchar(64) not null, applied_at timestamptz not null default now())`);
@@ -51,13 +51,12 @@ test('o runner de build aplica as 15 migrations em Postgres por TCP', async () =
     });
     aplicadas.push(arquivo);
   }
-  assert.deepEqual(aplicadas, [
-    '001_platform.sql', '002_org_cases_stage.sql', '003_owner_name.sql', '004_crm.sql',
-    '005_lei_do_bem.sql', '006_client_authorizations.sql', '007_parceiros.sql',
-    '008_visao_master.sql', '009_execucao.sql', '010_contratacao.sql', '011_pgfn.sql',
-    '012_diagnosticos.sql', '013_case_history.sql', '014_gov.sql', '015_gov_tenant_integrity.sql',
-    '016_suite_access.sql'
-  ]);
+  // A lista de migrations aplicadas e lida do disco, nao escrita aqui: uma
+  // lista fixa no teste quebra a cada migration nova e faz o teste parecer
+  // que o runner falhou quando quem falhou foi o numero esperado.
+  assert.deepEqual(aplicadas, arquivos);
+  assert.equal(aplicadas.length, arquivos.length);
+  assert.equal(aplicadas[aplicadas.length - 1], '020_suite_config.sql');
   const tabelas = await sql`select table_name from information_schema.tables where table_schema = 'public' and table_name like 'gov_%' order by table_name`;
   assert.ok(tabelas.length >= 10, 'esperava as tabelas gov_*');
 });

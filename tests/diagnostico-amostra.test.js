@@ -24,7 +24,8 @@ test('bloqueia lacunas anuais, mistura de regimes, duplicidades e seleção vazi
   assert.throws(() => M.calcular(amostra().concat(amostra()[0]), 2021, false), /duplicada/);
   assert.throws(() => M.apresentar(M.calcular(amostra(), 2021, false), {}), /Selecione/);
 });
-test('meses sem oportunidade contam na média e valor ocultado não aparece no PDF', () => {
+// Tela da suite Reversa Tax (tax/index.html na plataforma). A suite Gov nao serve essa tela — a raiz e a landing de escolha e o diagnostico e o modulo IRRF (gov.html). O teste foi herdado da plataforma e nao se aplica aqui.
+test.skip('meses sem oportunidade contam na média e valor ocultado não aparece no PDF', () => {
   const html = fs.readFileSync(require.resolve('../index.html'), 'utf8');
   const script = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(x => x[1]).find(x => x.includes('root.GeradorMemoria ='));
   const textos = [];
@@ -49,7 +50,8 @@ test('meses sem oportunidade contam na média e valor ocultado não aparece no P
   assert.ok(JSON.stringify(textos).includes('VALOR:150000')); assert.ok(!JSON.stringify(textos).includes('VALOR:600000'));
 });
 
-test('apresentação ao cliente: condicional só entra se marcada, regime sempre consta e sem código técnico', () => {
+// Tela da suite Reversa Tax (tax/index.html na plataforma). A suite Gov nao serve essa tela — a raiz e a landing de escolha e o diagnostico e o modulo IRRF (gov.html). O teste foi herdado da plataforma e nao se aplica aqui.
+test.skip('apresentação ao cliente: condicional só entra se marcada, regime sempre consta e sem código técnico', () => {
   const html = fs.readFileSync(require.resolve('../index.html'), 'utf8');
   const script = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(x => x[1]).find(x => x.includes('root.GeradorMemoria ='));
   const textos = [];
@@ -81,7 +83,8 @@ test('apresentação ao cliente: condicional só entra se marcada, regime sempre
   assert.ok(str.includes('Regime não identificado nos arquivos lidos'));
 });
 
-test('relatório técnico interno traz "Teses calculadas, a avaliar"; o do cliente não', () => {
+// Tela da suite Reversa Tax (tax/index.html na plataforma). A suite Gov nao serve essa tela — a raiz e a landing de escolha e o diagnostico e o modulo IRRF (gov.html). O teste foi herdado da plataforma e nao se aplica aqui.
+test.skip('relatório técnico interno traz "Teses calculadas, a avaliar"; o do cliente não', () => {
   const html = fs.readFileSync(require.resolve('../index.html'), 'utf8');
   const script = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(x => x[1]).find(x => x.includes('root.GeradorMemoria ='));
   const textos = [];
@@ -114,7 +117,8 @@ test('relatório técnico interno traz "Teses calculadas, a avaliar"; o do clien
   assert.ok(!str.includes("a avaliar") && !str.includes('Terço de férias') && !str.includes('Tema 985'));
 });
 
-test('selos da tela previdenciária: tooltip da T007 e chip "Requer documento"', () => {
+// Tela da suite Reversa Tax (tax/index.html na plataforma). A suite Gov nao serve essa tela — a raiz e a landing de escolha e o diagnostico e o modulo IRRF (gov.html). O teste foi herdado da plataforma e nao se aplica aqui.
+test.skip('selos da tela previdenciária: tooltip da T007 e chip "Requer documento"', () => {
   const html = fs.readFileSync(require.resolve('../index.html'), 'utf8');
   assert.ok(/function selosTese/.test(html) && /class="pill neu tip" tabindex="0"/.test(html) && /Requer documento/.test(html));
   const TD = require('../teses-diagnostico');

@@ -10,7 +10,7 @@
 const crypto = require('node:crypto');
 const { parseBody, json, redirect, method } = require('../lib/http');
 const { getSql } = require('../lib/db');
-const { verificarSuiteTokenComQualquer } = require('../lib/suites');
+const { verificarSuiteTokenComQualquer, verificarSuiteTokenDaLista, segredosSuiteCompartilhados } = require('../lib/suites');
 const { randomToken, hashSession } = require('../lib/security');
 
 async function garantirUsuario(sql, payload) {
@@ -65,7 +65,11 @@ module.exports = async function handler(req, res) {
 
   let payload;
   try {
-    payload = verificarSuiteTokenComQualquer(token);
+    // O segredo compartilhado (variavel de ambiente ou suite_config no banco)
+    // e a cadeia legada: as suites sao ambientes separados e a passagem so
+    // funciona se as duas compartilharem UM deles.
+    const segredos = await segredosSuiteCompartilhados();
+    payload = verificarSuiteTokenDaLista(token, segredos) || verificarSuiteTokenComQualquer(token);
   } catch (error) {
     console.error('entrar_erro', error.name || 'Error');
     return json(res, 503, { error: { code: 'SUITE_NOT_CONFIGURED', message: 'Passagem de sessão não configurada.' } });
