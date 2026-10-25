@@ -260,7 +260,7 @@ module.exports = async function handler(req, res) {
     await route(req, res);
   } catch (error) {
     if (error instanceof HttpError) return json(res, error.status, { error: { code: error.code, message: error.message } });
-    console.error('api_v1_error', error.name || 'Error', String(error.code || ''));
+    console.error('api_v1_error', error.name || '', error.code || '', String(error.message || '').slice(0, 200), error.constraint || '');
     return json(res, 500, { error: { code: 'INTERNAL', message: 'Erro interno. Tente novamente.' } });
   }
 };

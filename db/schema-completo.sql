@@ -1151,6 +1151,7 @@ create table if not exists gov_municipalities (
   name varchar(240) not null,
   state char(2) not null,
   cnpj_root char(8),
+  cnpj char(14),
   status varchar(30) not null default 'active',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
@@ -1203,10 +1204,20 @@ create table if not exists gov_documents (
   period_end date,
   received_at timestamptz not null default now(),
   uploaded_by uuid references users(id),
-  created_at timestamptz not null default now()
+  created_at timestamptz not null default now(),
+  -- ingestao (migration 017)
+  municipality_id uuid references gov_municipalities(id),
+  content bytea,
+  content_text text,
+  parser_kind varchar(40),
+  process_status varchar(20) not null default 'PENDING',
+  parsed_summary jsonb not null default '{}'::jsonb,
+  period_label varchar(20),
+  error_message text
 );
 
 create index if not exists gov_documents_org_idx on gov_documents (organization_id, received_at desc);
+create index if not exists gov_documents_municipality_idx on gov_documents (municipality_id);
 
 create table if not exists gov_payments (
   id uuid primary key default gen_random_uuid(),
@@ -1306,6 +1317,7 @@ create table if not exists gov_candidates (
   confidence varchar(20) check (confidence in ('LOW', 'MEDIUM', 'HIGH', 'VERIFIED')),
   legal_owner varchar(20) check (legal_owner in ('MUNICIPAL', 'FEDERAL', 'UNKNOWN')),
   cnr varchar(20),
+  forward_gain_cents bigint not null default 0,
   rule_id text,
   decision_reason text,
   created_at timestamptz not null default now(),

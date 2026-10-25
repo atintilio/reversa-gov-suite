@@ -131,6 +131,63 @@
     </div>
   </section>
 
+  <section class="gov-card" aria-labelledby="t-documentos">
+    <h2 id="t-documentos">Documentos</h2>
+    <p>Envie os documentos do município: EFD-Reinf (o que foi retido), relatório de pagamentos ou DARF (o repasse à União), ECD (o destino contábil) ou a planilha de retenções. O módulo lê o arquivo, guarda o checksum e classifica.</p>
+    <form class="gov-form" id="form-documento" hidden>
+      <div class="campo">
+        <label for="d-municipio">Município</label>
+        <select id="d-municipio" required></select>
+      </div>
+      <div class="campo">
+        <label for="d-arquivo">Arquivo</label>
+        <input type="file" id="d-arquivo" required>
+      </div>
+      <div class="campo">
+        <label for="d-tipo">Tipo (opcional)</label>
+        <select id="d-tipo">
+          <option value="">Detectar pelo conteúdo</option>
+          <option value="efd_reinf">EFD-Reinf</option>
+          <option value="ecd">ECD</option>
+          <option value="csv">Planilha de retenções</option>
+          <option value="pagamentos">Relatório de pagamentos / DARF</option>
+        </select>
+      </div>
+      <div class="gov-form-acoes">
+        <button type="submit" class="gov-btn primary" id="btn-enviar-documento">Enviar e ler</button>
+        <span class="muted" id="msg-documento"></span>
+      </div>
+    </form>
+    <div class="gov-actions" style="margin: 14px 0;">
+      <button type="button" class="gov-btn primary" id="btn-novo-documento">+ Enviar documento</button>
+    </div>
+    <div class="tabela">
+      <table class="gov-table">
+        <thead>
+          <tr><th>Arquivo</th><th>Município</th><th>Tipo</th><th>Leitura</th><th>Resumo</th><th></th></tr>
+        </thead>
+        <tbody id="tbody-documentos"><tr><td colspan="6" class="gov-empty">Carregando…</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="gov-card" aria-labelledby="t-diagnostico">
+    <h2 id="t-diagnostico">Diagnóstico</h2>
+    <div class="gov-actions" style="margin-bottom: 14px;">
+      <select id="d-municipio-diag"></select>
+      <button type="button" class="gov-btn primary" id="btn-diagnostico">Executar diagnóstico</button>
+    </div>
+    <div class="gov-grid" id="kpis-diagnostico" style="margin-bottom: 18px;"></div>
+    <div class="tabela">
+      <table class="gov-table">
+        <thead>
+          <tr><th>Fornecedor</th><th>Período</th><th class="num">Base</th><th class="num">Retido</th><th class="num">Crédito</th><th class="num">Ganho futuro</th><th>Regra</th><th>Status</th></tr>
+        </thead>
+        <tbody id="tbody-diagnostico"><tr><td colspan="8" class="gov-empty">Execute o diagnóstico para ver os candidatos.</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
   <section class="gov-card" aria-labelledby="t-alerta">
     <h2 id="t-alerta">Aviso importante</h2>
     <div class="gov-alert warn">
