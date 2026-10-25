@@ -182,6 +182,24 @@
     </div>
   </section>
 
+  <section class="gov-card" aria-labelledby="t-triagem">
+    <h2 id="t-triagem">Triagem pública (Siconfi)</h2>
+    <p>A DCA do Tesouro Nacional é pública: mostra o IRRF que o município declarou ter arrecadado e o que gastou com serviços de pessoas jurídicas. Serve para dimensionar o caso antes de pedir documento interno.</p>
+    <div class="gov-actions" style="margin-bottom: 14px;">
+      <select id="t-municipio"></select>
+      <select id="t-ano"></select>
+      <button type="button" class="gov-btn primary" id="btn-siconfi">Buscar DCA no Siconfi</button>
+    </div>
+    <div class="tabela">
+      <table class="gov-table">
+        <thead>
+          <tr><th>Ano</th><th class="num">IRRF declarado (outros)</th><th class="num">IRRF total</th><th class="num">Compras de serviços a PJ</th><th class="num">Taxa observada</th><th>Leitura</th></tr>
+        </thead>
+        <tbody id="tbody-triagem"><tr><td colspan="6" class="gov-empty">Busque a DCA do Siconfi para começar.</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
   <section class="gov-card" aria-labelledby="t-diagnostico">
     <h2 id="t-diagnostico">Diagnóstico</h2>
     <div class="gov-actions" style="margin-bottom: 14px;">

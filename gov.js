@@ -271,6 +271,56 @@
     }
   }
 
+  // ------------------------------------------------------------- Siconfi
+  async function carregarTelaPublica() {
+    try {
+      var sel = document.getElementById('t-municipio');
+      var dados = await RV.api('GET', '/api/v1/gov/tela-publica' + (sel && sel.value ? '?municipalityId=' + sel.value : ''));
+      var tbody = document.getElementById('tbody-triagem');
+      tbody.innerHTML = '';
+      if (!dados.tela || !dados.tela.length) {
+        tbody.innerHTML = '<tr><td colspan="6" class="gov-empty">Cadastre um município para começar.</td></tr>';
+        return;
+      }
+      var tela = dados.tela[0];
+      if (!tela.serie || !tela.serie.length) {
+        tbody.innerHTML = '<tr><td colspan="6" class="gov-empty">Nenhuma DCA consultada ainda para este município.</td></tr>';
+        return;
+      }
+      tela.serie.forEach(function (l) {
+        var badge = l.sinalLacuna === 'abaixo-da-faixa' ? 'warn' : l.sinalLacuna === 'acima-da-faixa' ? 'info' : 'ok';
+        tbody.innerHTML += '<tr>'
+          + '<td><strong>' + esc(l.ano) + '</strong></td>'
+          + '<td class="num">' + RV.reaisCurto(l.irrfRetidoCents) + '</td>'
+          + '<td class="num">' + RV.reaisCurto(l.irrfTotalCents) + '</td>'
+          + '<td class="num">' + RV.reaisCurto(l.comprasCents) + '</td>'
+          + '<td class="num">' + (l.taxaObservada != null ? (l.taxaObservada * 100).toFixed(2) + '%' : '—') + '</td>'
+          + '<td><span class="gov-badge ' + badge + '">' + esc(l.sinalLacuna) + '</span></td>'
+          + '</tr>';
+      });
+    } catch (e) {
+      document.getElementById('tbody-triagem').innerHTML = '<tr><td colspan="6" class="gov-alert bad">' + esc(e.message) + '</td></tr>';
+    }
+  }
+
+  document.getElementById('btn-siconfi').addEventListener('click', async function () {
+    var botao = this;
+    botao.disabled = true;
+    botao.textContent = 'Consultando o Siconfi…';
+    try {
+      var municipalityId = document.getElementById('t-municipio').value;
+      var ano = document.getElementById('t-ano').value;
+      var out = await RV.api('POST', '/api/v1/gov/siconfi/buscar', { municipalityId: municipalityId, ano: Number(ano) });
+      RV.toast('DCA de ' + out.ano + ' lida: ' + (out.contas || []).length + ' contas.');
+      await Promise.all([carregarTelaPublica(), carregarDocumentos()]);
+    } catch (erro) {
+      RV.toast(erro.message || 'Falha na consulta ao Siconfi.');
+    } finally {
+      botao.disabled = false;
+      botao.textContent = 'Buscar DCA no Siconfi';
+    }
+  });
+
   // ------------------------------------------------------------ diagnostico
   document.getElementById('btn-diagnostico').addEventListener('click', async function () {
     var botao = this;
@@ -348,10 +398,20 @@
     dadosMunicipios = dados.municipios || [];
     opcoesMunicipios(document.getElementById('d-municipio'));
     opcoesMunicipios(document.getElementById('d-municipio-diag'));
-    await carregarCobertura();
+    opcoesMunicipios(document.getElementById('t-municipio'));
+    var ano = new Date().getFullYear();
+    var selAno = document.getElementById('t-ano');
+    for (var a = ano - 1; a >= ano - 6; a--) {
+      var opt = document.createElement('option');
+      opt.value = String(a);
+      opt.textContent = String(a);
+      selAno.appendChild(opt);
+    }
+    await Promise.all([carregarCobertura(), carregarTelaPublica()]);
   }
 
   // Inicialização
   document.getElementById('d-municipio-diag').addEventListener('change', carregarCobertura);
+  document.getElementById('t-municipio').addEventListener('change', carregarTelaPublica);
   Promise.all([carregarMunicipios(), carregarCandidatos(), carregarKPIs(), prepararMunicipios(), carregarDocumentos()]);
 })();
