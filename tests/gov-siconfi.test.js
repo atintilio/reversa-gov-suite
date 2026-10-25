@@ -91,7 +91,7 @@ test('a triagem pública mostra a taxa observada e o sinal de lacuna', async () 
   // 412.219,42 / 28.860.456,00 = 1,4284%
   assert.ok(Math.abs(ano.taxaObservada - 0.0142839) < 0.00001, 'taxa observada: ' + ano.taxaObservada);
   assert.equal(ano.sinalLacuna, 'na-faixa', '1,43% esta dentro da faixa de 1,2% a 4,8%');
-  assert.ok(tela.observacao.includes('sinal'), 'a triagem vem rotulada como sinal');
+  assert.ok(/sinal/i.test(tela.observacao), 'a triagem vem rotulada como sinal');
 });
 
 test('a DCA consultada entra na lista de documentos como fonte pública', async () => {
