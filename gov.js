@@ -271,6 +271,85 @@
     }
   }
 
+  // ------------------------------------------------- revisão previdenciária
+  async function carregarPrevidenciario() {
+    try {
+      var sel = document.getElementById('p-municipio');
+      if (!sel || !sel.value) {
+        document.getElementById('tbody-previdenciario').innerHTML = '<tr><td colspan="5" class="gov-empty">Cadastre um município para começar.</td></tr>';
+        return;
+      }
+      var dados = await RV.api('GET', '/api/v1/gov/previdenciario?municipalityId=' + encodeURIComponent(sel.value));
+      var tbody = document.getElementById('tbody-previdenciario');
+      var kpis = document.getElementById('kpis-previdenciario');
+      var bloco = document.getElementById('bloco-previdenciario');
+      tbody.innerHTML = '';
+      kpis.innerHTML = '';
+
+      if (!dados.run) {
+        tbody.innerHTML = '<tr><td colspan="5" class="gov-empty">Nenhuma revisão feita ainda para este município. Envie a folha em Documentos e revise.</td></tr>';
+        bloco.style.display = 'none';
+        return;
+      }
+
+      var run = dados.run;
+      var kpisPrev = [
+        ['Teses apuradas', String(run.teses || 0)],
+        ['Estimativa total', RV.reaisCurto(run.totalCents || 0)],
+        ['Dentro do prazo', RV.reaisCurto(run.totalNoPrazoCents || 0)],
+        ['Motor', (run.motor && run.motor.versao) || '—'],
+      ];
+      kpis.innerHTML = kpisPrev.map(function (k) {
+        return '<div class="gov-kpi"><div class="r">' + esc(k[0]) + '</div><div class="v">' + esc(k[1]) + '</div></div>';
+      }).join('');
+
+      if (!dados.teses.length) {
+        tbody.innerHTML = '<tr><td colspan="5" class="gov-empty">A revisão rodou, mas nenhuma tese teve valor apurado. Veja os avisos abaixo.</td></tr>';
+      } else {
+        dados.teses.forEach(function (t) {
+          var badge = t.status === 'VALIDATED' ? 'ok' : t.status === 'REJECTED' ? 'bad' : t.status === 'NEEDS_EVIDENCE' ? 'warn' : 'info';
+          tbody.innerHTML += '<tr>'
+            + '<td><strong>' + esc(t.teseId) + '</strong></td>'
+            + '<td>' + esc(t.nome || '—') + '</td>'
+            + '<td class="num">' + RV.reaisCurto(t.baseCents) + '</td>'
+            + '<td class="num"><b>' + RV.reaisCurto(t.valorCents) + '</b></td>'
+            + '<td><span class="gov-badge ' + badge + '">' + esc(t.status) + '</span></td>'
+            + '</tr>';
+        });
+      }
+
+      var avisos = (run.resultado && run.resultado.avisos) || [];
+      var doc = (run.resultado && run.resultado.requerDocumento) || [];
+      bloco.style.display = 'block';
+      bloco.innerHTML = '<strong>Como ler estes números</strong>'
+        + '<div style="margin-top:6px;font-size:13px;line-height:1.7">'
+        + esc(dados.ressalva) + '</div>'
+        + (avisos.length ? '<div style="margin-top:10px;font-size:13px"><strong>Avisos do motor</strong><br>' + avisos.map(function (a) { return '• ' + esc(a); }).join('<br>') + '</div>' : '')
+        + (doc.length ? '<div style="margin-top:10px;font-size:13px"><strong>Documentos que o motor pede</strong><br>' + doc.map(function (d) { return '• ' + esc(typeof d === 'string' ? d : (d.nome || d.id || JSON.stringify(d))); }).join('<br>') + '</div>' : '')
+        + '</div>';
+    } catch (e) {
+      document.getElementById('tbody-previdenciario').innerHTML = '<tr><td colspan="5" class="gov-alert bad">' + esc(e.message) + '</td></tr>';
+    }
+  }
+
+  document.getElementById('btn-previdenciario').addEventListener('click', async function () {
+    var sel = document.getElementById('p-municipio');
+    if (!sel || !sel.value) { RV.toast('Escolha o município.'); return; }
+    var botao = this;
+    botao.disabled = true;
+    botao.textContent = 'Revisando no Reversa Tax…';
+    try {
+      var r = await RV.api('POST', '/api/v1/gov/previdenciario', { municipalityId: sel.value });
+      await carregarPrevidenciario();
+      RV.toast('Revisão concluída: ' + (r.teses ? r.teses.length : 0) + ' tese(s) apurada(s).');
+    } catch (e) {
+      RV.toast(e.message);
+    } finally {
+      botao.disabled = false;
+      botao.textContent = 'Revisar com o Reversa Tax';
+    }
+  });
+
   // ------------------------------------------------------------- Siconfi
   async function carregarTelaPublica() {
     try {
@@ -399,6 +478,7 @@
     opcoesMunicipios(document.getElementById('d-municipio'));
     opcoesMunicipios(document.getElementById('d-municipio-diag'));
     opcoesMunicipios(document.getElementById('t-municipio'));
+    opcoesMunicipios(document.getElementById('p-municipio'));
     var ano = new Date().getFullYear();
     var selAno = document.getElementById('t-ano');
     for (var a = ano - 1; a >= ano - 6; a--) {
@@ -407,11 +487,12 @@
       opt.textContent = String(a);
       selAno.appendChild(opt);
     }
-    await Promise.all([carregarCobertura(), carregarTelaPublica()]);
+    await Promise.all([carregarCobertura(), carregarTelaPublica(), carregarPrevidenciario()]);
   }
 
   // Inicialização
   document.getElementById('d-municipio-diag').addEventListener('change', carregarCobertura);
   document.getElementById('t-municipio').addEventListener('change', carregarTelaPublica);
+  document.getElementById('p-municipio').addEventListener('change', carregarPrevidenciario);
   Promise.all([carregarMunicipios(), carregarCandidatos(), carregarKPIs(), prepararMunicipios(), carregarDocumentos()]);
 })();

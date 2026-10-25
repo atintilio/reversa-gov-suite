@@ -133,7 +133,7 @@
 
   <section class="gov-card" aria-labelledby="t-documentos">
     <h2 id="t-documentos">Documentos</h2>
-    <p>Envie os documentos do município: EFD-Reinf (o que foi retido), relatório de pagamentos ou DARF (o repasse à União), ECD (o destino contábil) ou a planilha de retenções. O módulo lê o arquivo, guarda o checksum e classifica.</p>
+    <p>Envie os documentos do município: EFD-Reinf (o que foi retido), relatório de pagamentos ou DARF (o repasse à União), ECD (o destino contábil), a planilha de retenções ou a folha (os eventos de remuneração do eSocial). O módulo lê o arquivo, guarda o checksum e classifica.</p>
     <form class="gov-form" id="form-documento" hidden>
       <div class="campo">
         <label for="d-municipio">Município</label>
@@ -151,6 +151,7 @@
           <option value="ecd">ECD</option>
           <option value="csv">Planilha de retenções</option>
           <option value="pagamentos">Relatório de pagamentos / DARF</option>
+          <option value="esocial">Folha do município (eventos do eSocial)</option>
         </select>
       </div>
       <div class="gov-form-acoes">
@@ -180,6 +181,26 @@
         <tbody id="tbody-cobertura"><tr><td colspan="5" class="gov-empty">Carregando…</td></tr></tbody>
       </table>
     </div>
+  </section>
+
+  <section class="gov-card" aria-labelledby="t-previdenciario">
+    <h2 id="t-previdenciario">Revisão previdenciária</h2>
+    <p>A folha do município fica no Reversa Gov; a apuração das teses é feita pelo motor do <strong>Reversa Tax</strong>, que devolve o resultado para esta tela. É o mesmo motor que o Tax usa — aqui ele entra pela porta dos dados da folha.</p>
+    <p class="muted" style="font-size: 13px; margin: 0 0 14px;">Envie a folha em <strong>Documentos</strong> (os eventos S-1000, S-1005, S-1010, S-1020, S-1200 e S-2299 do eSocial) e depois revise. Os valores são <strong>estimativa</strong>: o pagamento não é conferido (GFIP/DCTFWeb/DARF) e não há atualização pela Selic. Não é crédito — a validação é humana.</p>
+    <div class="gov-actions" style="margin-bottom: 14px;">
+      <select id="p-municipio"></select>
+      <button type="button" class="gov-btn primary" id="btn-previdenciario">Revisar com o Reversa Tax</button>
+    </div>
+    <div class="gov-grid" id="kpis-previdenciario" style="margin-bottom: 18px;"></div>
+    <div class="tabela">
+      <table class="gov-table">
+        <thead>
+          <tr><th>Tese</th><th>Regra</th><th class="num">Base estimada</th><th class="num">Estimativa</th><th>Situação</th></tr>
+        </thead>
+        <tbody id="tbody-previdenciario"><tr><td colspan="5" class="gov-empty">Cadastre um município para começar.</td></tr></tbody>
+      </table>
+    </div>
+    <div class="gov-alert info" id="bloco-previdenciario" style="margin-top: 16px; display: none;"></div>
   </section>
 
   <section class="gov-card" aria-labelledby="t-triagem">
