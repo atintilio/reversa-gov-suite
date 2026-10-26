@@ -1,0 +1,350 @@
+{
+ "serie": [
+  {
+   "ano": 2021,
+   "documento": "Siconfi-DCA-3169604-2021",
+   "contas": {
+    "RO1.1.1.3.03.0.0": {
+     "rotulo": "IRRF retido na fonte (total)",
+     "valor": 2322986.06,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "RO1.1.1.3.03.1.0": {
+     "rotulo": "IRRF retido na fonte - trabalho",
+     "valor": 2147065.45,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "RO1.1.1.3.03.4.0": {
+     "rotulo": "IRRF retido na fonte - outros (servicos a PJ)",
+     "valor": 175920.61,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "RO1.1.1.8.02.3.0": {
+     "rotulo": "ISSQN arrecadado (imposto proprio do municipio)",
+     "valor": 3389396.01,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "RO1.6.0.0.00.0.0": {
+     "rotulo": "Receita de servicos (contexto para o ISSQN)",
+     "valor": 6318077.21,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "DO3.0.00.00.00.00": {
+     "rotulo": "Despesa total",
+     "valor": 87753152.19,
+     "coluna": "Despesas Pagas"
+    },
+    "DO3.3.90.35.00.00": {
+     "rotulo": "Despesa com servicos de consultoria",
+     "valor": 270000,
+     "coluna": "Despesas Pagas"
+    },
+    "DO3.3.90.39.00.00": {
+     "rotulo": "Despesa com servicos de terceiros - PJ",
+     "valor": 16215301.85,
+     "coluna": "Despesas Pagas"
+    },
+    "DO3.3.90.40.00.00": {
+     "rotulo": "Despesa com servicos de tecnologia da informacao",
+     "valor": 88786.25,
+     "coluna": "Despesas Pagas"
+    }
+   },
+   "irrf": {
+    "retido": 2322986.06,
+    "outros": 175920.61,
+    "trabalho": 2147065.45
+   },
+   "issqn": {
+    "arrecadado": 3389396.01,
+    "receitaDeServicos": 6318077.21
+   },
+   "despesas": {
+    "servicosPj": 16215301.85,
+    "consultoria": 270000,
+    "ti": 88786.25,
+    "baseServicosIrrf": 16574088.1,
+    "total": 87753152.19,
+    "coluna": "Despesas Pagas"
+   },
+   "taxaObservadaIrrf": 0.01061419541989764
+  },
+  {
+   "ano": 2022,
+   "documento": "Siconfi-DCA-3169604-2022",
+   "contas": {
+    "RO1.1.1.3.03.0.0": {
+     "rotulo": "IRRF retido na fonte (total)",
+     "valor": 2907335.09,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "RO1.1.1.3.03.1.0": {
+     "rotulo": "IRRF retido na fonte - trabalho",
+     "valor": 2817180.27,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "RO1.1.1.3.03.4.0": {
+     "rotulo": "IRRF retido na fonte - outros (servicos a PJ)",
+     "valor": 90154.82,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "RO1.1.1.4.51.1.0": {
+     "rotulo": "ISSQN arrecadado (imposto proprio do municipio)",
+     "valor": 4279652.39,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "RO1.6.0.0.00.0.0": {
+     "rotulo": "Receita de servicos (contexto para o ISSQN)",
+     "valor": 6425575.65,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "DO3.0.00.00.00.00": {
+     "rotulo": "Despesa total",
+     "valor": 112236709.63,
+     "coluna": "Despesas Pagas"
+    },
+    "DO3.3.90.35.00.00": {
+     "rotulo": "Despesa com servicos de consultoria",
+     "valor": 578114.4,
+     "coluna": "Despesas Pagas"
+    },
+    "DO3.3.90.39.00.00": {
+     "rotulo": "Despesa com servicos de terceiros - PJ",
+     "valor": 26161975.69,
+     "coluna": "Despesas Pagas"
+    },
+    "DO3.3.90.40.00.00": {
+     "rotulo": "Despesa com servicos de tecnologia da informacao",
+     "valor": 635942.93,
+     "coluna": "Despesas Pagas"
+    }
+   },
+   "irrf": {
+    "retido": 2907335.09,
+    "outros": 90154.82,
+    "trabalho": 2817180.27
+   },
+   "issqn": {
+    "arrecadado": 4279652.39,
+    "receitaDeServicos": 6425575.65
+   },
+   "despesas": {
+    "servicosPj": 26161975.69,
+    "consultoria": 578114.4,
+    "ti": 635942.93,
+    "baseServicosIrrf": 27376033.02,
+    "total": 112236709.63,
+    "coluna": "Despesas Pagas"
+   },
+   "taxaObservadaIrrf": 0.003293202486062753
+  },
+  {
+   "ano": 2023,
+   "documento": "Siconfi-DCA-3169604-2023",
+   "contas": {
+    "RO1.1.1.3.03.0.0": {
+     "rotulo": "IRRF retido na fonte (total)",
+     "valor": 3287206.09,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "RO1.1.1.3.03.1.0": {
+     "rotulo": "IRRF retido na fonte - trabalho",
+     "valor": 2979188.59,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "RO1.1.1.3.03.4.0": {
+     "rotulo": "IRRF retido na fonte - outros (servicos a PJ)",
+     "valor": 308017.5,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "RO1.1.1.4.51.1.0": {
+     "rotulo": "ISSQN arrecadado (imposto proprio do municipio)",
+     "valor": 6049598.93,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "RO1.6.0.0.00.0.0": {
+     "rotulo": "Receita de servicos (contexto para o ISSQN)",
+     "valor": 6498424.5,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "DO3.0.00.00.00.00": {
+     "rotulo": "Despesa total",
+     "valor": 131801222.29,
+     "coluna": "Despesas Pagas"
+    },
+    "DO3.3.90.35.00.00": {
+     "rotulo": "Despesa com servicos de consultoria",
+     "valor": 760876.4,
+     "coluna": "Despesas Pagas"
+    },
+    "DO3.3.90.39.00.00": {
+     "rotulo": "Despesa com servicos de terceiros - PJ",
+     "valor": 24337802.47,
+     "coluna": "Despesas Pagas"
+    },
+    "DO3.3.90.40.00.00": {
+     "rotulo": "Despesa com servicos de tecnologia da informacao",
+     "valor": 755027.34,
+     "coluna": "Despesas Pagas"
+    }
+   },
+   "irrf": {
+    "retido": 3287206.09,
+    "outros": 308017.5,
+    "trabalho": 2979188.59
+   },
+   "issqn": {
+    "arrecadado": 6049598.93,
+    "receitaDeServicos": 6498424.5
+   },
+   "despesas": {
+    "servicosPj": 24337802.47,
+    "consultoria": 760876.4,
+    "ti": 755027.34,
+    "baseServicosIrrf": 25853706.209999997,
+    "total": 131801222.29,
+    "coluna": "Despesas Pagas"
+   },
+   "taxaObservadaIrrf": 0.011913862465137065
+  },
+  {
+   "ano": 2024,
+   "documento": "Siconfi-DCA-3169604-2024",
+   "contas": {
+    "RO1.1.1.3.03.0.0": {
+     "rotulo": "IRRF retido na fonte (total)",
+     "valor": 4805550.15,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "RO1.1.1.3.03.1.0": {
+     "rotulo": "IRRF retido na fonte - trabalho",
+     "valor": 4393330.73,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "RO1.1.1.3.03.4.0": {
+     "rotulo": "IRRF retido na fonte - outros (servicos a PJ)",
+     "valor": 412219.42,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "RO1.1.1.4.51.1.0": {
+     "rotulo": "ISSQN arrecadado (imposto proprio do municipio)",
+     "valor": 9664079.87,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "RO1.6.0.0.00.0.0": {
+     "rotulo": "Receita de servicos (contexto para o ISSQN)",
+     "valor": 7115589.27,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "DO3.0.00.00.00.00": {
+     "rotulo": "Despesa total",
+     "valor": 145538808.4,
+     "coluna": "Despesas Pagas"
+    },
+    "DO3.3.90.35.00.00": {
+     "rotulo": "Despesa com servicos de consultoria",
+     "valor": 529024,
+     "coluna": "Despesas Pagas"
+    },
+    "DO3.3.90.39.00.00": {
+     "rotulo": "Despesa com servicos de terceiros - PJ",
+     "valor": 26556542.66,
+     "coluna": "Despesas Pagas"
+    },
+    "DO3.3.90.40.00.00": {
+     "rotulo": "Despesa com servicos de tecnologia da informacao",
+     "valor": 793811.36,
+     "coluna": "Despesas Pagas"
+    }
+   },
+   "irrf": {
+    "retido": 4805550.15,
+    "outros": 412219.42,
+    "trabalho": 4393330.73
+   },
+   "issqn": {
+    "arrecadado": 9664079.87,
+    "receitaDeServicos": 7115589.27
+   },
+   "despesas": {
+    "servicosPj": 26556542.66,
+    "consultoria": 529024,
+    "ti": 793811.36,
+    "baseServicosIrrf": 27879378.02,
+    "total": 145538808.4,
+    "coluna": "Despesas Pagas"
+   },
+   "taxaObservadaIrrf": 0.014785818381754558
+  },
+  {
+   "ano": 2025,
+   "documento": "Siconfi-DCA-3169604-2025",
+   "contas": {
+    "RO1.1.1.3.03.0.0": {
+     "rotulo": "IRRF retido na fonte (total)",
+     "valor": 5247611.02,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "RO1.1.1.3.03.1.0": {
+     "rotulo": "IRRF retido na fonte - trabalho",
+     "valor": 4925443.48,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "RO1.1.1.3.03.4.0": {
+     "rotulo": "IRRF retido na fonte - outros (servicos a PJ)",
+     "valor": 322167.54,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "RO1.1.1.4.51.1.0": {
+     "rotulo": "ISSQN arrecadado (imposto proprio do municipio)",
+     "valor": 8544435.46,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "RO1.6.0.0.00.0.0": {
+     "rotulo": "Receita de servicos (contexto para o ISSQN)",
+     "valor": 8341766.14,
+     "coluna": "Receitas Brutas Realizadas"
+    },
+    "DO3.0.00.00.00.00": {
+     "rotulo": "Despesa total",
+     "valor": 159090553,
+     "coluna": "Despesas Pagas"
+    },
+    "DO3.3.90.35.00.00": {
+     "rotulo": "Despesa com servicos de consultoria",
+     "valor": 692052.37,
+     "coluna": "Despesas Pagas"
+    },
+    "DO3.3.90.39.00.00": {
+     "rotulo": "Despesa com servicos de terceiros - PJ",
+     "valor": 29568853.94,
+     "coluna": "Despesas Pagas"
+    },
+    "DO3.3.90.40.00.00": {
+     "rotulo": "Despesa com servicos de tecnologia da informacao",
+     "valor": 856700.06,
+     "coluna": "Despesas Pagas"
+    }
+   },
+   "irrf": {
+    "retido": 5247611.02,
+    "outros": 322167.54,
+    "trabalho": 4925443.48
+   },
+   "issqn": {
+    "arrecadado": 8544435.46,
+    "receitaDeServicos": 8341766.14
+   },
+   "despesas": {
+    "servicosPj": 29568853.94,
+    "consultoria": 692052.37,
+    "ti": 856700.06,
+    "baseServicosIrrf": 31117606.37,
+    "total": 159090553,
+    "coluna": "Despesas Pagas"
+   },
+   "taxaObservadaIrrf": 0.010353223707804103
+  }
+ ],
+ "origem": "Siconfi DCA (Tesouro Nacional) — API de dados abertos, id_ente 3169604, colunas: Receitas Brutas Realizadas (receita) e Despesas Pagas (despesa)"
+}

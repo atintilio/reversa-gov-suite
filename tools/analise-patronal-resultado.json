@@ -1,0 +1,191 @@
+{
+  "geradoEm": "2026-10-26T17:54:22.458Z",
+  "fonteDca": "/workspace/dca-completa-5anos.json",
+  "fonteFolha": "/workspace/output/FOLHA_TUPACIGUARA_AGREGADA_5ANOS.csv",
+  "colunaDcaUsada": "Despesas Pagas",
+  "serie": [
+    {
+      "ano": "2021",
+      "folha": {
+        "registros": 6809,
+        "brutoReais": 23671590.19,
+        "baseContribuicaoReais": 12689132.45,
+        "descontosReais": 6644963.55
+      },
+      "dcaDespesasPagas": {
+        "vencimentosPessoalCivilReais": 30164563.54,
+        "contratacaoTempoDeterminadoReais": 17533455.8,
+        "obrigacoesPatronaisReais": 9083912.44,
+        "patronalRgpsReais": 0,
+        "patronalRppsReais": 0,
+        "patronalOutrasReais": 0,
+        "aposentadoriasRppsReais": 340306.09,
+        "pensoesRppsReais": 54340
+      },
+      "razaoPatronalSobrePessoal": 19.04,
+      "patronalSobreBaseDaFolha": 71.59,
+      "indicio": {
+        "nivel": "SEM_INDICIO",
+        "texto": "Razao patronal/pessoal compativel com a serie."
+      }
+    },
+    {
+      "ano": "2022",
+      "folha": {
+        "registros": 7338,
+        "brutoReais": 26443635.78,
+        "baseContribuicaoReais": 15135001.4,
+        "descontosReais": 8517535.25
+      },
+      "dcaDespesasPagas": {
+        "vencimentosPessoalCivilReais": 32641749.1,
+        "contratacaoTempoDeterminadoReais": 21154073.87,
+        "obrigacoesPatronaisReais": 10606185.08,
+        "patronalRgpsReais": 0,
+        "patronalRppsReais": 0,
+        "patronalOutrasReais": 0,
+        "aposentadoriasRppsReais": 332872.01,
+        "pensoesRppsReais": 51691.8
+      },
+      "razaoPatronalSobrePessoal": 19.72,
+      "patronalSobreBaseDaFolha": 70.08,
+      "indicio": {
+        "nivel": "SEM_INDICIO",
+        "texto": "Razao patronal/pessoal compativel com a serie."
+      }
+    },
+    {
+      "ano": "2023",
+      "folha": {
+        "registros": 6469,
+        "brutoReais": 28202363.54,
+        "baseContribuicaoReais": 14376075.64,
+        "descontosReais": 8663052.51
+      },
+      "dcaDespesasPagas": {
+        "vencimentosPessoalCivilReais": 33370349.8,
+        "contratacaoTempoDeterminadoReais": 23619320.93,
+        "obrigacoesPatronaisReais": 12614057.99,
+        "patronalRgpsReais": 0,
+        "patronalRppsReais": 0,
+        "patronalOutrasReais": 0,
+        "aposentadoriasRppsReais": 326916.95,
+        "pensoesRppsReais": 47772.3
+      },
+      "razaoPatronalSobrePessoal": 22.13,
+      "patronalSobreBaseDaFolha": 87.74,
+      "indicio": {
+        "nivel": "SEM_INDICIO",
+        "texto": "Razao patronal/pessoal compativel com a serie."
+      }
+    },
+    {
+      "ano": "2024",
+      "folha": {
+        "registros": 6583,
+        "brutoReais": 29932716.08,
+        "baseContribuicaoReais": 15306241.62,
+        "descontosReais": 9278645.19
+      },
+      "dcaDespesasPagas": {
+        "vencimentosPessoalCivilReais": 36053554.71,
+        "contratacaoTempoDeterminadoReais": 28974051.93,
+        "obrigacoesPatronaisReais": 6425848.32,
+        "patronalRgpsReais": 0,
+        "patronalRppsReais": 0,
+        "patronalOutrasReais": 0,
+        "aposentadoriasRppsReais": 320450.2,
+        "pensoesRppsReais": 85439.16
+      },
+      "razaoPatronalSobrePessoal": 9.88,
+      "patronalSobreBaseDaFolha": 41.98,
+      "indicio": {
+        "nivel": "ALTO",
+        "texto": "Razao patronal/pessoal de 9.88% contra ~20.3% da serie 2021-2023 — queda acima da variacao da folha."
+      }
+    },
+    {
+      "ano": "2025",
+      "folha": {
+        "registros": 6245,
+        "brutoReais": 31698490.19,
+        "baseContribuicaoReais": 15388485.7,
+        "descontosReais": 9979673.33
+      },
+      "dcaDespesasPagas": {
+        "vencimentosPessoalCivilReais": 40151954.2,
+        "contratacaoTempoDeterminadoReais": 31065890.44,
+        "obrigacoesPatronaisReais": 9058704.96,
+        "patronalRgpsReais": 0,
+        "patronalRppsReais": 0,
+        "patronalOutrasReais": 0,
+        "aposentadoriasRppsReais": 345920.09,
+        "pensoesRppsReais": 97825.07
+      },
+      "razaoPatronalSobrePessoal": 12.72,
+      "patronalSobreBaseDaFolha": 58.87,
+      "indicio": {
+        "nivel": "ALTO",
+        "texto": "Razao patronal/pessoal de 12.72% contra ~20.3% da serie 2021-2023 — queda acima da variacao da folha."
+      }
+    }
+  ],
+  "alertas": [
+    {
+      "ano": "2024",
+      "folha": {
+        "registros": 6583,
+        "brutoReais": 29932716.08,
+        "baseContribuicaoReais": 15306241.62,
+        "descontosReais": 9278645.19
+      },
+      "dcaDespesasPagas": {
+        "vencimentosPessoalCivilReais": 36053554.71,
+        "contratacaoTempoDeterminadoReais": 28974051.93,
+        "obrigacoesPatronaisReais": 6425848.32,
+        "patronalRgpsReais": 0,
+        "patronalRppsReais": 0,
+        "patronalOutrasReais": 0,
+        "aposentadoriasRppsReais": 320450.2,
+        "pensoesRppsReais": 85439.16
+      },
+      "razaoPatronalSobrePessoal": 9.88,
+      "patronalSobreBaseDaFolha": 41.98,
+      "indicio": {
+        "nivel": "ALTO",
+        "texto": "Razao patronal/pessoal de 9.88% contra ~20.3% da serie 2021-2023 — queda acima da variacao da folha."
+      }
+    },
+    {
+      "ano": "2025",
+      "folha": {
+        "registros": 6245,
+        "brutoReais": 31698490.19,
+        "baseContribuicaoReais": 15388485.7,
+        "descontosReais": 9979673.33
+      },
+      "dcaDespesasPagas": {
+        "vencimentosPessoalCivilReais": 40151954.2,
+        "contratacaoTempoDeterminadoReais": 31065890.44,
+        "obrigacoesPatronaisReais": 9058704.96,
+        "patronalRgpsReais": 0,
+        "patronalRppsReais": 0,
+        "patronalOutrasReais": 0,
+        "aposentadoriasRppsReais": 345920.09,
+        "pensoesRppsReais": 97825.07
+      },
+      "razaoPatronalSobrePessoal": 12.72,
+      "patronalSobreBaseDaFolha": 58.87,
+      "indicio": {
+        "nivel": "ALTO",
+        "texto": "Razao patronal/pessoal de 12.72% contra ~20.3% da serie 2021-2023 — queda acima da variacao da folha."
+      }
+    }
+  ],
+  "ressalvas": [
+    "A linha 3.1.90.13.00 do DCA e registro contabeis de despesa; nao e prova de recolhimento ao regime.",
+    "O denominador (11.00 + 04.00) inclui os contratados por tempo determinado, que tem base de contribuicao propria.",
+    "As series do DCA e da folha publica nao tem o mesmo perimetro de servidores; a razao e um indicador de serie, nao uma apuracao.",
+    "A definicao do regime (RPPS e/ou RGPS) e a aliquota patronal aplicavel precisam de confirmacao no CadPrev/CRP e no eSocial."
+  ]
+}

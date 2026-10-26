@@ -1,0 +1,522 @@
+{
+ "dataConsulta": "2026-10-26",
+ "cnpj": "18260489000104",
+ "ibge": "3169604",
+ "pncp": {
+  "contratos": 329,
+  "evidencia": [
+   {
+    "janela": "20240101-20241231",
+    "totalRegistros": 41,
+    "itens": 41
+   },
+   {
+    "janela": "20250101-20251231",
+    "totalRegistros": 201,
+    "itens": 201
+   },
+   {
+    "janela": "20260101-20261026",
+    "totalRegistros": 87,
+    "itens": 87
+   }
+  ],
+  "pre2024": "falha: HTTP 422",
+  "porAno": {
+   "2024": {
+    "servicos": 3338075.2,
+    "contratosServicos": 10,
+    "total": 9102261.849999998,
+    "contratos": 42,
+    "itens": [
+     {
+      "anual": 201600,
+      "objeto": "[Publicenter] - Contratação de empresa para prestação de serviços de Transporte Escolar dos alunos da rede municipal e estadual de ensino que residem na Zona Rural, para 200 dias letivos de 2024, conforme condições e exigências estabelecidas neste instrumento.",
+      "valorContrato": 201600,
+      "inicio": "2024-05-02",
+      "fim": "2025-05-02"
+     },
+     {
+      "anual": 201600,
+      "objeto": "[Publicenter] - Contratação de empresa para prestação de serviços de Transporte Escolar dos alunos da rede municipal e estadual de ensino que residem na Zona Rural, para 200 dias letivos de 2024, conforme condições e exigências estabelecidas neste instrumento.",
+      "valorContrato": 201600,
+      "inicio": "2024-05-02",
+      "fim": "2025-05-02"
+     },
+     {
+      "anual": 201600,
+      "objeto": "[Publicenter] - Contratação de empresa para prestação de serviços de Transporte Escolar dos alunos da rede municipal e estadual de ensino que residem na Zona Rural, para 200 dias letivos de 2024, conforme condições e exigências estabelecidas neste instrumento.",
+      "valorContrato": 201600,
+      "inicio": "2024-05-02",
+      "fim": "2025-05-02"
+     },
+     {
+      "anual": 349255,
+      "objeto": "[Publicenter] - Contratação de empresa especializada para a execução de serviços de torno e solda, para suprir as necessidades de diversas secretarias e Fundos Municipais, conforme quantidades e especificações contidas no Estudo Técnico Preliminar, Termo de Referência e demais anexos ao Edital.",
+      "valorContrato": 349255,
+      "inicio": "2025-03-11",
+      "fim": "2026-03-11"
+     },
+     {
+      "anual": 6885,
+      "objeto": "[Publicenter] - Inexigibilidade para contratação da empresa LIZ Serviços Online, para realização de serviço técnico especializado na consolidação, compilação, versionamento e gerenciamento dos atos oficias do município, conforme determinações do Termo de Referência.",
+      "valorContrato": 6885,
+      "inicio": "2024-07-07",
+      "fim": "2025-07-07"
+     },
+     {
+      "anual": 39000,
+      "objeto": "[Publicenter] - CONTRATAÇÃO DE EMPRESA DO RAMO DE TECNOLOGIA DA INFORMAÇÃO PARA PRESTAÇÃO DE SERVIÇOS DE CESSÃO DE USO DE SOFTWARE PARA AUXÍLIO NA FORMAÇÃO E ELABORAÇÃO DE CESTAS DE PREÇOS DAS COMPRAS PÚBLICAS.",
+      "valorContrato": 39000,
+      "inicio": "2024-09-11",
+      "fim": "2025-09-11"
+     },
+     {
+      "anual": 1440600,
+      "objeto": "[Publicenter] - Contratação de empresa para locação de cilindros de oxigênio e recargas de oxigênio medicinal, destinados a atender as unidades de saúde do município de Tupaciguara/MG, quantidades e exigências estabelecidas neste Edital e seus anexos.",
+      "valorContrato": 1440600,
+      "inicio": "2024-08-26",
+      "fim": "2025-08-26"
+     },
+     {
+      "anual": 745735.2,
+      "objeto": "[Publicenter] - Contratação de empresa para locação de cilindros de oxigênio e recargas de oxigênio medicinal, destinados a atender as unidades de saúde do município de Tupaciguara/MG, quantidades e exigências estabelecidas neste Edital e seus anexos.",
+      "valorContrato": 745735.2,
+      "inicio": "2024-08-26",
+      "fim": "2025-08-26"
+     },
+     {
+      "anual": 126000,
+      "objeto": "[Publicenter] - Inexigibilidade para locação de imóvel situado a Rua Bueno Brandão, n 104, destinado ao funcionamento do Centro de Atenção Psicossocial   CAPS, neste município, em atendimento a Secretaria Municipal de Saúde, conforme determinações do Termo de Referê",
+      "valorContrato": 126000,
+      "inicio": "2024-08-29",
+      "fim": "2027-08-29"
+     },
+     {
+      "anual": 25800,
+      "objeto": "[Publicenter] - REFERENTE A CONTRATAÇÃO DE EMPRESA ESPECIALIZADA NA LOCALIZAÇÃO DE SERVIÇOS DE PABX, CONFORME DESCRIÇÃO DO DFD.",
+      "valorContrato": 25800,
+      "inicio": "2024-10-21",
+      "fim": "2025-10-21"
+     }
+    ]
+   },
+   "2025": {
+    "servicos": 6238741.36,
+    "contratosServicos": 34,
+    "total": 48534909.1192,
+    "contratos": 203,
+    "itens": [
+     {
+      "anual": 349255,
+      "objeto": "[Publicenter] - Contratação de empresa especializada para a execução de serviços de torno e solda, para suprir as necessidades de diversas secretarias e Fundos Municipais, conforme quantidades e especificações contidas no Estudo Técnico Preliminar, Termo de Referência e demais anexos ao Edital.",
+      "valorContrato": 349255,
+      "inicio": "2025-03-11",
+      "fim": "2026-03-11"
+     },
+     {
+      "anual": 226140,
+      "objeto": "[Publicenter] - Contratação de empresa especializada para prestação de serviços de borracharia para atender a demanda desta municipalidade no ano de 2025 nas quantidades e especificações contidas no Estudo Técnico Preliminar, Termo de Referência demais anexos ao Edital.",
+      "valorContrato": 226140,
+      "inicio": "2025-03-10",
+      "fim": "2026-03-10"
+     },
+     {
+      "anual": 108000,
+      "objeto": "[Publicenter] - Contratação de instituição para prestação de serviço de residência inclusiva e custeio de fármacos, visando atender às determinações judiciais n  5003681-62.2024.8.130696 e 5003502-31.2024.8.13.0696, e suprir as necessidades da Secretaria Municipal de Desenvolvimento Social.",
+      "valorContrato": 108000,
+      "inicio": "2025-02-19",
+      "fim": "2025-08-18"
+     },
+     {
+      "anual": 47799.96,
+      "objeto": "[Publicenter] - Contratação de empresa para prestação de serviços especializados em engenharia de segurança do trabalho, visando o acompanhamento e implantação de políticas de segurança e saúde ocupacionais, gerenciamento dos eventos SST do E-Social e o atendimento das legislações vigentes bem como atendimentos específicos de normas regulamentadoras, atendendo às necessidades do Município, conforme condições e exigências estabelecidas neste instrumento e no Termo de Referência.",
+      "valorContrato": 47799.96,
+      "inicio": "2025-03-31",
+      "fim": "2025-12-31"
+     },
+     {
+      "anual": 31200,
+      "objeto": "[Publicenter] - Contratação de empresa para prestação de serviços de limpeza geral de piscinas semanalmente, sendo de sua responsabilidade o manuseio e aplicação dos produtos químicos necessários para realização da limpeza e manutenção da qualidade da água, dentro dos padrões recomendados. O material destinado a limopeza será fornecido pela administração.",
+      "valorContrato": 31200,
+      "inicio": "2025-03-31",
+      "fim": "2025-12-31"
+     },
+     {
+      "anual": 44400,
+      "objeto": "[Publicenter] - Contratação de serviços técnicos especializados em procedimentos administrativos e fiscais, exclusivamente quanto à tributação, arrecadação e fiscalização do ISSQN bem como cursos, treinamentos, implantação e acompanhamento de instruções gerenciais de tributação, fiscalização do ISSQN visando à capacidade dos fiscais de tributos nas realizações das auditorias fiscais do município, conforme condições e exigências estabelecidas neste instrumento.",
+      "valorContrato": 44400,
+      "inicio": "2025-04-23",
+      "fim": "2026-04-23"
+     },
+     {
+      "anual": 180000,
+      "objeto": "[Publicenter] - Inexigibilidade de licitação para locação de apartamento de apoio, localizado no município de Araguari/MG, destinado à prestação de serviços de hospedagem e alimentação para pacientes em Tratamento Fora de Domicílio (TFD).",
+      "valorContrato": 180000,
+      "inicio": "2025-04-09",
+      "fim": "2026-04-09"
+     },
+     {
+      "anual": 24000,
+      "objeto": "[Publicenter] - Cde uma empresa de prestação de serviços técnicos especializados para assessoramento, acompanhamento e apoio à execução dos recursos oriundos da Lei Federal n  14.399/2022 (Política Nacional Aldir Blanc - PNAB), repasses 2024 e 2025.",
+      "valorContrato": 24000,
+      "inicio": "2025-05-09",
+      "fim": "2026-05-09"
+     },
+     {
+      "anual": 39200,
+      "objeto": "[Publicenter] - CONTRATAÇÃO DE EMPRESA PARA PRESTAÇÃO DE SERVIÇOS DE IMPLANTAÇÃO, EXECUÇÃO E MONITORAMENTO DA ESTRUTURA DE GOVERNANÇA, RISCOS, CONTROLES INTERNOS, COMPLIANCE, PLANEJAMENTO ESTRATÉGICO E QUALIDADE NA PREFEITURA MUNICIPAL DE TUPACIGUARA.",
+      "valorContrato": 39200,
+      "inicio": "2025-05-09",
+      "fim": "2026-01-04"
+     },
+     {
+      "anual": 116928,
+      "objeto": "[Publicenter] - CONTRATAÇÃO DE PESSOA JURÍDICA PARA PRESTAÇÃO DE SERVIÇOS DE TRANSPORTE ESCOLAR EMERGENCIAL",
+      "valorContrato": 116928,
+      "inicio": "2025-05-27",
+      "fim": "2025-11-23"
+     },
+     {
+      "anual": 414000,
+      "objeto": "[Publicenter] - Contratação de empresa para prestação de serviços de locação de equipamentos de fotocópias para cópia, impressão ou digitalização, para suprir as necessidades da Administração Pública, conforme condições e exigências estabelecidas no Estudo Técnico Preliminar, Termo de Referência e demais anexo ao Edital.",
+      "valorContrato": 414000,
+      "inicio": "2025-08-05",
+      "fim": "2026-08-05"
+     },
+     {
+      "anual": 88200,
+      "objeto": "[Publicenter] - CONTRATAÇÃO DE PESSOA JURÍDICA PARA PRESTAÇÃO DE SERVIÇOS DE TRANSPORTE ESCOLAR EMERGENCIAL",
+      "valorContrato": 88200,
+      "inicio": "2025-08-22",
+      "fim": "2026-02-18"
+     },
+     {
+      "anual": 166500,
+      "objeto": "[Publicenter] - Contratação de serviços de manutenção corretiva em motores e equipamentos elétricos para as secretarias municipais de Tupaciguara , conforme quantidades e especificações contidas no Estudo Técnico Preliminar, Termo de Referência e demais anexos ao Edital.",
+      "valorContrato": 166500,
+      "inicio": "2025-08-25",
+      "fim": "2026-08-25"
+     },
+     {
+      "anual": 181800,
+      "objeto": "[Publicenter] - Contratação de pessoa jurídica especializada para a prestação de serviços de transporte escolar, destinado exclusivamente aos alunos da rede municipal de ensino de Tupaciguara/MG, residentes na zona rural, conforme condições, quantidades e exigências estabelecidas neste Edital e seus anexos.",
+      "valorContrato": 181800,
+      "inicio": "2025-08-20",
+      "fim": "2026-08-20"
+     },
+     {
+      "anual": 92999.5,
+      "objeto": "[Publicenter] - Contratação de empresa para prestação de serviços de manutenção preventiva e corretiva com mão de obra especializada, conforme condições, quantidades e exigências estabelecidas neste Edital e seus anexos.",
+      "valorContrato": 92999.5,
+      "inicio": "2025-03-19",
+      "fim": "2026-03-19"
+     },
+     {
+      "anual": 99000,
+      "objeto": "[Publicenter] - Contratação de empresa para prestação de serviços de manutenção preventiva e corretiva com mão de obra especializada, conforme condições, quantidades e exigências estabelecidas neste Edital e seus anexos.",
+      "valorContrato": 99000,
+      "inicio": "2025-03-19",
+      "fim": "2026-03-19"
+     },
+     {
+      "anual": 418080,
+      "objeto": "[Publicenter] - Contratação de serviços técnicos especializados, por meio de Assessoria Pedagógica, Gestão Educacional e Formação Continuada para a Prefeitura Municipal de Tupaciguara/MG.",
+      "valorContrato": 418080,
+      "inicio": "2025-04-01",
+      "fim": "2026-04-01"
+     },
+     {
+      "anual": 216000,
+      "objeto": "[Publicenter] - Contratação de empresa para prestação de serviços profissionais técnico especializados de consultoria e assessoria em arquitetura, urbanismo, paisagismo para desenvolvimento das atividades pertinentes do Município de Tupaciguara.",
+      "valorContrato": 216000,
+      "inicio": "2025-04-03",
+      "fim": "2026-04-03"
+     },
+     {
+      "anual": 89760,
+      "objeto": "[Publicenter] - CONTRATAÇÃO DE EMPRESA ESPECIALIZADA EM PRESTAÇÃO DE SERVIÇOS DE CONSULTORIA E ASSESSORIA NA ÁREA DA ATENÇÃO PRIMARIA À SAÚDE, PARA ATENDER AS NECESSIDADES DA SECRETARIA MUNICIPAL DE TUPACIGUARA, CONFORME CONDIÇÕES ESTABELECIDAS NO ESTUDO TÉCNICO PRELIMINAR - ETP E TERMO DE REFERÊNCIA - TR.",
+      "valorContrato": 89760,
+      "inicio": "2025-09-04",
+      "fim": "2026-09-04"
+     },
+     {
+      "anual": 130300.6,
+      "objeto": "[Publicenter] - Contratação de empresa especializada na prestação de serviços de instalação e manutenção preventiva em aparelhos de ares condicionados, conforme quantidades e especificações contidas no Estudo Técnico Preliminar, Termo de Referência e demais anexos ao Edital.",
+      "valorContrato": 130300.6,
+      "inicio": "2025-09-12",
+      "fim": "2026-09-12"
+     },
+     {
+      "anual": 61500,
+      "objeto": "[Publicenter] - CONTRATAÇÃO DE EMPRESA PARA PRESTAR SERVIÇOS DE TRANSPORTE DE MÁQUINAS E EQUIPAMENTOS PESADOS, COM CAMINHÃO PRANCHA E/OU TRUCADO, COM DISPONIBILIDADE DE PRESTAÇÃO DO SERVIÇO POR QUILÔMETRO RODADO, QUANDO SOLICITADO.",
+      "valorContrato": 61500,
+      "inicio": "2025-09-24",
+      "fim": "2026-09-24"
+     },
+     {
+      "anual": 1764000,
+      "objeto": "[Publicenter] - Registro de Preços para futura e eventual contratação de empresa para locação de veículos para atender as necessidades da Secretaria Municipal de Saúde, no setor de Tratamento Fora do Domicílio (TFD), conforme condições, quantidades e exigências estabelecidas neste Edital e seus anexos.",
+      "valorContrato": 1764000,
+      "inicio": "2025-09-29",
+      "fim": "2026-09-29"
+     },
+     {
+      "anual": 0.01,
+      "objeto": "[Publicenter] - Credenciamento de leiloeiro oficial para prestação de serviços referentes a alienação de bens móveis inservíveis em geral de propriedade do município de Tupaciguara/MG, via leilão online e/ou presencial, compreendendo avaliação, organização, divulgação e realização de leilões oficiais",
+      "valorContrato": 0.01,
+      "inicio": "2025-10-07",
+      "fim": "2026-10-07"
+     },
+     {
+      "anual": 21007.5,
+      "objeto": "[Publicenter] - Contratação de empresa especializada para prestação de serviços de recarga de toners e cartuchos, para atender as necessidades das Secretarias Municipais Requisitantes, conforme condições e exigências estabelecidas no Estudo Técnico Preliminar, Termo de Referência e demais anexo ao Edital.",
+      "valorContrato": 21007.5,
+      "inicio": "2025-10-09",
+      "fim": "2026-10-09"
+     },
+     {
+      "anual": 119342.07,
+      "objeto": "[Publicenter] - Contratação de empresa especializada para prestação de serviços de recarga de toners e cartuchos, para atender as necessidades das Secretarias Municipais Requisitantes, conforme condições e exigências estabelecidas no Estudo Técnico Preliminar, Termo de Referência e demais anexo ao Edital.",
+      "valorContrato": 119342.07,
+      "inicio": "2025-10-13",
+      "fim": "2026-10-13"
+     },
+     {
+      "anual": 84000,
+      "objeto": "[Publicenter] - Inexigibilidade de licitação para locação de imóvel para depósito de pneus no Município de Tupaciguara, para atender as necessidades da Secretaria Municipal de Meio Ambiente, Recursos Hidricos e Serviços Urbanos.",
+      "valorContrato": 84000,
+      "inicio": "2025-07-14",
+      "fim": "2027-07-14"
+     },
+     {
+      "anual": 126000,
+      "objeto": "[Publicenter] - CONTRATAÇÃO DE PESSOA JURÍDICA PARA PRESTAÇÃO DE SERVIÇOS DE TRANSPORTE ESCOLAR EMERGENCIAL",
+      "valorContrato": 126000,
+      "inicio": "2025-11-07",
+      "fim": "2026-05-06"
+     },
+     {
+      "anual": 480000,
+      "objeto": "[Publicenter] - Inexigibilidade para contratação de escritório especializado para prestação de serviços profissionais advocatícios técnico-especializados na área do direito público municipal, atinente as matérias relacionadas ao direito constitucional, administrativo e tributário, financeiro e previdenciário.",
+      "valorContrato": 480000,
+      "inicio": "2025-11-07",
+      "fim": "2026-11-07"
+     },
+     {
+      "anual": 176400,
+      "objeto": "[Publicenter] - Contratação de pessoa jurídica especializada para a prestação de serviços de transporte escolar, destinado exclusivamente aos alunos da rede municipal de ensino de Tupaciguara/MG, residentes na zona rural, conforme condições, quantidades e exigências estabelecidas neste Edital e seus anexos.",
+      "valorContrato": 176400,
+      "inicio": "2025-11-17",
+      "fim": "2026-11-17"
+     },
+     {
+      "anual": 22000,
+      "objeto": "[Publicenter] - CONTRATAÇÃO DA EMPRESA ESPECIALIZADA EM PRESTAÇÃO DE SERVIÇOS DE ASSESSORIA E CONSULTORIA AO CONSELHO MUNICIPAL DE PATRIMÔNIO CULTURAL; ASSESSORIA NA ORGANIZAÇÃO E ENVIO DE DOCUMENTAÇAO REFERENTE AO ICMS PATRIMÔNIO CULTURAL, ANO 2025, EM CONFORMIDADECOM A SECRETARIA MUNICIPAL DE CULTURA",
+      "valorContrato": 22000,
+      "inicio": "2025-12-11",
+      "fim": "2026-12-31"
+     },
+     {
+      "anual": 43266,
+      "objeto": "[Publicenter] - CONTRATAÇÃO DE EMPRESA PARA CONFECÇÃO DE BANDEIRAS DESTINADAS A ATENDER AS DEMANDAS DA SECRETARIA MUNICIPAL DE GOVERNO EM EVENTOS OFICIAIS, REUNIÕES, SOLENIDADES E INAUGURAÇÕES DE OBRAS E SERVIÇOS PÚBLICOS, CONFORME CONDIÇÕES E EXIGÊNCIAS ESTABELECIDAS NESTE INSTRUMENTO.",
+      "valorContrato": 43266,
+      "inicio": "2025-12-17",
+      "fim": "2026-12-17"
+     },
+     {
+      "anual": 216876.8,
+      "objeto": "[Publicenter] - CONTRATAÇÃO DE EMPRESA PARA PRESTAÇÃO DE SERVIÇOS ESPECIALIZADOS EM PLANEJAMENTO, ORGANIZAÇÃO E REALIZAÇÃO DE CONCURSO PÚBLICO DE PROVAS OBJETIVAS, DISCURSIVAS, TÍTULOS E PROVA PRÁTICA, PARA SELEÇÃO DE CANDIDATOS PARA PROVIMENTO DE VAGAS EM CARGOS DENÍVEL FUNDAMENTAL, MÉDIO E SUPERIOR DA PREFEITURA MUNICIPAL DE TUPACIGUARA/MG, COM O FORNECIMENTO COMPLETO DE RECURSOS MATERIAIS E HUMANOS E A EXECUÇÃO DE TODAS AS ATIVIDADES ENVOLVIDAS E CORRELATAS, EM ESPECIAL COM A ELABORAÇÃO, IMPRESSÃO, APLICAÇÃO",
+      "valorContrato": 216876.8,
+      "inicio": "2025-12-08",
+      "fim": "2026-12-08"
+     },
+     {
+      "anual": 56585.92,
+      "objeto": "[Publicenter] - Contratação de Serviço de Inspeção Municipal (SIM), para o município de Tupaciguara MG, conforme condições e exigências estabelecidas neste instrumento.",
+      "valorContrato": 56585.92,
+      "inicio": "2025-12-18",
+      "fim": "2025-12-31"
+     },
+     {
+      "anual": 4200,
+      "objeto": "[Publicenter] - Contratação de empresa que realiza manutenção de websites para atender as demandas da Comunicação Oficial da Prefeitura Municipal de Tupaciguara, como website oficial e e-mail institucional.",
+      "valorContrato": 4200,
+      "inicio": "2025-04-08",
+      "fim": "2026-04-08"
+     }
+    ]
+   },
+   "2026": {
+    "servicos": 34444615.86,
+    "contratosServicos": 15,
+    "total": 50784585.63999999,
+    "contratos": 84,
+    "itens": [
+     {
+      "anual": 320640,
+      "objeto": "[Publicenter] - Contratação do Consórcio Interfederativo Minas Gerais-CIMINAS, por meio de contrato de programa, com a finalidade a execução de serviços de manutenção corretiva e preventiva do sistema de ILUMINAÇÃO PÚBLICA.",
+      "valorContrato": 320640,
+      "inicio": "2026-01-21",
+      "fim": "2026-12-31"
+     },
+     {
+      "anual": 300000,
+      "objeto": "[Publicenter] - Contratação da empresa Andrade Andrade Editora, Serviços e Produções Ltda. para a realização de apresentação artística do Cantor Netinho, a ser realizada no evento  Tupaciguara Folia , no dia 16 de fevereiro de 2026.",
+      "valorContrato": 300000,
+      "inicio": "2026-01-26",
+      "fim": "2026-03-27"
+     },
+     {
+      "anual": 36000,
+      "objeto": "[Publicenter] - CONTRATAÇÃO DE PROFISSIONAL PARA PRESTAÇÃO DE SERVIÇOS EM INFORMÁTICA E MANUTENÇÃO DE EQUIPAMENTOS, PARA TRABALHAR COM O PROGRAMA INFORMATIZA APS, PARA SUPRIR AS NECESSIDADES DAS UNIDADES DE SAÚDE DO NOSSO MUNICÍPIO, CONFORME CONDIÇÕES E EXIGÊNCIAS ESTABELECIDAS NESTE INSTRUMENTO",
+      "valorContrato": 36000,
+      "inicio": "2026-02-12",
+      "fim": "2027-02-12"
+     },
+     {
+      "anual": 90300,
+      "objeto": "[Publicenter] - CONTRATAÇÃO DE PESSOA JURÍDICA PARA PRESTAÇÃO DE SERVIÇOS DE TRANSPORTE ESCOLAR EMERGENCIAL, LINHA 08",
+      "valorContrato": 90300,
+      "inicio": "2026-03-09",
+      "fim": "2026-09-05"
+     },
+     {
+      "anual": 88200,
+      "objeto": "[Publicenter] - CONTRATAÇÃO DE PESSOA JURÍDICA PARA PRESTAÇÃO DE SERVIÇOS DE TRANSPORTE ESCOLAR EMERGENCIAL, LINHA 03",
+      "valorContrato": 88200,
+      "inicio": "2026-03-13",
+      "fim": "2026-09-09"
+     },
+     {
+      "anual": 23194370.56,
+      "objeto": "[Publicenter] - Contratação de escritórioo de advocacia para prestação de serviços advocatícios especializados na área tributária e regulatória, visando à propositura de ação judicial em face da União Federal e da Agência Nacional de Energia Eletrica - ANEEL.",
+      "valorContrato": 23194370.56,
+      "inicio": "2026-03-30",
+      "fim": "2027-03-30"
+     },
+     {
+      "anual": 58356,
+      "objeto": "[Publicenter] - Locação de imóvel situado à av Lindolfo Ferreira Borges, 245, Tiradentes - Tupaciguara/MG, destinado ao funcionamento do centro de referência especializado de assistência social (CREAS), em atendimento à Secretaria Municipal de Assistência Social.",
+      "valorContrato": 58356,
+      "inicio": "2026-02-12",
+      "fim": "2029-02-12"
+     },
+     {
+      "anual": 163020,
+      "objeto": "[Publicenter] - Contratação de pessoa jurídica especializada para a prestação contínua de serviços de transporte escolar, destinados exclusivamente aos alunos da rede municipal de ensino de Tupaciguara/MG, residentes na zona rural, atendidos pela Linha 19, em conformidade com as condições, especificações e exigências estabelecidas no Edital e em seus anexos.",
+      "valorContrato": 163020,
+      "inicio": "2026-04-15",
+      "fim": "2027-04-15"
+     },
+     {
+      "anual": 10896,
+      "objeto": "[Publicenter] - Contratação do Consórcio Interfederativo Minas Gerais - CIMINAS, por meio de contrato de programa, com a finalidade a execução de serviços públicos para resposta a desastres, compreendendo a locação de máquinas, veículos e disponibilização de pessoal para limpeza e desobstrução em Juiz de Fora, Ubá e Cataguases, municípios afetados por chuvas intensas em fevereiro de 2026, conforme condições e exigências estabelecidas no Estudo Técnico Preliminar e Termo de Referência.",
+      "valorContrato": 10896,
+      "inicio": "2026-05-07",
+      "fim": "2026-06-07"
+     },
+     {
+      "anual": 1300000,
+      "objeto": "[Publicenter] - CONTRATAÇÃO DE PESSOA JURÍDICA PARA PRESTAÇÃO DE SERVIÇOS ADVOCATÍCIOS ESPECIALIZADOS NAS ÁREAS DO DIREITO TRIBUTÁRIO E DO DIREITO FINANCEIRO, PARA FINS DE SERVIÇOS DE AUDITORIA JURÍDICA DO VAF MUNICIPAL, ATRAVÉS DA ANÁLISE JURÍDICA DAS DECLARAÇÕES DE MOVIMENTO ECONÔMICO PELAS EMPRESAS INSTALADAS NO MUNICÍPIO OU QUE TIVEREM MOVIMENTO ECONÔMICO NO MUNICÍPIO E PELAS ATIVIDADES DE PRODUTOR RURAL E AUDITORIA JURÍDICA DOS REPASSES DO ICMS/IPI.",
+      "valorContrato": 1300000,
+      "inicio": "2026-07-27",
+      "fim": "2031-07-27"
+     },
+     {
+      "anual": 218400,
+      "objeto": "[Publicenter] - CONTRATAÇÃO DE EMPRESA PARA PRESTAÇÃO DE SERVIÇOS PROFISSIONAIS TÉCNICO ESPECIALIZADOS EM CONTABILIDADE PÚBLICA E FINANÇAS, ADMINISTRATIVA, PLANEJAMENTO PÚBLICO, EXECUÇÃO E ANÁLISE DE BALANÇOS E BALANCETES, RACIONALIZAÇÃO E AUTOMAÇÃO DO PLANO CONTÁBIL, EMISSÃO DE PARECERES E OUTROS CORRELATOS.",
+      "valorContrato": 218400,
+      "inicio": "2026-08-05",
+      "fim": "2027-08-05"
+     },
+     {
+      "anual": 46233.1,
+      "objeto": "[Publicenter] - Contratação de Instituição de Longa Permanência para Pessoas Idosas (ILPI), devidamente licenciada e habilitada pelos órgãos competentes, para prestação de serviços de acolhimento institucional em regime integral, de forma temporária, destinada ao atendimento de pessoa idosa em situação de vulnerabilidade, risco pessoal e social ou com direitos violados, mediante encaminhamento pelos órgãos competentes, compreendendo hospedagem, alimentação, cuidados pessoais, assistência à saúde, acompanhamento",
+      "valorContrato": 46233.1,
+      "inicio": "2026-08-18",
+      "fim": "2027-01-18"
+     },
+     {
+      "anual": 5568000,
+      "objeto": "[Publicenter] - Contratação de empresa especializada na prestação de serviços laboratoriais de patologia clínica, anatomopatológicos e citopatológicos, compreendidos na Tabela SIASUS/UNIFICADA, acrescida de um percentual fixo de 16% e, para aqueles não nela constantes, os previstos na Tabela CBHPM, mediante aplicação de desconto sobre os valores dessas tabelas, conforme percentual definido pela Administração.",
+      "valorContrato": 5568000,
+      "inicio": "2026-09-02",
+      "fim": "2027-09-02"
+     },
+     {
+      "anual": 2998200,
+      "objeto": "[Publicenter] - Registro de preços para eventual e futura contratação de serviços técnicos de aerolevantamento, cartografia, geração de peças técnicas, pesquisa de campo para fins de levantamento socioeconômico, pareceres e documentação para fins de regularização fundiária, no Município de Tupaciguara, nos termos da legislação federal e municipal, conforme condições e exigências estabelecidas no Estudo Técnico Preliminar, Termo de Referência e demais anexo ao Edital.",
+      "valorContrato": 2998200,
+      "inicio": "2026-09-08",
+      "fim": "2027-09-08"
+     },
+     {
+      "anual": 52000.2,
+      "objeto": "[Publicenter] - CONTRATAÇÃO DA EMPRESA, PARA PRESTAÇÃO DE SERVIÇOS TÉCNICOS ESPECIALIZADOS EM ASSESSORIA E CONSULTORIA EM GESTÃO PÚBLICA DA CULTURA, COMPREENDENDO ACOMPANHAMENTO E APOIO TÉCNICO À GESTÃO DA POLÍTICA PÚBLICA DE CULTURA, CONFORME CONDIÇÕES ESTABELECIDAS NO TERMO DE REFERENCIA",
+      "valorContrato": 52000.2,
+      "inicio": "2026-09-16",
+      "fim": "2027-09-16"
+     }
+    ]
+   }
+  }
+ },
+ "tcu": {
+  "status": 200,
+  "registros": [
+   {
+    "numeroProcessoFormatado": "034.869/2016-6",
+    "nome": "ALEXANDRE BERQUO DIAS",
+    "tipoRegistro": "CPF",
+    "numeroRegistro": "288.397.906-59",
+    "municipio": "TUPACIGUARA",
+    "uf": "MG",
+    "dataTransitoEmJulgado": "09/08/2022",
+    "linkDeliberacoesProcesso": "https://contas.tcu.gov.br/pesquisaJurisprudencia/#/resultado/acordao-completo/03486920166.PROC",
+    "linkAcompanhamentoProcesso": "https://conecta-tcu.apps.tcu.gov.br/tvp/56715420",
+    "codigoProcesso": 56715420,
+    "seProcessoGestao": "S",
+    "numeroAcordaoFormatado": "4099/2021-1C"
+   },
+   {
+    "numeroProcessoFormatado": "034.869/2016-6",
+    "nome": "ANA CRISTINA PEREIRA GOMES BERQUO DIAS",
+    "tipoRegistro": "CPF",
+    "numeroRegistro": "766.369.256-04",
+    "municipio": "TUPACIGUARA",
+    "uf": "MG",
+    "dataTransitoEmJulgado": "09/08/2022",
+    "linkDeliberacoesProcesso": "https://contas.tcu.gov.br/pesquisaJurisprudencia/#/resultado/acordao-completo/03486920166.PROC",
+    "linkAcompanhamentoProcesso": "https://conecta-tcu.apps.tcu.gov.br/tvp/56715420",
+    "codigoProcesso": 56715420,
+    "seProcessoGestao": "S",
+    "numeroAcordaoFormatado": "4099/2021-1C"
+   }
+  ]
+ },
+ "disponibilidade": {
+  "CAPMG (cidadão)": {
+   "status": 0,
+   "bytes": 0,
+   "erro": "fetch failed"
+  },
+  "CadPrev (consulta pública)": {
+   "status": 0,
+   "bytes": 0,
+   "erro": "fetch failed"
+  },
+  "Portal municipal de pessoal": {
+   "status": 200,
+   "bytes": 73709
+  },
+  "Catálogo oficial RPPS (gov.br)": {
+   "status": 200,
+   "bytes": 155565
+  },
+  "Pasta oficial de CRP (Serpro)": {
+   "status": 200,
+   "bytes": 23133
+  }
+ }
+}

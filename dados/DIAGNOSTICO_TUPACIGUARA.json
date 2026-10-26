@@ -1,0 +1,418 @@
+{
+ "municipalityId": "05440ecd-cc5f-4713-bf83-1b492c3d38da",
+ "municipio": "Tupaciguara",
+ "ibgeCode": "3169604",
+ "uf": "MG",
+ "pagamentos": 0,
+ "retidoTotalCents": 0,
+ "baseTotalCents": 0,
+ "creditoRecuperavelCents": 0,
+ "ganhoFuturoCents": 0,
+ "serie": [],
+ "serieSiconfi": {
+  "anos": 5,
+  "serie": [
+   {
+    "ano": 2021,
+    "fonte": "Siconfi — DCA",
+    "url": "https://apidatalake.tesouro.gov.br/ords/cdwhprd/siconfi/tt/dca?id_ente=3169604&an_exercicio=2021",
+    "documento": "Siconfi-DCA-3169604-2021",
+    "contas": {
+     "RO1.1.1.3.03.0.0": {
+      "rotulo": "IRRF retido na fonte (total)",
+      "valor": 2322986.06
+     },
+     "RO1.1.1.3.03.1.0": {
+      "rotulo": "IRRF retido na fonte - trabalho",
+      "valor": 2147065.45
+     },
+     "RO1.1.1.3.03.4.0": {
+      "rotulo": "IRRF retido na fonte - outros (servicos a PJ)",
+      "valor": 175920.61
+     },
+     "RO1.1.1.8.02.3.0": {
+      "rotulo": "ISSQN arrecadado (imposto proprio do municipio)",
+      "valor": 3389396.01
+     },
+     "RO1.6.0.0.00.0.0": {
+      "rotulo": "Receita de servicos (contexto para o ISSQN)",
+      "valor": 6318077.21
+     },
+     "DO3.0.00.00.00.00": {
+      "rotulo": "Despesa total",
+      "valor": 87753152.19
+     },
+     "DO3.3.90.35.00.00": {
+      "rotulo": "Despesa com servicos de consultoria",
+      "valor": 270000
+     },
+     "DO3.3.90.39.00.00": {
+      "rotulo": "Despesa com servicos de terceiros - PJ",
+      "valor": 16215301.85
+     },
+     "DO3.3.90.40.00.00": {
+      "rotulo": "Despesa com servicos de tecnologia da informacao",
+      "valor": 88786.25
+     }
+    },
+    "irrf": {
+     "retido": 2322986.06,
+     "outros": 175920.61,
+     "trabalho": 2147065.45
+    },
+    "issqn": {
+     "arrecadado": 3389396.01,
+     "receitaDeServicos": 6318077.21
+    },
+    "despesas": {
+     "servicosPj": 16215301.85,
+     "consultoria": 270000,
+     "ti": 88786.25,
+     "baseServicosIrrf": 16574088.1,
+     "total": 87753152.19,
+     "coluna": "Despesas Pagas"
+    },
+    "taxaObservadaIrrf": 0.01061419541989764,
+    "taxaObservadaIrrfTotal": 0.1401576995358194,
+    "taxaObservadaIssqn": null
+   },
+   {
+    "ano": 2022,
+    "fonte": "Siconfi — DCA",
+    "url": "https://apidatalake.tesouro.gov.br/ords/cdwhprd/siconfi/tt/dca?id_ente=3169604&an_exercicio=2022",
+    "documento": "Siconfi-DCA-3169604-2022",
+    "contas": {
+     "RO1.1.1.3.03.0.0": {
+      "rotulo": "IRRF retido na fonte (total)",
+      "valor": 2907335.09
+     },
+     "RO1.1.1.3.03.1.0": {
+      "rotulo": "IRRF retido na fonte - trabalho",
+      "valor": 2817180.27
+     },
+     "RO1.1.1.3.03.4.0": {
+      "rotulo": "IRRF retido na fonte - outros (servicos a PJ)",
+      "valor": 90154.82
+     },
+     "RO1.1.1.4.51.1.0": {
+      "rotulo": "ISSQN arrecadado (imposto proprio do municipio)",
+      "valor": 4279652.39
+     },
+     "RO1.6.0.0.00.0.0": {
+      "rotulo": "Receita de servicos (contexto para o ISSQN)",
+      "valor": 6425575.65
+     },
+     "DO3.0.00.00.00.00": {
+      "rotulo": "Despesa total",
+      "valor": 112236709.63
+     },
+     "DO3.3.90.35.00.00": {
+      "rotulo": "Despesa com servicos de consultoria",
+      "valor": 578114.4
+     },
+     "DO3.3.90.39.00.00": {
+      "rotulo": "Despesa com servicos de terceiros - PJ",
+      "valor": 26161975.69
+     },
+     "DO3.3.90.40.00.00": {
+      "rotulo": "Despesa com servicos de tecnologia da informacao",
+      "valor": 635942.93
+     }
+    },
+    "irrf": {
+     "retido": 2907335.09,
+     "outros": 90154.82,
+     "trabalho": 2817180.27
+    },
+    "issqn": {
+     "arrecadado": 4279652.39,
+     "receitaDeServicos": 6425575.65
+    },
+    "despesas": {
+     "servicosPj": 26161975.69,
+     "consultoria": 578114.4,
+     "ti": 635942.93,
+     "baseServicosIrrf": 27376033.02,
+     "total": 112236709.63,
+     "coluna": "Despesas Pagas"
+    },
+    "taxaObservadaIrrf": 0.003293202486062753,
+    "taxaObservadaIrrfTotal": 0.10620001400042145,
+    "taxaObservadaIssqn": null
+   },
+   {
+    "ano": 2023,
+    "fonte": "Siconfi — DCA",
+    "url": "https://apidatalake.tesouro.gov.br/ords/cdwhprd/siconfi/tt/dca?id_ente=3169604&an_exercicio=2023",
+    "documento": "Siconfi-DCA-3169604-2023",
+    "contas": {
+     "RO1.1.1.3.03.0.0": {
+      "rotulo": "IRRF retido na fonte (total)",
+      "valor": 3287206.09
+     },
+     "RO1.1.1.3.03.1.0": {
+      "rotulo": "IRRF retido na fonte - trabalho",
+      "valor": 2979188.59
+     },
+     "RO1.1.1.3.03.4.0": {
+      "rotulo": "IRRF retido na fonte - outros (servicos a PJ)",
+      "valor": 308017.5
+     },
+     "RO1.1.1.4.51.1.0": {
+      "rotulo": "ISSQN arrecadado (imposto proprio do municipio)",
+      "valor": 6049598.93
+     },
+     "RO1.6.0.0.00.0.0": {
+      "rotulo": "Receita de servicos (contexto para o ISSQN)",
+      "valor": 6498424.5
+     },
+     "DO3.0.00.00.00.00": {
+      "rotulo": "Despesa total",
+      "valor": 131801222.29
+     },
+     "DO3.3.90.35.00.00": {
+      "rotulo": "Despesa com servicos de consultoria",
+      "valor": 760876.4
+     },
+     "DO3.3.90.39.00.00": {
+      "rotulo": "Despesa com servicos de terceiros - PJ",
+      "valor": 24337802.47
+     },
+     "DO3.3.90.40.00.00": {
+      "rotulo": "Despesa com servicos de tecnologia da informacao",
+      "valor": 755027.34
+     }
+    },
+    "irrf": {
+     "retido": 3287206.09,
+     "outros": 308017.5,
+     "trabalho": 2979188.59
+    },
+    "issqn": {
+     "arrecadado": 6049598.93,
+     "receitaDeServicos": 6498424.5
+    },
+    "despesas": {
+     "servicosPj": 24337802.47,
+     "consultoria": 760876.4,
+     "ti": 755027.34,
+     "baseServicosIrrf": 25853706.209999997,
+     "total": 131801222.29,
+     "coluna": "Despesas Pagas"
+    },
+    "taxaObservadaIrrf": 0.011913862465137065,
+    "taxaObservadaIrrfTotal": 0.12714641619655043,
+    "taxaObservadaIssqn": null
+   },
+   {
+    "ano": 2024,
+    "fonte": "Siconfi — DCA",
+    "url": "https://apidatalake.tesouro.gov.br/ords/cdwhprd/siconfi/tt/dca?id_ente=3169604&an_exercicio=2024",
+    "documento": "Siconfi-DCA-3169604-2024",
+    "contas": {
+     "RO1.1.1.3.03.0.0": {
+      "rotulo": "IRRF retido na fonte (total)",
+      "valor": 4805550.15
+     },
+     "RO1.1.1.3.03.1.0": {
+      "rotulo": "IRRF retido na fonte - trabalho",
+      "valor": 4393330.73
+     },
+     "RO1.1.1.3.03.4.0": {
+      "rotulo": "IRRF retido na fonte - outros (servicos a PJ)",
+      "valor": 412219.42
+     },
+     "RO1.1.1.4.51.1.0": {
+      "rotulo": "ISSQN arrecadado (imposto proprio do municipio)",
+      "valor": 9664079.87
+     },
+     "RO1.6.0.0.00.0.0": {
+      "rotulo": "Receita de servicos (contexto para o ISSQN)",
+      "valor": 7115589.27
+     },
+     "DO3.0.00.00.00.00": {
+      "rotulo": "Despesa total",
+      "valor": 145538808.4
+     },
+     "DO3.3.90.35.00.00": {
+      "rotulo": "Despesa com servicos de consultoria",
+      "valor": 529024
+     },
+     "DO3.3.90.39.00.00": {
+      "rotulo": "Despesa com servicos de terceiros - PJ",
+      "valor": 26556542.66
+     },
+     "DO3.3.90.40.00.00": {
+      "rotulo": "Despesa com servicos de tecnologia da informacao",
+      "valor": 793811.36
+     }
+    },
+    "irrf": {
+     "retido": 4805550.15,
+     "outros": 412219.42,
+     "trabalho": 4393330.73
+    },
+    "issqn": {
+     "arrecadado": 9664079.87,
+     "receitaDeServicos": 7115589.27
+    },
+    "despesas": {
+     "servicosPj": 26556542.66,
+     "consultoria": 529024,
+     "ti": 793811.36,
+     "baseServicosIrrf": 27879378.02,
+     "total": 145538808.4,
+     "coluna": "Despesas Pagas"
+    },
+    "taxaObservadaIrrf": 0.014785818381754558,
+    "taxaObservadaIrrfTotal": 0.17236934577782237,
+    "taxaObservadaIssqn": null
+   },
+   {
+    "ano": 2025,
+    "fonte": "Siconfi — DCA",
+    "url": "https://apidatalake.tesouro.gov.br/ords/cdwhprd/siconfi/tt/dca?id_ente=3169604&an_exercicio=2025",
+    "documento": "Siconfi-DCA-3169604-2025",
+    "contas": {
+     "RO1.1.1.3.03.0.0": {
+      "rotulo": "IRRF retido na fonte (total)",
+      "valor": 5247611.02
+     },
+     "RO1.1.1.3.03.1.0": {
+      "rotulo": "IRRF retido na fonte - trabalho",
+      "valor": 4925443.48
+     },
+     "RO1.1.1.3.03.4.0": {
+      "rotulo": "IRRF retido na fonte - outros (servicos a PJ)",
+      "valor": 322167.54
+     },
+     "RO1.1.1.4.51.1.0": {
+      "rotulo": "ISSQN arrecadado (imposto proprio do municipio)",
+      "valor": 8544435.46
+     },
+     "RO1.6.0.0.00.0.0": {
+      "rotulo": "Receita de servicos (contexto para o ISSQN)",
+      "valor": 8341766.14
+     },
+     "DO3.0.00.00.00.00": {
+      "rotulo": "Despesa total",
+      "valor": 159090553
+     },
+     "DO3.3.90.35.00.00": {
+      "rotulo": "Despesa com servicos de consultoria",
+      "valor": 692052.37
+     },
+     "DO3.3.90.39.00.00": {
+      "rotulo": "Despesa com servicos de terceiros - PJ",
+      "valor": 29568853.94
+     },
+     "DO3.3.90.40.00.00": {
+      "rotulo": "Despesa com servicos de tecnologia da informacao",
+      "valor": 856700.06
+     }
+    },
+    "irrf": {
+     "retido": 5247611.02,
+     "outros": 322167.54,
+     "trabalho": 4925443.48
+    },
+    "issqn": {
+     "arrecadado": 8544435.46,
+     "receitaDeServicos": 8341766.14
+    },
+    "despesas": {
+     "servicosPj": 29568853.94,
+     "consultoria": 692052.37,
+     "ti": 856700.06,
+     "baseServicosIrrf": 31117606.37,
+     "total": 159090553,
+     "coluna": "Despesas Pagas"
+    },
+    "taxaObservadaIrrf": 0.010353223707804103,
+    "taxaObservadaIrrfTotal": 0.16863800375915608,
+    "taxaObservadaIssqn": null
+   }
+  ],
+  "anosDisponiveis": [
+   2025,
+   2024,
+   2023,
+   2022,
+   2021
+  ],
+  "ressalvas": [
+   "A DCA e anual: a serie do Siconfi tem 1 ponto por ano de exercicio, nao 12 competencias por ano.",
+   "A taxa observada do IRRF usa o IRRF retido SOBRE SERVICOS (natureza \"outros\") sobre a compra de servicos de terceiros. E um PISO: a base de compras inclui bens, que nao geram IRRF.",
+   "O IRRF total (que inclui o da folha de pagamento) nao entra na taxa: a folha nao e compra de servico.",
+   "O ISSQN entra pelo valor arrecadado; a base de calculo nao consta da DCA, portanto nao ha taxa observada de ISSQN. A aliquota vem do decreto municipal (LC 116/2003).",
+   "Valor declarado no Siconfi nao e valor reconhecido: a conferencia e com o contador."
+  ]
+ },
+ "recuperavelPreliminar": {
+  "totalCents": 62353229,
+  "itens": [
+   {
+    "item": "IRRF retido em excesso sobre servicos de terceiros",
+    "baseCents": 12880081172,
+    "fator": "1,5%",
+    "fatorLegal": "Lei 9.249/1995 art. 30, II, \"a\"; IN RFB 1.234/2012 art. 30, I",
+    "observadoCents": 130847989,
+    "esperadoCents": 193201218,
+    "valorCents": 62353229,
+    "fonte": "Siconfi DCA: Anexo I-D, coluna \"Despesas Pagas\" (servicos a PJ) x Anexo I-C, coluna \"Receitas Brutas Realizadas\" (IRRF retido - outros)",
+    "grau": "teto",
+    "nota": "A base inclui servicos com aliquota superior a 1,5% e itens isentos: o valor real e igual ou menor que este teto. Nao e credito reconhecido."
+   },
+   {
+    "item": "ISSQN — defasagem de base de calculo",
+    "baseCents": null,
+    "fator": "2% a 5% (CTM do municipio, Tabela I)",
+    "fatorLegal": "CTM de Tupaciguara art. 77 (base = preco do servico) e art. 266 (aliquota minima 2%, maxima 5%)",
+    "observadoCents": 3192716266,
+    "esperadoCents": null,
+    "valorCents": null,
+    "fonte": "Siconfi DCA: Anexo I-C, linha do ISSQN (arrecadado). A BASE DE CALCULO NAO CONSTA DA DCA",
+    "grau": "a dimensionar",
+    "nota": "Sem a base de calculo nao ha como calcular a defasagem. A evidencia que falta e a NFS-e emitida no municipio (valor dos servicos) e o decreto vigente."
+   }
+  ]
+ },
+ "candidatos": [],
+ "sinaisDestino": {
+  "apropriadoCents": 3714137682,
+  "lancamentosIrrf": 15,
+  "remetidoCents": 0,
+  "remessasUniao": 0,
+  "declaracoesEfdReinf": 5
+ },
+ "metodologia": {
+  "retido": "Valor exato declarado no documento (EFD-Reinf, planilha ou relatorio de pagamentos).",
+  "creditoRetroativo": "Hipotese: valor retido pelo municipio cujo destino foi demonstrado como sendo a Uniao, sem apropriacao pelo municipio (Parecer SEI 480/2025/MF). Depende de prova documental.",
+  "ganhoFuturo": "Estimativa: base de calculo x aliquota que o proprio documento revela, aplicada a uma janela de 12 meses. Nao e valor reconhecido.",
+  "aliquota": "Nao ha aliquota fixa no modulo: a faixa da IN RFB 2.145/2023 para servico e 1,2% a 4,8% (IN RFB 2.145/2023, Anexo I). O que vale no caso concreto e o declarado no documento e o que o decreto municipal definir. As aliquotas de 1,5% e 1% sao as antigas, afastadas pelo criterio da especialidade apos o Tema 1.130 (MAFON, item 6.a).",
+  "fundamento": [
+   "Pertence ao municipio a titularidade do IRRF retido sobre pagamentos a pessoas juridicas (Tema 1.130; CF, arts. 157, I e 158, I).",
+   "A retencao do ente subnacional e declarada na EFD-Reinf com o codigo 6256, na propria origem (IN RFB 2.145/2023, art. 7-A; MAFON, itens 2.1 e 3).",
+   "Se o municipio reteve e repassou a Uniao sem se apropriar, ha credito a pleitear (Parecer SEI 480/2025/MF).",
+   "Nao ha restituicao do que nao foi retido (Parecer SEI 480/2025/MF).",
+   "O valor retido e contabilizado como receita tributaria do proprio ente, sem transito pela Uniao (MCASP 11a ed., item 3.6.2)."
+  ],
+  "fontes": [
+   "CF/88, arts. 157, I e 158, I",
+   "STF, RE 1.293.453/RS, Tema 1.130 (julgado em 11/10/2021)",
+   "STF, RE 1.346.152, Tema 1.217 (teto da correcao: Selic)",
+   "Parecer SEI 5744/2022/ME (PGFN, 14/04/2022)",
+   "Parecer SEI 480/2025/MF",
+   "IN RFB 2.145/2023 (arts. 2-A, 3-A, 5-A, 7-A, 37 §4º e Anexo I)",
+   "MAFON 2025 (RFB) — retencao do IR por entes subnacionais a PJ",
+   "MCASP 11a edicao, item 3.6.2",
+   "CTN (Lei 5.172/1966), arts. 173 e 174"
+  ],
+  "janela": "5 anos de decadencia (art. 173 do CTN) + 5 de prescricao (art. 174): janela de 10 anos.",
+  "serieSiconfi": "Serie do Siconfi (Tesouro): o que o municipio Declarou por ano (IRRF retido, ISSQN arrecadado e despesas com servicos). A taxa observada do IRRF e piso de triagem; o ISSQN aparece sem taxa, porque a base de calculo nao consta da DCA e a aliquota vem do decreto municipal.",
+  "destinoDeclarado": "O campo DESTINATARIO da planilha e lido como o destino do imposto retido. O significado da coluna precisa ser conferido com o contador antes de usar o resultado em uma acao.",
+  "atualizacao": "Valores nao monetariamente atualizados: A correcao monetaria nao pode exceder a taxa Selic (Tema 1.217).",
+  "validacao": "Nenhum valor e reconhecido sem revisao humana. O status do candidato mostra o estagio da prova."
+ },
+ "geradoEm": "2026-10-26T15:29:31.601Z"
+}
