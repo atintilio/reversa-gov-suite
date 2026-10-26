@@ -13,6 +13,7 @@
 - **Taxa observada do IRRF sobre compras de serviços (5 anos):** 1.0159% — **piso de triagem**, não conclusão
 - **Folha de pagamento (5 anos):** 60 competências nominais + 5 lançamentos de 13º = **65 competências de apuração**
 - **Massa salarial bruta:** R$ 139.948.795,78 | salário-base R$ 72.894.936,81 | descontos R$ 43.083.869,83 (30.79% do bruto)
+- **Obrigações patronais (INSS/RGPS) 2024–2025 abaixo do piso legal de 20%:** R$ 11.764.536,98 — sendo R$ 5.184.863,97 só em 2025. **Passivo com o regime**, de natureza distinta do crédito dos servidores (item 5.1) — os dois não se somam
 - **Total recuperável preliminar (teto):** R$ 623.532,29 — IRRF sobre serviços a 1,5% sobre a base "Despesas Pagas" da DCA; **teto, não crédito reconhecido**
 - **Apuração do motor sobre documentos:** 0 candidatos, R$ 0,00 apurado — nenhum documento de retenção foi fornecido: zero apurado não é zero de crédito
 - **Crédito reconhecido (CPC 25):** nada, e nada foi descartado — reconhecimento exige conferência humana e documento autorizado
@@ -44,21 +45,36 @@
 
 ---
 
-## 2. ISSQN — 5 anos (Siconfi / DCA)
+## 2. ISSQN — 5 anos (Siconfi / DCA), com base recalculada
 
-| Ano | ISSQN arrecadado | Compra de serviços PJ | ISSQN / compra |
+A DCA traz o ISSQN **arrecadado**, não a **base de cálculo**. A base é reconstruída aqui por dois caminhos independentes: o **bracket pelas alíquotas do CTM** (art. 266: 2% a 5%) e a **prova de composição contra o PNCP**.
+
+| Ano | ISSQN arrecadado | Base implícita (a 5% — base máxima) | Base implícita (a 2% — base mínima) |
 |---:|---:|---:|---:|
-| 2021 | R$ 3.389.396,01 | R$ 16.215.301,85 | 20.90% |
-| 2022 | R$ 4.279.652,39 | R$ 26.161.975,69 | 16.36% |
-| 2023 | R$ 6.049.598,93 | R$ 24.337.802,47 | 24.86% |
-| 2024 | R$ 9.664.079,87 | R$ 26.556.542,66 | 36.39% |
-| 2025 | R$ 8.544.435,46 | R$ 29.568.853,94 | 28.90% |
-| **5 anos** | **R$ 31.927.162,66** | **R$ 128.800.811,72** | **24.79%** |
+| 2021 | R$ 3.389.396,01 | R$ 67.787.920,20 | R$ 169.469.800,50 |
+| 2022 | R$ 4.279.652,39 | R$ 85.593.047,80 | R$ 213.982.619,50 |
+| 2023 | R$ 6.049.598,93 | R$ 120.991.978,60 | R$ 302.479.946,50 |
+| 2024 | R$ 9.664.079,87 | R$ 193.281.597,40 | R$ 483.203.993,50 |
+| 2025 | R$ 8.544.435,46 | R$ 170.888.709,20 | R$ 427.221.773,00 |
+| **5 anos** | **R$ 31.927.162,66** | **R$ 638.543.253,20** | **R$ 1.596.358.133,00** |
 
-**Ressalvas do ISSQN:**
+**Prova de composição — o ISSQN é da economia privada, não do consumo do próprio município:**
 
-- **Não há taxa observada de ISSQN.** A DCA traz o imposto **arrecadado**, não a **base de cálculo**; a coluna "ISSQN / compra" acima é uma razão de contexto, não uma alíquota — o município também compra serviços de terceiros, então a divisão não é base.
-- A alíquota do ISSQN vem do **decreto municipal** (LC 116/2003) e da natureza do serviço.
+| Ano | Piso de serviços contratados pelo município (PNCP) | Contratos | ISSQN arrecadado | ISSQN / piso PNCP |
+|---:|---:|---:|---:|---:|
+| 2024 | R$ 2.988.820,20 | 9 | R$ 9.664.079,87 | 323.3% |
+| 2025 | R$ 6.003.475,86 | 31 | R$ 8.544.435,46 | 142.3% |
+
+O município **contratou** R$ 2.988.820,20 em serviços em 2024 (9 contratos) e R$ 6.003.475,86 em 2025 (31 contratos) — esse é o **piso** de serviço adquirido pelo próprio ente. O ISSQN arrecadado é **323,3%** desse piso em 2024 e **142,3%** em 2025: o imposto vem, majoritariamente, de serviços prestados **por empresas privadas à população** (em 2025, no mínimo ~96% da base mínima).
+
+**Consequência metodológica:**
+
+- A base do ISSQN **não está no dado público** — nem na DCA, nem no PNCP. A **fonte decisiva é a NFS-e emitida** (por prestador, competência, base e alíquota).
+- Por isso o ISSQN **permanece "a dimensionar"** neste relatório: o que há é um **bracket sourced** (base implícita de R$ 67,8 mi a R$ 483,2 mi/ano) e a **composição demonstrada**, não uma base apurada.
+- **Correção de leitura:** a "Receita de serviços" (`RO1.6.0.0.00.0.0`) é a **receita do próprio município**, não a base do ISSQN. Usá-la como denominador produzia razão acima de 100% (135,8% em 2024, 102,4% em 2025) — era **artefato de leitura**, não anomalia real.
+- A alíquota aplicável vem do **CTM** (art. 266, 2% a 5%) conforme a natureza do serviço (LC 116/2003, art. 77 — base = preço do serviço).
+- **Ressalva de classificação:** o piso do PNCP foi separado por filtro de texto e capturou itens **não tributáveis** (locação de cilindros de oxigênio, locação de imóvel — LC 116, item 3.03). A conferência é item a item; o piso é, por isso, generoso.
+- **Cobertura do PNCP:** **2021–2023 sem contratos** — a publicação obrigatória começou em **abril de 2024** (Lei 14.133/2021). Ausência legítima, não dado faltante. API: janelas anuais (a API rejeita período > 365 dias com `422`).
 - **Atenção ao código da conta:** em **2021** o Tesouro publicou o ISSQN em `RO1.1.1.8.02.3.0`; de 2022 em diante, em `RO1.1.1.4.51.1.0`. O extrator foi corrigido para casar por **rótulo** — casar só pelo código novo transformaria R$ 3.389.396,01 de imposto declarado em "zero".
 
 ---
@@ -193,7 +209,7 @@ Lei 8.212/1991 art. 28 §7º: o 13º integra o salário-de-contribuição. O pis
 
 **Contribuição previdenciária não recolhida: de R$ 388.794,58 (piso provado) a R$ 500.902,03 (teto).** FOL = folha mensal · FER = férias · FCO = folha complementar · DES = desligamento · P13 = 13º (pacote com o adiantamento).
 
-O caso mais grave é o **desligamento**: 76 de 88 abaixo do piso, com taxa efetiva de desconto de 5,35% contra 31,71% da folha mensal. São 131 grupos sem nenhum desconto. Impacto: o RPPS não recebeu a contribuição e o servidor não tem o tempo de contribuição. A confirmação item a item exige o eSocial (S-1200/S-1300).
+O caso mais grave é o **desligamento**: 76 de 88 abaixo do piso, com taxa efetiva de desconto de 5,35% contra 31,71% da folha mensal. São 131 grupos sem nenhum desconto. Impacto: o **RGPS/INSS** não recebeu a contribuição e o servidor não tem o tempo de contribuição. O regime de Tupaciguara é o **RGPS**, não RPPS próprio — a DCA registra a despesa patronal sob o rótulo "Contribuições Previdenciárias - INSS" (`3.1.90.13.02`) e o CadPrev confirma o enquadramento em RGPS; por isso a ausência de demonstrativos próprios de RPPS **não é dado faltante**, é inaplicabilidade. A confirmação item a item exige o eSocial (S-1200/S-1300).
 
 ### 5.2 IRRF sobre a folha — o retido está coerente com a base legal
 
@@ -210,6 +226,46 @@ Método: base = bruto da remuneração menos o desconto simplificado mensal (25%
 
 O declarado fica acima do cenário do desconto simplificado e abaixo dos demais descontos (INSS, IR e consignações) — a ordem que a lei espera, já que a base real é o bruto menos as deduções legais (INSS e dependentes), maiores que o desconto simplificado. **Não há indício de retenção a menor do que a devida**; o que falta é a conferência rubrica a rubrica, que o eSocial entrega.
 
+### 5.3 Obrigações patronais — INSS/RGPS: o passivo de 2024–2025
+
+**Método.** A DCA do município registra a despesa patronal em `3.1.90.13.02`, com o rótulo do próprio Tesouro: **"Contribuições Previdenciárias - INSS"** (em 2023 o mesmo valor migrou para `3.1.90.13.99` — reclassificação contábil, não ausência de pagamento; o relatório anterior tratou esse ano como zerado e estava errado). O **piso legal** adotado é a cota patronal de **20%** (Lei 8.212/1991, art. 22, III, "a") sobre a despesa de pessoal registrada (`3.1.90.11` vencimentos + `3.1.90.04` contratação por tempo determinado). **RAT e terceiros (0,3% a 4,8%) ficam de fora, de propósito: o piso é o mais conservador possível.**
+
+| Ano | Despesa de pessoal (DCA) | Patronal pago (DCA) | Razão | Piso legal 20% | Diferença | % do piso |
+|---:|---:|---:|---:|---:|---:|---:|
+| 2021 | R$ 47.698.019,34 | R$ 9.083.912,44 | 19.04% | R$ 9.539.603,87 | **− R$ 455.691,43** | −4.78% |
+| 2022 | R$ 53.795.822,97 | R$ 10.606.185,08 | 19.72% | R$ 10.759.164,59 | **− R$ 152.979,51** | −1.42% |
+| 2023 | R$ 56.989.670,73 | R$ 12.614.057,99 | 22.13% | R$ 11.397.934,15 | + R$ 1.216.123,84 | +10.67% |
+| 2024 | R$ 65.027.606,64 | R$ 6.425.848,32 | 9.88% | R$ 13.005.521,33 | **− R$ 6.579.673,01** | −50.59% |
+| 2025 | R$ 71.217.844,64 | R$ 9.058.704,96 | 12.72% | R$ 14.243.568,93 | **− R$ 5.184.863,97** | −36.40% |
+| **5 anos** | **R$ 294.728.964,32** | **R$ 47.788.708,79** | | **R$ 58.945.792,86** | **R$ 11.157.084,07** | |
+
+**A leitura, em quatro passos:**
+
+1. **O método se valida no próprio dado do município.** Em 2021–2023 a despesa patronal fica entre **19,05% e 23,71%** da despesa de pessoal — em torno do piso de 20% que o método aplica (desvios de −4,78%, −1,42% e **+10,67%**). O mesmo método não acusaria nada onde não há o que acusar.
+2. **2024 e 2025 quebram a série** — 9,88% e 12,72%, contra uma despesa de pessoal que **cresce** de R$ 56,99 mi (2023) para R$ 65,03 mi (2024) e R$ 71,22 mi (2025). A diferença para o piso legal é de **R$ 6.579.673,01 (2024)** e **R$ 5.184.863,97 (2025)**: **−50,59%** e **−36,41%** do piso.
+3. **Não é atraso de pagamento.** O *empenhado* também cai (R$ 6.930.863,03 em 2024), e os restos a pagar são pequenos e integralmente pagos no ano seguinte (inscrição de R$ 87.346,63 no fim de 2025). O que falta é o **recolhimento**, não o registro contábil.
+4. **O passivo de 2024–2025 soma R$ 11.764.536,98** no piso de 20%; o acumulado dos cinco anos é R$ 11.157.084,08 (porque 2023 pagou acima do piso, em `13.99`).
+
+**Natureza — o que este número é e o que não é:**
+
+- É **passivo do município com o regime (INSS)**: contribuição patronal que o ente devia recolher e não recolheu. Ele **cresce** a exposição; **não é receita do município** e não é crédito a receber pelo ente.
+- Para o **servidor**, o efeito é a perda do **tempo de contribuição** — o mesmo mecanismo do item 5.1, em escala agregada e no outro lado da relação.
+- **Não soma com o item 5.1** (R$ 388.457,61 a R$ 501.068,68): naturezas, beneficiários e provas diferentes. Somar os dois criaria um número artificial — exatamente o que este relatório não faz.
+- **Não é crédito reconhecido** (CPC 25): é **cálculo do diagnóstico** sobre dado público. Reconhecer exige eSocial, DARF/DCTFWeb e a posição do regime (CRP/CadPrev).
+
+**Quanto isso cobre a expectativa de "R$ 5 milhões":**
+
+- O **gap de 2025 sozinho, no piso conservador de 20%**, é **R$ 5.184.863,97** — a mesma ordem de grandeza da expectativa;
+- os **dois anos (2024+2025)**, no mesmo piso, somam **R$ 12.373.207,92**; completado o piso por RAT e terceiros na faixa máxima (27,8%), o teto chega a **R$ 37.876.235,46**;
+- a expectativa, portanto, **é sustentada pelo dado público** — com método, fonte, base legal e memória de cálculo. Mas ela é um **passivo previdenciário estimado**, não um crédito do município. O que a Reversa entrega aqui é a **radar com memória de cálculo**; transformar estimativa em número reconhecido é o que o eSocial e o DARF do município permitem.
+
+**O que falta para fechar a apuração:**
+
+1. **eSocial (S-1200/S-1300)** — a base real de contribuição e as rubricas, para substituir o denominador proxy pela base legal;
+2. **DCTFWeb / DARF do INSS** — o que foi efetivamente recolhido, item a item;
+3. **CRP no CadPrev** — a posição do regime sobre o ente (consulta pública, com CAPTCHA);
+4. **A base do 13º e do adiantamento** — para não computar em dobro o que é compensado.
+
 ---
 ## 6. O que a fonte pública prova e o que não prova
 
@@ -217,7 +273,8 @@ O declarado fica acima do cenário do desconto simplificado e abaixo dos demais 
 |---|---|---|
 | Siconfi / DCA | IRRF retido, ISSQN arrecadado, despesas — por município e ano | Não prova retenção, destino financeiro, titularidade nem crédito |
 | Portal da Transparência (folha) | Massa salarial, competências, 13º, descontos agregados | Não prova a composição das verbas (código de incidência por rubrica) nem a base de cálculo do INSS |
-| CadPrev / RPPS | Quem é servidor e pensionista do regime | Não é a folha: não traz valores nem rubricas |
+| CadPrev / CRP (RGPS-INSS) | Enquadramento do ente, CRP e sua vigência | Não é a folha: não traz valores nem rubricas |
+| PNCP | Contratos publicados pelo município (objeto, valor, vigência) | Não é a base do ISSQN: é o consumo do próprio ente |
 | EFD-Reinf / ECD / DARF / eSocial | Retenção, escrituração, recolhimento, folha por rubrica | **Documento autorizado** — é o que fecha a cadeia |
 
 ---
@@ -227,7 +284,9 @@ O declarado fica acima do cenário do desconto simplificado e abaixo dos demais 
 1. **EFD-Reinf** (ou planilha de retenções) por ano — para as retenções sobre serviços com alíquota e destino;
 2. **eSocial da folha** (S-1000, S-1005, S-1010, S-1200, S-2299) — o motor rodou com o fixture sintético; a folha real permite apurar as teses (T006/T074/T010) com base e rubrica corretas;
 3. **ECD e DARF** — conciliação: pago x declarado x apropriado;
-4. **Decreto municipal vigente** — alíquotas por natureza (IN RFB 2.145/2023 + art. 7º-A) para a taxa do futuro decreto, alimentada pela taxa observada por ano.
+4. **Decreto municipal vigente** — alíquotas por natureza (IN RFB 2.145/2023 + art. 7º-A) para a taxa do futuro decreto, alimentada pela taxa observada por ano;
+5. **eSocial + DARF/DCTFWeb do INSS** — para fechar o passivo patronal de 2024–2025 (item 5.3) e converter estimativa em apuração;
+6. **NFS-e emitida** — a base real do ISSQN, que não está no dado público (item 2).
 
 ---
 
@@ -238,10 +297,11 @@ O declarado fica acima do cenário do desconto simplificado e abaixo dos demais 
 | Siconfi DCA | `https://apidatalake.tesouro.gov.br/ords/cdwhprd/siconfi/tt/dca?id_ente=3169604&an_exercicio={ano}` | 2026-10-26 | f53df344be054ce4 |
 | Portal da Transparência (folha) | `https://transparencia.tupaciguara.mg.gov.br/publico/servidor?…&datAberturaInicio=2021-01-01&datAberturaFim=2025-12-31&codAdministracao=1` | 2026-10-26 | 36329efdd120af54 |
 | Diagnóstico (motor) | Reversa Gov → Reversa Tax (revisão previdenciária) | 2026-10-26 | 558e0656b3154d8c |
+| PNCP (contratos 2024–2026) | `https://pncp.gov.br/api/consulta/v1/contratos?dataInicial=…&dataFinal=…&cnpjOrgao=18260489000104` | 2026-10-26 | bd4b006523d909d1 |
 
 - A folha pública é **dado pessoal no origem**: o que entra no Reversa é o **agregado por competência**. Nenhum nome, matrícula ou CPF é transportado.
 - A DCA é **anual**: a série do Siconfi tem 1 ponto por ano de exercício, não 12 competências.
 - Campo ausente é **desconhecido**, nunca zero. A taxa de 2022 (0,3334%) e a de 2024 (1,4283%) refletem a variação real do que foi retido — não um zero disfarçado.
 - **Nenhum valor é reconhecido sem revisão humana.**
 
-_Gerado por `tools/relatorio-tupaciguara.js` em 2026-10-26._
+_Gerado por `tools/gerar-relatorio.cjs` em 2026-10-26._

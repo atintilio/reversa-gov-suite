@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-10-26T17:54:22.458Z",
+  "geradoEm": "2026-10-26T18:00:47.029Z",
   "fonteDca": "/workspace/dca-completa-5anos.json",
   "fonteFolha": "/workspace/output/FOLHA_TUPACIGUARA_AGREGADA_5ANOS.csv",
   "colunaDcaUsada": "Despesas Pagas",
@@ -24,6 +24,13 @@
       },
       "razaoPatronalSobrePessoal": 19.04,
       "patronalSobreBaseDaFolha": 71.59,
+      "pisoLegal20pct": 9539603.87,
+      "diferencaParaPiso20pct": 455691.43,
+      "diferencaParaPiso20pctPct": 4.78,
+      "bandaPisoRATETerceiros": {
+        "minimo": 11113638.51,
+        "maximo": 13260049.38
+      },
       "indicio": {
         "nivel": "SEM_INDICIO",
         "texto": "Razao patronal/pessoal compativel com a serie."
@@ -49,6 +56,13 @@
       },
       "razaoPatronalSobrePessoal": 19.72,
       "patronalSobreBaseDaFolha": 70.08,
+      "pisoLegal20pct": 10759164.59,
+      "diferencaParaPiso20pct": 152979.51,
+      "diferencaParaPiso20pctPct": 1.42,
+      "bandaPisoRATETerceiros": {
+        "minimo": 12534426.75,
+        "maximo": 14955238.79
+      },
       "indicio": {
         "nivel": "SEM_INDICIO",
         "texto": "Razao patronal/pessoal compativel com a serie."
@@ -74,6 +88,13 @@
       },
       "razaoPatronalSobrePessoal": 22.13,
       "patronalSobreBaseDaFolha": 87.74,
+      "pisoLegal20pct": 11397934.15,
+      "diferencaParaPiso20pct": -1216123.84,
+      "diferencaParaPiso20pctPct": -10.67,
+      "bandaPisoRATETerceiros": {
+        "minimo": 13278593.28,
+        "maximo": 15843128.46
+      },
       "indicio": {
         "nivel": "SEM_INDICIO",
         "texto": "Razao patronal/pessoal compativel com a serie."
@@ -99,6 +120,13 @@
       },
       "razaoPatronalSobrePessoal": 9.88,
       "patronalSobreBaseDaFolha": 41.98,
+      "pisoLegal20pct": 13005521.33,
+      "diferencaParaPiso20pct": 6579673.01,
+      "diferencaParaPiso20pctPct": 50.59,
+      "bandaPisoRATETerceiros": {
+        "minimo": 15151432.35,
+        "maximo": 18077674.65
+      },
       "indicio": {
         "nivel": "ALTO",
         "texto": "Razao patronal/pessoal de 9.88% contra ~20.3% da serie 2021-2023 — queda acima da variacao da folha."
@@ -124,6 +152,13 @@
       },
       "razaoPatronalSobrePessoal": 12.72,
       "patronalSobreBaseDaFolha": 58.87,
+      "pisoLegal20pct": 14243568.93,
+      "diferencaParaPiso20pct": 5184863.97,
+      "diferencaParaPiso20pctPct": 36.4,
+      "bandaPisoRATETerceiros": {
+        "minimo": 16593757.8,
+        "maximo": 19798560.81
+      },
       "indicio": {
         "nivel": "ALTO",
         "texto": "Razao patronal/pessoal de 12.72% contra ~20.3% da serie 2021-2023 — queda acima da variacao da folha."
@@ -151,6 +186,13 @@
       },
       "razaoPatronalSobrePessoal": 9.88,
       "patronalSobreBaseDaFolha": 41.98,
+      "pisoLegal20pct": 13005521.33,
+      "diferencaParaPiso20pct": 6579673.01,
+      "diferencaParaPiso20pctPct": 50.59,
+      "bandaPisoRATETerceiros": {
+        "minimo": 15151432.35,
+        "maximo": 18077674.65
+      },
       "indicio": {
         "nivel": "ALTO",
         "texto": "Razao patronal/pessoal de 9.88% contra ~20.3% da serie 2021-2023 — queda acima da variacao da folha."
@@ -176,6 +218,13 @@
       },
       "razaoPatronalSobrePessoal": 12.72,
       "patronalSobreBaseDaFolha": 58.87,
+      "pisoLegal20pct": 14243568.93,
+      "diferencaParaPiso20pct": 5184863.97,
+      "diferencaParaPiso20pctPct": 36.4,
+      "bandaPisoRATETerceiros": {
+        "minimo": 16593757.8,
+        "maximo": 19798560.81
+      },
       "indicio": {
         "nivel": "ALTO",
         "texto": "Razao patronal/pessoal de 12.72% contra ~20.3% da serie 2021-2023 — queda acima da variacao da folha."

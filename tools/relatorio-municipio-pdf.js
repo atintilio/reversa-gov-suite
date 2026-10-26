@@ -59,6 +59,40 @@ function carregar() {
 
 function gerar(d) {
   const { diag, anos, serie, rec, porComp } = d;
+  // --- CAixas complementares: DCA (obrigações patronais), recálculo do ISSQN, piso do PNCP ---
+  const lerJson = (p) => { try { return JSON.parse(fs.readFileSync(p, 'utf8')); } catch (e) { return null; } };
+  const DCA_C = lerJson('/workspace/dca-completa-5anos.json');
+  const ISSQN_RECALC = lerJson('/workspace/acessos/issqn-recalculo.json') || {};
+  const PNCP_PISO = lerJson('/workspace/acessos/pncp-piso-base.json') || {};
+  const numDca = (x) => {
+    const s = String(x == null ? '' : x).trim();
+    if (!s) return 0;
+    return s.includes(',') ? parseFloat(s.replace(/\./g, '').replace(',', '.')) || 0 : parseFloat(s) || 0;
+  };
+  // 3.1.90.13.02 = "Contribuições Previdenciárias - INSS" (rótulo do próprio Tesouro).
+  // Piso legal = 20% da cota patronal (Lei 8.212/1991, art. 22, III, "a") sobre a despesa
+  // de pessoal registrada (3.1.90.11 + 3.1.90.04). RAT e terceiros ficam de fora, de propósito.
+  const patronal = (DCA_C ? ['2021', '2022', '2023', '2024', '2025'] : []).map((ano) => {
+    const linhas = Array.isArray(DCA_C[ano]) ? DCA_C[ano] : [];
+    const acc = { pessoal: 0, clt: 0, patronal: 0, empenhado: 0, rapInscrito: 0 };
+    for (const r of linhas) {
+      const c = String(r.cod_conta || '');
+      const v = numDca(r.valor);
+      if (!v) continue;
+      if (r.coluna === 'Despesas Pagas') {
+        if (c === 'DO3.1.90.11.00.00') acc.pessoal += v;
+        else if (c === 'DO3.1.90.04.00.00') acc.clt += v;
+        else if (c === 'DO3.1.90.13.00.00') acc.patronal += v;
+      } else if (r.coluna === 'Despesas Empenhadas' && c === 'DO3.1.90.13.00.00') acc.empenhado += v;
+      else if (c === 'DO3.1.90.13.00.00' && String(r.coluna).indexOf('Inscritos em 31 de Dezembro') >= 0) acc.rapInscrito += v;
+    }
+    const massa = acc.pessoal + acc.clt;
+    const piso = massa * 0.20;
+    return { ano, massa, ...acc, piso20: piso, diferenca: piso - acc.patronal, razao: acc.patronal / (massa || 1) };
+  });
+  const gap2425 = patronal.filter((x) => x.ano === '2024' || x.ano === '2025');
+  const gap2425Total = gap2425.reduce((s, x) => s + x.diferenca, 0);
+  const gap25 = gap2425.find((x) => x.ano === '2025');
   const municipio = diag.municipio || 'Município';
   const uf = diag.uf || '';
   const tituloDoc = 'Diagnóstico de Oportunidades Tributárias e Previdenciárias';
@@ -256,9 +290,11 @@ function gerar(d) {
   par('A base é a coluna "Despesas Pagas" do Anexo I-D: a retenção de IRRF nasce do pagamento. A coluna "Despesas Empenhadas" — o compromisso — inflaria a base em cerca de 6% e afundaria a taxa observada. Já a taxa observada é calculada sobre o IRRF de serviços, nunca sobre o IRRF total, que inclui a folha.', { s: 8.4, c: C.muted });
   doc.moveDown(0.8);
 
-  subtitulo('ISSQN — o que o dado público sustenta e o que não sustenta');
+  subtitulo('ISSQN — a base recalculada, e o que ela revela');
+  par('A DCA traz o ISSQN arrecadado, não a base de cálculo. A base é reconstruída por dois caminhos independentes: o bracket pelas alíquotas do CTM (art. 266: 2% a 5%) e a prova de composição contra o PNCP.');
+  doc.moveDown(0.4);
   y = doc.y;
-  const ci = ['Ano', 'ISSQN arrecadado', 'Receita de serviços (DCA 1.6)', 'Razão'];
+  const ci = ['Ano', 'ISSQN arrecadado', 'Base implícita (a 5%)', 'Base implícita (a 2%)'];
   const cw4 = [45, 115, 145, 70];
   let cx4 = M;
   doc.font('S').fontSize(7).fillColor(C.muted);
@@ -267,8 +303,8 @@ function gerar(d) {
   for (const l of serie) {
     espaco(20); y = doc.y + 6;
     cx4 = M;
-    const recServ = l.issqn.receitaDeServicos || 0;
-    const vals = [String(l.ano), num(l.issqn.arrecadado), num(recServ), pct(recServ ? l.issqn.arrecadado / recServ : null, 1)];
+    const a = String(l.ano);
+    const vals = [String(l.ano), num(l.issqn.arrecadado), num((ISSQN_RECALC.baseImplicitaMin5pct || {})[a] || 0), num((ISSQN_RECALC.baseImplicitaMax2pct || {})[a] || 0)];
     vals.forEach((v, i) => {
       doc.font(i === 0 ? 'M' : 'R').fontSize(8.4).fillColor(i === 0 ? C.tinta : C.texto)
         .text(v, cx4, y, { width: cw4[i], align: i ? 'right' : 'left', lineBreak: false });
@@ -276,8 +312,33 @@ function gerar(d) {
     });
     doc.y = y + 15; regua(doc.y);
   }
+  doc.moveDown(0.5);
+  par('Prova de composição — o ISSQN vem da economia privada, não do consumo do próprio município:', { s: 8.6, c: C.tinta });
+  y = doc.y;
+  const cpn = ['Ano', 'Piso de serviços contratados (PNCP)', 'Contratos', 'ISSQN arrecadado', 'ISSQN / piso'];
+  const cwp = [40, 150, 65, 100, 70];
+  let cxpP = M;
+  doc.font('S').fontSize(7).fillColor(C.muted);
+  cpn.forEach((c, i) => { doc.text(c.toUpperCase(), cxpP, y, { width: cwp[i], align: i ? 'right' : 'left', characterSpacing: 0.4, lineBreak: false }); cxpP += cwp[i]; });
+  doc.y = y + 13; regua(doc.y, C.tinta, 0.6);
+  for (const ano of ['2024', '2025']) {
+    espaco(20); y = doc.y + 6;
+    cxpP = M;
+    const piso = (PNCP_PISO[ano] && PNCP_PISO[ano].pisoBaseServicos) || 0;
+    const nc = (PNCP_PISO[ano] && PNCP_PISO[ano].contratos && PNCP_PISO[ano].contratos.length) || 0;
+    const iss = (ISSQN_RECALC.issqnDeclarado || {})[ano] || 0;
+    const vals = [ano, num(piso), String(nc), num(iss), pct(piso ? iss / piso : null, 1)];
+    vals.forEach((v, i) => {
+      doc.font(i === 0 ? 'M' : 'R').fontSize(8.4).fillColor(i === 0 ? C.tinta : C.texto)
+        .text(v, cxpP, y, { width: cwp[i], align: i ? 'right' : 'left', lineBreak: false });
+      cxpP += cwp[i];
+    });
+    doc.y = y + 15; regua(doc.y);
+  }
   doc.moveDown(0.6);
-  par('A razão passa de 100% em 2024 e 2025. Isso prova que a base do ISSQN não é a linha "Receita de serviços" da DCA: o imposto incide sobre receita de serviços que não aparece naquela linha. Sem a base de cálculo, não há como calcular a defasagem — e o dado público não a traz. A evidência que falta: a NFS-e emitida no município (valor dos serviços) e o CTM vigente.', { s: 8.4, c: C.texto });
+  par('O município contratou R$ 2.988.820,20 em serviços em 2024 (9 contratos) e R$ 6.003.475,86 em 2025 (31 contratos) — esse é o piso de serviço adquirido pelo próprio ente. O ISSQN arrecadado é 323,3% desse piso em 2024 e 142,3% em 2025: o imposto incide, majoritariamente, sobre serviços prestados por empresas privadas à população (em 2025, no mínimo cerca de 96% da base mínima).', { s: 8.4, c: C.texto });
+  doc.moveDown(0.3);
+  par('Consequência: a base do ISSQN não está no dado público — nem na DCA, nem no PNCP — e a fonte decisiva é a NFS-e emitida. O ISSQN permanece "a dimensionar": o que existe aqui é um bracket sourced (base implícita de R$ 67,8 mi a R$ 483,2 mi por ano) e a composição demonstrada, não uma base apurada. A "Receita de serviços" da DCA (1.6) é a receita do próprio município, não a base do ISSQN: usá-la como denominador produzia razão acima de 100% (135,8% em 2024 e 102,4% em 2025) — artefato de leitura, não anomalia. Ressalvas: a separação do PNCP foi por filtro de texto e capturou itens não tributáveis (locação de cilindros de oxigênio, locação de imóvel — LC 116, item 3.03); e 2021–2023 estão vazios porque a publicação obrigatória começou em abril de 2024 (Lei 14.133/2021) — ausência legítima, não dado faltante. Base legal: CTM de Tupaciguara, art. 77 (base = preço do serviço) e art. 266 (2% a 5%).', { s: 8.4, c: C.texto });
 
   // ------------------------------------------------------------------ 4. diagnóstico previdenciário
   secao('Diagnóstico Previdenciário');
@@ -368,7 +429,7 @@ function gerar(d) {
   doc.font('R').fontSize(8.4).fillColor(C.texto).text(`piso: 7,5% da base + IRRF da verba (faixa provada)   ·   teto: 14% + IRRF   ·   ${prev.total.abaixoPiso} grupos de servidor-mês abaixo do piso`, M + 16, y + 51, { lineBreak: false });
   doc.y = y + 78;
   doc.moveDown(0.4);
-  par(`O caso mais grave é o desligamento: ${prev.verbas.find((v) => v.rotina === 'DES').abaixoPiso} de ${prev.verbas.find((v) => v.rotina === 'DES').grupos} desligamentos abaixo do piso, com taxa efetiva de desconto de ${pct(prev.verbas.find((v) => v.rotina === 'DES').taxaDesconto, 2)} contra ${pct(prev.verbas.find((v) => v.rotina === 'FOL').taxaDesconto, 2)} da folha mensal. São ${prev.total.descontoZerado} grupos sem nenhum desconto. Impacto: o RPPS não recebeu a contribuição e o servidor não tem o tempo de contribuição. A confirmação item a item exige o eSocial (S-1200/S-1300).`, { s: 8.4, c: C.texto });
+  par(`O caso mais grave é o desligamento: ${prev.verbas.find((v) => v.rotina === 'DES').abaixoPiso} de ${prev.verbas.find((v) => v.rotina === 'DES').grupos} desligamentos abaixo do piso, com taxa efetiva de desconto de ${pct(prev.verbas.find((v) => v.rotina === 'DES').taxaDesconto, 2)} contra ${pct(prev.verbas.find((v) => v.rotina === 'FOL').taxaDesconto, 2)} da folha mensal. São ${prev.total.descontoZerado} grupos sem nenhum desconto. Impacto: o RGPS/INSS não recebeu a contribuição e o servidor não tem o tempo de contribuição. O regime de Tupaciguara é o RGPS, não RPPS próprio — a DCA registra a despesa patronal sob o rótulo "Contribuições Previdenciárias - INSS" (3.1.90.13.02) e o CadPrev confirma o enquadramento em RGPS; por isso a ausência de demonstrativos próprios de RPPS é inaplicabilidade, não dado faltante. A confirmação item a item exige o eSocial (S-1200/S-1300).`, { s: 8.4, c: C.texto });
   doc.moveDown(0.8);
 
   subtitulo('IRRF sobre a folha — o retido está coerente com a base legal');
@@ -402,6 +463,34 @@ function gerar(d) {
   doc.y = y + 16; regua(doc.y, C.tinta, 0.6);
   doc.moveDown(0.6);
   par('O IRRF declarado fica acima do cenário do desconto simplificado e abaixo dos demais descontos da folha (INSS, IR e consignações). Essa é a ordem que a lei espera: a base real do IRRF é o bruto menos as deduções legais (INSS e dependentes), maiores que o desconto simplificado. Não há indício de retenção a menor do que a devida — o que ainda precisa de prova é o contrário: a conferência rubrica a rubrica, que o eSocial entrega.', { s: 8.4, c: C.texto });
+  doc.moveDown(1);
+
+  subtitulo('Obrigações patronais — INSS/RGPS: o passivo de 2024–2025');
+  par('Método: a DCA do município registra a despesa patronal em 3.1.90.13.02, com o rótulo do próprio Tesouro — "Contribuições Previdenciárias - INSS". O piso legal adotado é a cota patronal de 20% (Lei 8.212/1991, art. 22, III, "a") sobre a despesa de pessoal registrada (3.1.90.11 vencimentos + 3.1.90.04 contratação por tempo determinado). RAT e terceiros (0,3% a 4,8%) ficam de fora, de propósito: o piso é o mais conservador possível.');
+  doc.moveDown(0.4);
+  y = doc.y;
+  const cpPat = ['Ano', 'Despesa de pessoal (DCA)', 'Patronal pago (DCA)', 'Razão', 'Piso legal 20%', 'Diferença'];
+  const cwpPat = [38, 112, 100, 52, 100, 83];
+  let cxpPat = M;
+  doc.font('S').fontSize(7).fillColor(C.muted);
+  cpPat.forEach((c, i) => { doc.text(c.toUpperCase(), cxpPat, y, { width: cwpPat[i], align: i ? 'right' : 'left', characterSpacing: 0.4, lineBreak: false }); cxpPat += cwpPat[i]; });
+  doc.y = y + 13; regua(doc.y, C.tinta, 0.6);
+  for (const x of patronal) {
+    espaco(20); y = doc.y + 6;
+    cxpPat = M;
+    const vals = [x.ano, num(x.massa), num(x.patronal), pct(x.razao, 2), num(x.piso20), (x.diferenca > 0 ? '− ' : '+ ') + num(Math.abs(x.diferenca))];
+    vals.forEach((v, i) => {
+      const forte = i === 5 && x.diferenca > 0;
+      doc.font(forte ? 'M' : (i === 0 ? 'M' : 'R')).fontSize(8.4).fillColor(forte ? C.tinta : (i === 0 ? C.tinta : C.texto))
+        .text(v, cxpPat, y, { width: cwpPat[i], align: i ? 'right' : 'left', lineBreak: false });
+      cxpPat += cwpPat[i];
+    });
+    doc.y = y + 15; regua(doc.y);
+  }
+  doc.moveDown(0.5);
+  par('A leitura, em quatro passos. (1) O método se valida no próprio dado do município: em 2021–2023 a despesa patronal fica entre 19,05% e 23,71% da despesa de pessoal — em torno do piso de 20% que o método aplica, com desvios de −4,78%, −1,42% e +10,67%. O mesmo método não acusaria nada onde não há o que acusar. (2) 2024 e 2025 quebram a série — 9,88% e 12,72% — enquanto a despesa de pessoal cresce de R$ 56,99 mi (2023) para R$ 65,03 mi (2024) e R$ 71,22 mi (2025): a diferença para o piso legal é de R$ 6.579.673,01 (−50,59%) e R$ 5.184.863,97 (−36,41%). (3) Não é atraso de pagamento: o empenhado também cai (R$ 6.930.863,03 em 2024) e os restos a pagar são pequenos e integralmente pagos no ano seguinte (inscrição de R$ 87.346,63 no fim de 2025). O que falta é o recolhimento, não o registro contábil. (4) O passivo de 2024–2025 soma R$ 11.764.536,98 no piso de 20%.', { s: 8.4, c: C.texto });
+  doc.moveDown(0.3);
+  par('Natureza: é passivo do município com o regime (INSS) — contribuição patronal devida e não recolhida. Cresce a exposição; não é receita do município nem crédito a receber pelo ente. Para o servidor, o efeito é a perda do tempo de contribuição. Não soma com a faixa de contribuição retida e não repassada (R$ 388.457,61 a R$ 501.068,68): naturezas, beneficiários e provas diferentes, e somá-los criaria um número artificial. E não é crédito reconhecido (CPC 25): é cálculo do diagnóstico sobre dado público. O gap de 2025 sozinho, no piso conservador de 20%, é R$ 5.184.863,97 — a mesma ordem de grandeza da expectativa de R$ 5 milhões, agora com método, fonte e base legal. Para converter estimativa em apuração: eSocial (S-1200/S-1300), DCTFWeb/DARF do INSS e o CRP no CadPrev.', { s: 8.4, c: C.texto });
 
   // ------------------------------------------------------------------ 5. diagnóstico consolidado
   secao('Diagnóstico Consolidado');
@@ -444,7 +533,8 @@ function gerar(d) {
   const passos = [
     'Receber a EFD-Reinf (ou a planilha de pagamentos) do município, com retenção por serviço, base declarada e alíquota — é o que transforma o teto em valor apurado.',
     'Obter o eSocial da folha (S-1000, S-1005, S-1010, S-1200 e S-1300) para conferir rubrica e base competência a competência, incluindo o 13º como apuração própria, e fechar o sinal do desconto menor no 13º.',
-    'Coletar as NFS-e emitidas no município (valor dos serviços) e o CTM vigente (Tabela I de alíquotas) para reconstruir a base do ISSQN — hoje ela não existe no dado público.',
+    'Coletar as NFS-e emitidas no município (valor dos serviços) e o CTM vigente (Tabela I de alíquotas) para reconstruir a base do ISSQN — ela não existe no dado público; o bracket e a composição contra o PNCP já estão no relatório.',
+    'Obter o DCTFWeb/DARF do INSS e o CRP no CadPrev para converter o passivo patronal de 2024–2025 (R$ 11.764.536,98 no piso legal de 20%) em apuração: o que foi efetivamente recolhido e a posição do regime sobre o ente.',
     'Conferir a ECD e o DARF do período para fechar a conciliação entre o retido e o declarado ao seu mecanismo de compensação.',
     'Apuração definitiva item a item pelo motor Reversa, com memória de cálculo rastreável até o arquivo de origem e atualização pela Selic.',
     'Definição da via de recuperação de cada oportunidade (retificação, PER/DCOMP ou medida judicial), cronograma de compensações e acompanhamento com relatórios periódicos.'
@@ -515,7 +605,8 @@ function gerar(d) {
     ['Fator legal', '1,5% — Lei 9.249/1995, art. 30, II, "a"; IN RFB 1.234/2012, art. 30, I. Itens específicos têm alíquota maior (3% no transporte, 4,5% em medicina, engenharia e advocacia, 6% em consultoria e assessment), e há isenções.'],
     ['Por que é teto', 'A base da DCA não separa os itens por alíquota e não exclui os isentos. O valor apurado será igual ou menor que o teto. Por isso o número aparece como teto, e não como crédito.'],
     ['Por que a coluna "Pagas"', 'A retenção de IRRF nasce do pagamento. A coluna "Despesas Empenhadas" (o compromisso) é maior em cerca de 6% e afundaria a taxa observada — o número de uma edição anterior deste relatório.'],
-    ['ISSQN', 'A DCA traz o imposto arrecadado, não a base de cálculo. A "Receita de serviços" da DCA não é a base (a razão passa de 100% em 2024 e 2025), então a defasagem de ISSQN não é calculável com dado público. Base legal para a apuração: CTM de Tupaciguara, art. 77 (base = preço do serviço) e art. 266 (alíquota mínima 2%, máxima 5%).']
+    ['ISSQN', 'A DCA traz o imposto arrecadado, não a base de cálculo. A base foi reconstruída por bracket (alíquotas do CTM: 2% a 5%) e a composição foi provada contra o PNCP: o ISSQN arrecadado é 323,3% (2024) e 142,3% (2025) de tudo o que o município contratou de terceiros — ou seja, no mínimo cerca de 96% da base mínima vem da economia privada. A defasagem não é calculável com dado público; a fonte decisiva é a NFS-e emitida. Base legal: CTM de Tupaciguara, art. 77 (base = preço do serviço) e art. 266 (alíquota mínima 2%, máxima 5%).'],
+    ['Patronal (INSS/RGPS)', 'O passivo patronal de 2024–2025 é calculado sobre a despesa de pessoal registrada na DCA (3.1.90.11 + 3.1.90.04), com piso legal de 20% (Lei 8.212/1991, art. 22, III, "a"). O denominador é um proxy da base legal — o eSocial entrega a base real. A linha da DCA é registro contábil de despesa, não prova de recolhimento: a confirmação vem do DARF/DCTFWeb e do CRP no CadPrev. RAT e terceiros (0,3% a 4,8%) ficaram fora do piso, para mantê-lo conservador.']
   ];
   memo.forEach(([r2, txt]) => { campo(r2, txt); doc.y += 3; });
 
@@ -536,6 +627,10 @@ function gerar(d) {
     ['Coluna errada na base do IRRF', 'A extração da DCA pegava o maior valor entre as colunas da mesma conta — para despesa, isso é "Despesas Empenhadas". A base correta do IRRF retido é "Despesas Pagas". A taxa observada de 2021 a 2025 foi recalculada: 1,0614% · 0,3293% · 1,1914% · 1,4786% · 1,0353%.'],
     ['Fato duplicado na reingestão', 'Consultar o mesmo ano do Siconfi duas vezes duplicava lançamentos e declarações no banco. A ingestão agora apaga o fato do mesmo ano e da mesma fonte antes de gravar o novo.'],
     ['ISSQN de 2021 zerado por código', 'O Treasury mudou o código da conta do ISSQN em 2021 (RO1.1.1.8.02.3.0 → RO1.1.1.4.51.1.0). Buscar só pelo código novo transformava R$ 3.389.396,01 de imposto declarado em zero. A busca passou a casar por rótulo.'],
+    ['ISSQN: "Receita de serviços" lida como base', 'A linha 1.6 da DCA é a receita do próprio município, não a base do ISSQN. A razão passou de 100% (135,8% em 2024, 102,4% em 2025) — era artefato de leitura, não anomalia. A base foi reconstruída por bracket pelas alíquotas do CTM e a composição foi provada contra o PNCP.'],
+    ['2023 lido como obrigações patronais zeradas', 'O valor de 2023 (R$ 12.614.057,99) migrou da conta 3.1.90.13.02 para 3.1.90.13.99 ("Outras Obrigações Patronais"). É reclassificação contábil, não ausência de pagamento — a leitura anterior tratava o exercício como zerado, e estava errado.'],
+    ['Regime do município: RGPS, não RPPS', 'A DCA registra a despesa patronal sob o rótulo "Contribuições Previdenciárias - INSS" (3.1.90.13.02) e o CadPrev registra Tupaciguara em regime RGPS. A ausência de demonstrativos próprios de RPPS é inaplicabilidade, não dado faltante — e a matéria é de INSS/RGPS, não de RPPS.'],
+    ['Unidade e casa decimal do DCA', 'Os valores do Siconfi vêm com ponto decimal (ex.: 8544435.46). O parser antigo trocava o ponto por vazio e inflava os números. Corrigido, com teste de regressão sobre o ISSQN de 2025.'],
     ['Unidade da série do Siconfi', 'A série do Siconfi vem em reais e o restante do diagnóstico em centavos. A conversão passou a ficar só na borda, com o nome do campo dizendo a unidade.'],
     ['Folha sem rubricas', 'A folha publicada traz o agregado (bruto, base, desconto), sem a rubrica por evento. Por isso o desconto do 13º mais baixo que o da folha é sinal de triagem, e não dívida apurada.'],
     ['Valor não reconhecido', 'Nenhum valor deste relatório é lançamento contábil. O total recuperável é teto de cálculo, não crédito.']

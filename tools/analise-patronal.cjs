@@ -118,6 +118,12 @@ for (const ano of ANOS) {
     },
     razaoPatronalSobrePessoal: pct(razao),
     patronalSobreBaseDaFolha: pct(d.patronal ? d.patronal / (f.base || 1) : 0),
+    // Piso legal: 20% da cota patronal (Lei 8.212/1991, art. 22, III, "a"). RAT e
+    // terceiros ficam de fora, de propósito: o piso é o mais conservador possível.
+    pisoLegal20pct: round(denomPessoal * 0.20),
+    diferencaParaPiso20pct: round(denomPessoal * 0.20 - (d.patronal || 0)),
+    diferencaParaPiso20pctPct: pct(denomPessoal ? 1 - (d.patronal || 0) / (denomPessoal * 0.20) : 0),
+    bandaPisoRATETerceiros: { minimo: round(denomPessoal * 0.233), maximo: round(denomPessoal * 0.278) },
     indicio: indicio(ano, razao, d),
   });
 }
