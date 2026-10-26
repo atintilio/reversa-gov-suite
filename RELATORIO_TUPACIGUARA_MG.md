@@ -10,10 +10,11 @@
 
 - **IRRF retido em 5 anos:** R$ 18.570.688,41 — dos quais sobre serviços: R$ 1.308.479,89
 - **ISSQN arrecadado em 5 anos:** R$ 31.927.162,66
-- **Taxa observada do IRRF sobre compras de serviços (5 anos):** 0.9892% — **piso de triagem**, não conclusão
+- **Taxa observada do IRRF sobre compras de serviços (5 anos):** 1.0159% — **piso de triagem**, não conclusão
 - **Folha de pagamento (5 anos):** 60 competências nominais + 5 lançamentos de 13º = **65 competências de apuração**
 - **Massa salarial bruta:** R$ 139.948.795,78 | salário-base R$ 72.894.936,81 | descontos R$ 43.083.869,83 (30.79% do bruto)
-- **Crédito recuperável apurado:** R$ 0,00 — os 2 candidatos estão em `NEEDS_EVIDENCE` (falta prova de destino e alíquota)
+- **Total recuperável preliminar (teto):** R$ 623.532,29 — IRRF sobre serviços a 1,5% sobre a base "Despesas Pagas" da DCA; **teto, não crédito reconhecido**
+- **Crédito recuperável apurado:** R$ 0,00 — 0 candidatos (nenhum documento de retenção foi fornecido)
 
 > **O que este relatório é:** radar e contexto a partir de fonte pública, mais a conferência de
 > coerência com o que o motor apura. **O que não é:** reconhecimento de crédito. Nenhum valor
@@ -26,12 +27,12 @@
 
 | Ano | IRRF retido (total) | IRRF sobre serviços ("outros") | IRRF da folha | Compra de serviços PJ | Taxa observada |
 |---:|---:|---:|---:|---:|---:|
-| 2021 | R$ 2.322.986,06 | R$ 175.920,61 | R$ 2.147.065,45 | R$ 17.475.884,77 | 1.0066% |
-| 2022 | R$ 2.907.335,09 | R$ 90.154,82 | R$ 2.817.180,27 | R$ 27.044.444,71 | 0.3334% |
-| 2023 | R$ 3.287.206,09 | R$ 308.017,50 | R$ 2.979.188,59 | R$ 27.410.156,98 | 1.1237% |
-| 2024 | R$ 4.805.550,15 | R$ 412.219,42 | R$ 4.393.330,73 | R$ 28.860.456,00 | 1.4283% |
-| 2025 | R$ 5.247.611,02 | R$ 322.167,54 | R$ 4.925.443,48 | R$ 31.479.383,52 | 1.0234% |
-| **5 anos** | **R$ 18.570.688,41** | **R$ 1.308.479,89** | **R$ 17.262.208,52** | **R$ 132.270.325,98** | **0.9892%** |
+| 2021 | R$ 2.322.986,06 | R$ 175.920,61 | R$ 2.147.065,45 | R$ 16.215.301,85 | 1.0614% |
+| 2022 | R$ 2.907.335,09 | R$ 90.154,82 | R$ 2.817.180,27 | R$ 26.161.975,69 | 0.3293% |
+| 2023 | R$ 3.287.206,09 | R$ 308.017,50 | R$ 2.979.188,59 | R$ 24.337.802,47 | 1.1914% |
+| 2024 | R$ 4.805.550,15 | R$ 412.219,42 | R$ 4.393.330,73 | R$ 26.556.542,66 | 1.4786% |
+| 2025 | R$ 5.247.611,02 | R$ 322.167,54 | R$ 4.925.443,48 | R$ 29.568.853,94 | 1.0353% |
+| **5 anos** | **R$ 18.570.688,41** | **R$ 1.308.479,89** | **R$ 17.262.208,52** | **R$ 128.800.811,72** | **1.0159%** |
 
 **Como ler a taxa observada:**
 
@@ -46,12 +47,12 @@
 
 | Ano | ISSQN arrecadado | Compra de serviços PJ | ISSQN / compra |
 |---:|---:|---:|---:|
-| 2021 | R$ 3.389.396,01 | R$ 17.475.884,77 | 19.39% |
-| 2022 | R$ 4.279.652,39 | R$ 27.044.444,71 | 15.82% |
-| 2023 | R$ 6.049.598,93 | R$ 27.410.156,98 | 22.07% |
-| 2024 | R$ 9.664.079,87 | R$ 28.860.456,00 | 33.49% |
-| 2025 | R$ 8.544.435,46 | R$ 31.479.383,52 | 27.14% |
-| **5 anos** | **R$ 31.927.162,66** | **R$ 132.270.325,98** | **24.14%** |
+| 2021 | R$ 3.389.396,01 | R$ 16.215.301,85 | 20.90% |
+| 2022 | R$ 4.279.652,39 | R$ 26.161.975,69 | 16.36% |
+| 2023 | R$ 6.049.598,93 | R$ 24.337.802,47 | 24.86% |
+| 2024 | R$ 9.664.079,87 | R$ 26.556.542,66 | 36.39% |
+| 2025 | R$ 8.544.435,46 | R$ 29.568.853,94 | 28.90% |
+| **5 anos** | **R$ 31.927.162,66** | **R$ 128.800.811,72** | **24.79%** |
 
 **Ressalvas do ISSQN:**
 
@@ -165,13 +166,9 @@ A folha publicada traz **60 competências mensais** (202101 a 202512) e, dentro 
 
 | Fornecedor | CNPJ | Competência | Status | Base | Retido | Confiança |
 |---|---|---|---|---:|---:|---|
-| Servicos Alfa Ltda | 11222333000181 | 2026-05 | `NEEDS_EVIDENCE` | R$ 10.000.000,00 | R$ 150.000,00 | LOW |
-| Consultoria Gama SA | 99887766000155 | 2026-05 | `NEEDS_EVIDENCE` | R$ 2.000.000,00 | R$ 0,00 | LOW |
 
-- **Servicos Alfa Ltda:** Destino do valor não comprovado. Bloquear validação de crédito.
-- **Consultoria Gama SA:** Não houve retenção na fonte. Sem retenção comprovada não há crédito municipal com base no Tema 1.130 (Parecer SEI 480/2025/MF). Sem aliquota no documento: o ganho futuro nao foi estimado. A aliquota aplicavel precisa vir do documento (coluna ALIQUOTA ou taxa implicita) ou do decreto municipal.
 
-**Crédito recuperável apurado: R$ 0,00.** Os dois registros vêm de uma planilha de retenção de maio/2026 sem alíquota e sem destino declarado — sem prova de destino (Tema 1.130; Parecer SEI 480/2025/MF) e sem alíquota, **não há crédito a reconhecer**. Isso é o produto funcionando como deve: **radar, não conclusão**.
+**Crédito recuperável apurado: R$ 0,00.** Nenhum documento de retenção (EFD-Reinf, planilha ou relatório de pagamentos) foi fornecido para este município — o motor trabalha por pagamento, então não há o que apurar ainda. Os documentos no processo são as DCAs do Siconfi, que servem de contextualização, não de prova de retenção. Isso é o produto funcionando como deve: **radar, não conclusão**.
 
 ---
 
@@ -201,7 +198,7 @@ A folha publicada traz **60 competências mensais** (202101 a 202512) e, dentro 
 |---|---|---|---|
 | Siconfi DCA | `https://apidatalake.tesouro.gov.br/ords/cdwhprd/siconfi/tt/dca?id_ente=3169604&an_exercicio={ano}` | 2026-10-26 | f53df344be054ce4 |
 | Portal da Transparência (folha) | `https://transparencia.tupaciguara.mg.gov.br/publico/servidor?…&datAberturaInicio=2021-01-01&datAberturaFim=2025-12-31&codAdministracao=1` | 2026-10-26 | 36329efdd120af54 |
-| Diagnóstico (motor) | Reversa Gov → Reversa Tax (revisão previdenciária) | 2026-10-26 | ed37c6676f654bcd |
+| Diagnóstico (motor) | Reversa Gov → Reversa Tax (revisão previdenciária) | 2026-10-26 | 558e0656b3154d8c |
 
 - A folha pública é **dado pessoal no origem**: o que entra no Reversa é o **agregado por competência**. Nenhum nome, matrícula ou CPF é transportado.
 - A DCA é **anual**: a série do Siconfi tem 1 ponto por ano de exercício, não 12 competências.
