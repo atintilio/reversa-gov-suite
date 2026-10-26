@@ -146,15 +146,15 @@
  ],
  "total": {
   "lancamentos": 2918,
+  "grupos": 31429,
+  "bruto": 139695289.5299978,
+  "desconto": 42990448.269999675,
   "abaixoPiso": 623,
   "descontoZerado": 131,
   "base": 6340768.229999989,
-  "desconto": 42990448.269999675,
   "brutoSemDesconto": 775353.4499999997,
   "faltaPiso": 388803.6709999998,
-  "faltaTeto": 501068.67515,
-  "grupos": 31429,
-  "bruto": 139695289.5299978
+  "faltaTeto": 501068.67515
  },
  "irrf": [
   {

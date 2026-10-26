@@ -193,15 +193,6 @@ console.log('  a contribuicao previdenciaria do 13o e recolhida no final — por
 console.log('  baixo no A13 NAO e, por si, indicio de desvio. O que a EFD/eSocial confirma e se o');
 console.log('  pagamento final (P13) cobrou tudo.');
 
-if (arqCsv) {
-  const linhas = [['ano', 'bruto_folha', 'irrf_minimo_folha', 'irrf_minimo_13o', 'irrf_minimo_total', 'irrf_declarado_dca', 'diferenca', 'desconto_observado', 'base_salarial'],
-    ...anos.map((a) => {
-      const minimo = a.irrfMinimo + a.irrf13; const d = decl(a.ano);
-      return [a.ano, a.bruto.toFixed(2), a.irrfMinimo.toFixed(2), a.irrf13.toFixed(2), minimo.toFixed(2), d == null ? '' : d.toFixed(2), d == null ? '' : (d - minimo).toFixed(2), a.desconto.toFixed(2), a.base.toFixed(2)];
-    })];
-  fs.writeFileSync(arqCsv, linhas.map((l) => l.join(';')).join('\n'));
-  console.log(`\n  memoria gravada: ${arqCsv}`);
-}
 // --- resultado estruturado (consumido pelo relatorio)
 const porAno13 = anos.map((a) => {
   const l13 = folha.filter((r) => Math.floor(Number(r.mesReferencia) / 100) === a.ano && ['P13', 'A13'].includes(String(r.indRotina).toUpperCase()));
@@ -269,7 +260,13 @@ for (const [rot, nome] of Object.entries(ROTINAS)) {
 const resultado = {
   verbas,
   porAno: porAno13,
-  total: { lancamentos: n13, abaixoPiso: n13Abaixo, descontoZerado: n13Zero, base: base13, desconto: desconto13, brutoSemDesconto: bruto13Zero, faltaPiso: faltando13, faltaTeto: faltando13Teto },
+  total: {
+    lancamentos: n13, grupos: verbas.reduce((s2, v) => s2 + v.grupos, 0),
+    bruto: verbas.reduce((s2, v) => s2 + v.bruto, 0), desconto: verbas.reduce((s2, v) => s2 + v.desconto, 0),
+    abaixoPiso: verbas.reduce((s2, v) => s2 + v.abaixoPiso, 0), descontoZerado: verbas.reduce((s2, v) => s2 + v.descontoZerado, 0),
+    base: base13, brutoSemDesconto: bruto13Zero,
+    faltaPiso: verbas.reduce((s2, v) => s2 + v.faltaPiso, 0), faltaTeto: verbas.reduce((s2, v) => s2 + v.faltaTeto, 0),
+  },
   irrf: irrfPorAno,
   totais: { cenario: minimoTotal, declarado: declTotal, outros: tot.desconto - declTotal, bruto: tot.bruto, desconto: tot.desconto },
 };
@@ -279,5 +276,24 @@ console.log('\n\n  === 4) VERBAS PREVIDENCIARIAS (todas as rotinas da folha) ===
 console.log('  rotina | lanc. | bruto | desconto | taxa | abaixo do piso | zerados | falta (piso)');
 for (const v of verbas) {
   console.log(`  ${v.rotina.padEnd(4)} | ${String(v.lancamentos).padStart(5)} | ${num(v.bruto).padStart(14)} | ${num(v.desconto).padStart(13)} | ${pct(v.taxaDesconto, 2).padStart(7)} | ${String(v.abaixoPiso).padStart(5)} | ${String(v.descontoZerado).padStart(5)} | ${num(v.faltaPiso).padStart(12)}`);
+}
+if (arqCsv) {
+  const linhas = [['# IRRF SOBRE A FOLHA (metodo: base = bruto - desconto simplificado mensal; agregado por servidor-mes; 13o tributado em separado)'],
+    ['ano', 'bruto_folha', 'irrf_minimo_folha', 'irrf_minimo_13o', 'irrf_minimo_total', 'irrf_declarado_dca', 'diferenca', 'desconto_observado', 'base_salarial'],
+    ...anos.map((a) => {
+      const minimo = a.irrfMinimo + a.irrf13; const d = decl(a.ano);
+      return [a.ano, a.bruto.toFixed(2), a.irrfMinimo.toFixed(2), a.irrf13.toFixed(2), minimo.toFixed(2), d == null ? '' : d.toFixed(2), d == null ? '' : (d - minimo).toFixed(2), a.desconto.toFixed(2), a.base.toFixed(2)];
+    })];
+  // verbas: o teste de piso, por rotina
+  linhas.push([]);
+  linhas.push(['# VERBAS PREVIDENCIARIAS (piso = 7,5% da base + IRRF da verba; teste por servidor-mes; 13o por pacote)']);
+  linhas.push(['rotina', 'nome', 'grupos', 'lancamentos', 'bruto', 'base', 'desconto', 'taxa_desconto', 'abaixo_do_piso', 'desconto_zerado', 'irrf_por_lei', 'inss_piso', 'falta_piso', 'falta_teto']);
+  for (const v of verbas) linhas.push([v.rotina, v.nome, v.grupos, v.lancamentos, v.bruto.toFixed(2), v.base.toFixed(2), v.desconto.toFixed(2), (v.taxaDesconto * 100).toFixed(4), v.abaixoPiso, v.descontoZerado, v.irrfPorLei.toFixed(2), v.inssPiso.toFixed(2), v.faltaPiso.toFixed(2), v.faltaTeto.toFixed(2)]);
+  linhas.push([]);
+  linhas.push(['# TOTAL DAS VERBAS']);
+  linhas.push(['grupos', 'bruto', 'desconto', 'abaixo_do_piso', 'desconto_zerado', 'falta_piso', 'falta_teto']);
+  linhas.push([resultado.total.grupos, resultado.total.bruto.toFixed(2), resultado.total.desconto.toFixed(2), resultado.total.abaixoPiso, resultado.total.descontoZerado, resultado.total.faltaPiso.toFixed(2), resultado.total.faltaTeto.toFixed(2)]);
+  fs.writeFileSync(arqCsv, linhas.map((l) => l.join(';')).join('\n'));
+  console.log(`\n  memoria gravada: ${arqCsv}`);
 }
 console.log('\n  resultado estruturado gravado: tools/calcular-previdenciario-resultado.json');
