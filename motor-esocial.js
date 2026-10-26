@@ -259,6 +259,19 @@
   }
   function cincoAnos(hoje) { var d = new Date(hoje || Date.now()); return (d.getFullYear() - 5) + '-' + String(d.getMonth() + 1).padStart(2, '0'); }
 
+  /**
+   * Competencia de apuracao: o 13o (apuracao anual, indApuracao=2) e competencia
+   * PROPRIA, nao o mesmo lancamento de dezembro. A folha de 5 anos tem 60
+   * competencias nominais + 5 de 13o = 65.
+   */
+  function compDeApuracao(per, ind) {
+    if (/^\d{4}$/.test(String(per))) return per + '-12/13';
+    return per;
+  }
+
+  /** O mes puro da competencia: regime, vigencia de tabela, salario minimo e FAP sao por MES. */
+  function compMes(comp) { return String(comp).slice(0, 7); }
+
   function salarioMinimo(comp) { return SALARIO_MINIMO[comp]; }
 
   /** Histórico de regime do S-1000: [{ini, fim, classTrib, descricao, cprb}] ordenado; fim derivado da próxima vigência. */
@@ -334,7 +347,7 @@
         } else if (ev.tipo === 'S-1200') {
           var ie2 = filho(n, 'ideEvento'), it = filho(n, 'ideTrabalhador');
           var per = txt(ie2, 'perApur'), ind = txt(ie2, 'indApuracao') || '1';
-          var comp = /^\d{4}$/.test(per) ? per + '-12' : per;
+          var comp = compDeApuracao(per, ind);
           cands.push({ tipo: 'S-1200', chave: txt(it, 'cpfTrab') + '|' + per + '|' + ind, cpf: txt(it, 'cpfTrab'), comp: comp, anual: /^\d{4}$/.test(per), retif: txt(ie2, 'indRetif') === '2', no: n, arquivo: l.arquivo, recibo: reciboDe(n) });
         } else if (ev.tipo === 'S-2299') {
           // leiaute a validar com XML real (Sodimac): cpf em ideVinculo; competência = perApur se existir, senão mês de dtDeslig
@@ -363,7 +376,7 @@
     var historico = montaHistorico(regs);
     var regimeNaoIdent = false, excluidas = {}, cprbComps = {}, classExcl = {};
     function regime(comp) {
-      var h = regimeEm(historico, comp);
+      var h = regimeEm(historico, compMes(comp));
       if (!h) { regimeNaoIdent = true; return { ok: true, cprb: false, classTrib: '' }; }
       return { ok: h.classTrib === CLASSTRIB_ESCOPO, cprb: h.cprb, classTrib: h.classTrib };
     }
@@ -393,11 +406,11 @@
         var reg = regime(comp);
         if (!reg.ok) { excluidas[comp] = 1; classExcl[reg.classTrib] = 1; if (!forcar) return; }
         if (reg.cprb) cprbComps[comp] = 1;
-        var nrInsc = txt(el, 'nrInsc'), est = estabs[nrInsc] ? vigente(estabs[nrInsc], comp) : null;
+        var nrInsc = txt(el, 'nrInsc'), est = estabs[nrInsc] ? vigente(estabs[nrInsc], compMes(comp)) : null;
         var ratAj = est ? est.rat / 100 * est.fap : null;
         if (e.tipo === 'S-1200') { // empregados por estabelecimento e por lotação (T061)
-          (headEst[nrInsc] = headEst[nrInsc] || {})[e.cpf + '|' + comp] = 1;
-          var kl = nrInsc + '|' + txt(el, 'codLotacao'); (headLot[kl] = headLot[kl] || {})[e.cpf + '|' + comp] = 1;
+          (headEst[nrInsc] = headEst[nrInsc] || {})[e.cpf + '|' + compMes(comp)] = 1;
+          var kl = nrInsc + '|' + txt(el, 'codLotacao'); (headLot[kl] = headLot[kl] || {})[e.cpf + '|' + compMes(comp)] = 1;
         }
         var av = { aviso: 0, real: 0, d13: 0 };
         var itens = []; TAGS_ITENS.forEach(function (tg) { todos(el, tg).forEach(function (x) { itens.push(x); }); });
@@ -405,7 +418,7 @@
           var cod = txt(ir, 'codRubr'), tab = txt(ir, 'ideTabRubr'), vr = num(txt(ir, 'vrRubr'));
           var lista = rubricas[tab + '|' + cod];
           if (!lista) { semCadastro[tab + '|' + cod] = (semCadastro[tab + '|' + cod] || 0) + vr; return; }
-          var r = vigente(lista, comp);
+          var r = vigente(lista, compMes(comp));
           rubricasUsadas[tab + '|' + cod] = r;
           var rc = classificarRub(r, e.tipo === 'S-2299', mapaNat); // natRubr tem prioridade sobre a descrição
           if (rc && rc.origem === 'natRubr') natUsada = true;
@@ -426,7 +439,7 @@
             if (vr > 0) { var kn = r.dsc + ' (tipo ' + (r.tpRubr || '?') + ', incidência ' + (r.codIncCP || 'não informada') + ')'; semIncidencia[kn] = (semIncidencia[kn] || 0) + vr; }
             return;
           }
-          if (exc && comp >= exc.ini && comp <= exc.fim) baseTrab[e.cpf + '|' + comp] = (baseTrab[e.cpf + '|' + comp] || 0) + vr; // base do trabalhador (todos os estabelecimentos)
+          if (exc && compMes(comp) >= exc.ini && compMes(comp) <= exc.fim) baseTrab[e.cpf + '|' + comp] = (baseTrab[e.cpf + '|' + comp] || 0) + vr; // base do trabalhador (todos os estabelecimentos)
           var c = rc;
           var aliq = (reg.cprb ? 0 : CPP) + (ratAj || 0) + terceiros; // CPRB: retira os 20% de CPP
           var natC = mapaNat[r.natRubr];
@@ -469,7 +482,7 @@
     Object.keys(inssRet).forEach(function (k) {
       var comp = k.split('|')[1];
       if (inssDecimo[k]) { n13++; return; }
-      var tab = tabelaInss(comp); if (!tab) { semTabela[comp] = 1; return; }
+      var tab = tabelaInss(compMes(comp)); if (!tab) { semTabela[comp] = 1; return; }
       var base = inssBase[k] || 0; if (base <= 0) { nSemBase++; return; }
       if (tab.conferir) conferirTab[comp.slice(0, 4)] = 1;
       var retido = Math.round(inssRet[k] * 100) / 100, devido = contribInss(base, tab), exc2 = Math.round((retido - devido) * 100) / 100;
@@ -493,14 +506,14 @@
     Object.keys(ratInfo).sort().forEach(function (k) {
       var ri = ratInfo[k], est = ri.est, nr = ri.nrInsc, fap = est.fap, rat = est.rat;
       if (!(rat > 0)) { semRat[nr] = 1; return; }
-      var pub = fapDe(opts.fapPublicado, nr, ri.comp);
+      var pub = fapDe(opts.fapPublicado, nr, compMes(ri.comp));
       if (pub != null && fap > pub) acumula('T009', pseudo(nr, 'FAP aplicado ' + fap + ' × FAP revisado ' + pub + ' (RAT ' + rat + '%)'), ri.base, rat / 100 * (fap - pub), ri.comp, 'FAP aplicado ' + fap + ' acima do FAP revisado ' + pub);
       var ck = nr + '|' + est.cnae; if (!(ck in grauCache)) grauCache[ck] = grauCnae(est.cnae, opts.cnaeRisco); var gr = grauCache[ck];
       if (!gr) { semGrau[nr + ' (CNAE ' + (est.cnae || 'não informado') + ')'] = 1; return; }
       if (gr.fonte === 'tabela-parcial') parcial = true;
       if (rat < gr.grau) { subRat[nr + ' (CNAE ' + est.cnae + ': grau ' + gr.grau + ', declarado ' + rat + ')'] = 1; return; }
       if (rat === gr.grau) return;
-      var pe = prep && prep !== nr && estabs[prep] ? vigente(estabs[prep], ri.comp) : null, difAliq = (rat - gr.grau) / 100 * fap;
+      var pe = prep && prep !== nr && estabs[prep] ? vigente(estabs[prep], compMes(ri.comp)) : null, difAliq = (rat - gr.grau) / 100 * fap;
       if (pe && pe.rat === rat) acumula('T061', pseudo(nr, 'RAT ' + rat + '% igual ao do estabelecimento preponderante (' + prep + '); grau do próprio CNAE ' + est.cnae + ': ' + gr.grau), ri.base, difAliq, ri.comp, 'RAT do estabelecimento preponderante aplicado acima do grau do CNAE do estabelecimento');
       else acumula('T010', pseudo(nr, 'RAT declarado ' + rat + '% × grau de risco ' + gr.grau + ' do CNAE ' + est.cnae), ri.base, difAliq, ri.comp, 'RAT declarado acima do grau de risco do CNAE');
     });
@@ -527,7 +540,7 @@
     if (exc) {
       var t8 = { id: 'T008', nome: NOMES.T008, base: 0, baseNoPrazo: 0, valor: 0, valorNoPrazo: 0, rubricas: {}, competencias: {}, porComp: {} };
       Object.keys(baseTrab).forEach(function (k) {
-        var comp = k.split('|')[1], sm = salarioMinimo(comp);
+        var comp = k.split('|')[1], sm = salarioMinimo(compMes(comp));
         if (sm == null) { semSM[comp] = 1; return; }
         var excesso = Math.max(0, baseTrab[k] - 20 * sm); if (excesso <= 0) return;
         t8.base += excesso; t8.valor += excesso * terceiros; t8.competencias[comp] = 1; t8.porComp[comp] = (t8.porComp[comp] || 0) + excesso * terceiros;
@@ -579,9 +592,11 @@
     Object.keys(semCadastro).slice(0, 20).forEach(function (k) { avisos.push('Rubrica ' + k.split('|')[1] + ' (tabela ' + k.split('|')[0] + ') usada na folha sem cadastro no S-1010.'); });
     return {
       versaoMotor: VERSAO, geradoEm: new Date().toISOString(), empregador: empregador,
-      periodo: { inicio: cs[0] || null, fim: cs[cs.length - 1] || null, competencias: cs.length }, limitePrazo: limite,
+      periodo: { inicio: cs[0] || null, fim: cs[cs.length - 1] || null, competencias: cs.length,
+        competenciasNominais: cs.filter(function (c) { return !/\/13$/.test(c); }).length,
+        competenciasDecimoTerceiro: cs.filter(function (c) { return /\/13$/.test(c); }).length }, limitePrazo: limite,
       eventos: contagem, trabalhadoresCompetencias: Object.keys(remun).length,
-      estabelecimentos: Object.keys(estabs).map(function (k) { var e = vigente(estabs[k], cs[cs.length - 1] || '9999-12'); return { nrInsc: k, cnae: e.cnae, rat: e.rat, fap: e.fap }; }),
+      estabelecimentos: Object.keys(estabs).map(function (k) { var e = vigente(estabs[k], compMes(cs[cs.length - 1] || '9999-12')); return { nrInsc: k, cnae: e.cnae, rat: e.rat, fap: e.fap }; }),
       lotacoes: Object.keys(lotacoes).map(function (k) { var x = lotacoes[k][lotacoes[k].length - 1]; return { cod: k, fpas: x.fpas, codTercs: x.codTercs }; }),
       premissas: { cpp: CPP, terceiros: terceiros, incidencias: Object.keys(INCIDE_PATRONAL), terceirosExcecao: exc },
       escopo: escopo,

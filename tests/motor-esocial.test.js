@@ -109,3 +109,40 @@ test('ESOCIAL-005: valor por competência (base da Selic) fecha com o total da t
   assert.deepEqual(t007.porCompetencia.map((c) => [c.competencia, c.noPrazo]), [['2020-01', false], ['2025-03', true], ['2025-04', true]]);
   assert.ok(r.teses.find((x) => x.id === 'T069').porCompetencia.length === 1, 'reflexo (DSR) também traz a competência');
 });
+
+// 13o: apuracao anual (indApuracao=2) com perApur = ano. E competencia propria.
+function s1200_13(cpf, ano, itens) {
+  return xml('evtRemun', `<ideEvento><indRetif>1</indRetif><indApuracao>2</indApuracao><perApur>${ano}</perApur><tpAmb>1</tpAmb><procEmi>1</procEmi><verProc>1</verProc></ideEvento>
+    <ideTrabalhador><cpfTrab>${cpf}</cpfTrab></ideTrabalhador><dmDev><ideDmDev>1</ideDmDev><codCateg>101</codCateg><infoPerApur><ideEstabLot><tpInsc>1</tpInsc><nrInsc>12345678000190</nrInsc><codLotacao>L1</codLotacao>
+    <remunPerApur>${itens.map(([c, v]) => `<itensRemun><codRubr>${c}</codRubr><ideTabRubr>T1</ideTabRubr><vrRubr>${v}</vrRubr></itensRemun>`).join('')}</remunPerApur></ideEstabLot></infoPerApur></dmDev>`, 'R' + cpf + '13' + ano);
+}
+
+test('ESOCIAL-09X: folha de 5 anos tem 65 competencias (60 nominais + 5 de 13o); o 13o e competencia propria', () => {
+  // 60 competencias nominais (2021-01 a 2025-12) + 5 de 13o (2021 a 2025)
+  const lidos = [M.lerXml(S1005, 's1005.xml'), M.lerXml(S1010, 's1010.xml'), M.lerXml(S1020, 's1020.xml')];
+  for (let ano = 2021; ano <= 2025; ano++) {
+    for (let mes = 1; mes <= 12; mes++) {
+      const per = `${ano}-${String(mes).padStart(2, '0')}`;
+      lidos.push(M.lerXml(s1200('11111111111', per, [['010', '100']]), `${per}.xml`));
+    }
+    lidos.push(M.lerXml(s1200_13('11111111111', String(ano), [['010', '700']]), `13-${ano}.xml`));
+  }
+  const r = M.apurar(lidos, { hoje: new Date('2026-10-14') });
+  const t = Object.fromEntries(r.teses.map((x) => [x.id, x]));
+
+  assert.equal(r.periodo.competencias, 65, '60 meses + 5 decimos terceiros');
+  assert.equal(r.periodo.competenciasNominais, 60);
+  assert.equal(r.periodo.competenciasDecimoTerceiro, 5);
+
+  // o 13o nao e fundido em dezembro: competencia propria, com a propria base
+  assert.equal(t.T007.competencias, 65);
+  assert.equal(t.T007.base, 60 * 100 + 5 * 700, 'base do 13o somada a parte, nao substituindo dezembro');
+  const pc = Object.fromEntries(t.T007.porCompetencia.map((x) => [x.competencia, x]));
+  const aliq = 0.20 + 0.03 * 1.5 + 0.058;
+  assert.equal(pc['2021-12'].valor, Math.round(100 * aliq * 100) / 100, 'dezembro nominal');
+  assert.equal(pc['2021-12/13'].valor, Math.round(700 * aliq * 100) / 100, '13o de dezembro: competencia a parte');
+  assert.equal(pc['2021-12/13'].noPrazo, true, '13o dentro da janela de 5 anos');
+
+  // o 13o nao cria vinculo/cabeca nova (T061): 1 trabalhador x 60 meses
+  assert.equal(r.ratPreponderante.empregadosCompetencias, 60, 'o 13o nao vira cabeca extra');
+});
