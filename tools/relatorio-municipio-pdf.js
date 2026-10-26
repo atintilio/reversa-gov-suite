@@ -324,6 +324,85 @@ function gerar(d) {
     doc.y += doc.heightOfString(txt, { width: LW, lineGap: 1.9 }) + 7;
   });
 
+  // ------------------------------------------------------------------ 4b. oportunidades previdenciárias e IRRF
+  secao('Oportunidades previdenciárias e de IRRF');
+  par('Duas perguntas, respondidas com cálculo. (1) A folha recebeu o tratamento legal do 13º? (2) O IRRF retido está coerente com a base legal? A resposta da folha vem do próprio portal do município, competência a competência; a resposta do IRRF vem do confronto entre a DCA e a tabela oficial.');
+  doc.moveDown(0.7);
+  const prev = require('./calcular-previdenciario-resultado.json');
+  subtitulo('13º salário — a contribuição que não foi recolhida');
+  par('Lei 8.212/1991, art. 28, §7º: o décimo terceiro salário integra o salário-de-contribuição. O piso de cada lançamento é a contribuição previdenciária (progressiva do empregado, com o teto do salário-de-contribuição do ano) mais o IRRF do 13º pela tabela mensal. Se o desconto observado ficar abaixo do piso, a conclusão é firme: o lançamento não recebeu o tratamento legal — IRRF e consignações, se existissem, apenas somariam ao desconto observado.');
+  doc.moveDown(0.6);
+  const cp = [52, 82, 78, 92, 78, 78];
+  const cph = ['Verba', 'Grupos', 'Bruto', 'Desconto', 'Taxa', 'Abaixo do piso'];
+  y = doc.y;
+  let cxp = M;
+  doc.font('S').fontSize(7).fillColor(C.muted);
+  cph.forEach((c, i) => { doc.text(c.toUpperCase(), cxp, y, { width: cp[i], align: i ? 'right' : 'left', characterSpacing: 0.4, lineBreak: false }); cxp += cp[i]; });
+  doc.y = y + 13; regua(doc.y, C.tinta, 0.6);
+  for (const v of prev.verbas) {
+    espaco(20); y = doc.y + 6;
+    cxp = M;
+    const vals = [v.rotina, String(v.grupos), num(v.bruto), num(v.desconto), pct(v.taxaDesconto, 2), String(v.abaixoPiso)];
+    vals.forEach((val, i) => {
+      doc.font(i === 0 ? 'M' : 'R').fontSize(8.4).fillColor(i === 0 ? C.tinta : (i === 5 && v.abaixoPiso ? C.ouro : C.texto))
+        .text(val, cxp, y, { width: cp[i], align: i ? 'right' : 'left', lineBreak: false });
+      cxp += cp[i];
+    });
+    doc.y = y + 15; regua(doc.y);
+  }
+  y = doc.y + 7; cxp = M;
+  const totp = ['Total', String(prev.total.grupos), num(prev.total.bruto), num(prev.total.desconto), pct(prev.total.desconto / prev.total.bruto, 2), String(prev.total.abaixoPiso)];
+  totp.forEach((val, i) => {
+    doc.font('S').fontSize(8.4).fillColor(C.tinta).text(val, cxp, y, { width: cp[i], align: i ? 'right' : 'left', lineBreak: false });
+    cxp += cp[i];
+  });
+  doc.y = y + 16; regua(doc.y, C.tinta, 0.6);
+  doc.moveDown(0.6);
+  par('Teste por servidor-mês (RIR/2018 art. 677, §2º: a alíquota incide sobre a soma dos rendimentos pagos no mês) e, no 13º, por pacote (adiantamento + parcela final, porque o adiantamento é compensado no pagamento final). FOL = folha mensal · FER = férias · FCO = folha complementar · DES = desligamento · P13 = 13º (pacote) · A13 = adiantamento do 13º sem parcela final correspondente.', { s: 7.8, c: C.muted });
+  doc.moveDown(0.6);
+  y = doc.y;
+  doc.rect(M, y, LW, 68).fill(C.fundo);
+  doc.rect(M, y, 3, 68).fill(C.ouro);
+  doc.font('S').fontSize(8).fillColor(C.muted).text('CONTRIBUIÇÃO PREVIDENCIÁRIA NÃO RECOLHIDA — FOLHA (5 ANOS)', M + 16, y + 11, { characterSpacing: 0.8, lineBreak: false });
+  doc.font('B').fontSize(19).fillColor(C.tinta).text(`${reais(prev.total.faltaPiso)}  a  ${reais(prev.total.faltaTeto)}`, M + 16, y + 24, { lineBreak: false });
+  doc.font('R').fontSize(8.4).fillColor(C.texto).text(`piso: 7,5% da base + IRRF da verba (faixa provada)   ·   teto: 14% + IRRF   ·   ${prev.total.abaixoPiso} grupos de servidor-mês abaixo do piso`, M + 16, y + 51, { lineBreak: false });
+  doc.y = y + 78;
+  doc.moveDown(0.4);
+  par(`O caso mais grave é o desligamento: ${prev.verbas.find((v) => v.rotina === 'DES').abaixoPiso} de ${prev.verbas.find((v) => v.rotina === 'DES').grupos} desligamentos abaixo do piso, com taxa efetiva de desconto de ${pct(prev.verbas.find((v) => v.rotina === 'DES').taxaDesconto, 2)} contra ${pct(prev.verbas.find((v) => v.rotina === 'FOL').taxaDesconto, 2)} da folha mensal. São ${prev.total.descontoZerado} grupos sem nenhum desconto. Impacto: o RPPS não recebeu a contribuição e o servidor não tem o tempo de contribuição. A confirmação item a item exige o eSocial (S-1200/S-1300).`, { s: 8.4, c: C.texto });
+  doc.moveDown(0.8);
+
+  subtitulo('IRRF sobre a folha — o retido está coerente com a base legal');
+  par('Método: base = bruto da remuneração menos o desconto simplificado mensal (25% do limite da faixa de alíquota zero, que a fonte pagadora deve considerar quando mais favorável), aplicada à soma dos rendimentos do servidor no mês (RIR/2018 art. 677, §2º). O 13º é tributado em separado (art. 677, §3º).');
+  doc.moveDown(0.6);
+  const ci2 = ['Ano', 'IRRF no cenário desconto simplificado', 'IRRF declarado na DCA', 'Diferença', 'Demais descontos da folha'];
+  const cw5 = [42, 130, 110, 95, 110];
+  espaco(120);
+  y = doc.y;
+  let cxq = M;
+  doc.font('S').fontSize(7).fillColor(C.muted);
+  ci2.forEach((c, i) => { doc.text(c.toUpperCase(), cxq, y, { width: cw5[i], align: i ? 'right' : 'left', characterSpacing: 0.4, lineBreak: false }); cxq += cw5[i]; });
+  doc.y = y + 13; regua(doc.y, C.tinta, 0.6);
+  for (const l of prev.irrf) {
+    espaco(20); y = doc.y + 6;
+    cxq = M;
+    const vals = [String(l.ano), num(l.cenario), num(l.declarado), num(l.diferenca), num(l.outros)];
+    vals.forEach((v, i) => {
+      doc.font(i === 0 ? 'M' : 'R').fontSize(8.4).fillColor(i === 0 ? C.tinta : C.texto)
+        .text(v, cxq, y, { width: cw5[i], align: i ? 'right' : 'left', lineBreak: false });
+      cxq += cw5[i];
+    });
+    doc.y = y + 15; regua(doc.y);
+  }
+  y = doc.y + 7; cxq = M;
+  const totIrrf = ['5 anos', num(prev.totais.cenario), num(prev.totais.declarado), num(prev.totais.declarado - prev.totais.cenario), num(prev.totais.outros)];
+  totIrrf.forEach((val, i) => {
+    doc.font('S').fontSize(8.4).fillColor(C.tinta).text(val, cxq, y, { width: cw5[i], align: i ? 'right' : 'left', lineBreak: false });
+    cxq += cw5[i];
+  });
+  doc.y = y + 16; regua(doc.y, C.tinta, 0.6);
+  doc.moveDown(0.6);
+  par('O IRRF declarado fica acima do cenário do desconto simplificado e abaixo dos demais descontos da folha (INSS, IR e consignações). Essa é a ordem que a lei espera: a base real do IRRF é o bruto menos as deduções legais (INSS e dependentes), maiores que o desconto simplificado. Não há indício de retenção a menor do que a devida — o que ainda precisa de prova é o contrário: a conferência rubrica a rubrica, que o eSocial entrega.', { s: 8.4, c: C.texto });
+
   // ------------------------------------------------------------------ 5. diagnóstico consolidado
   secao('Diagnóstico Consolidado');
   par('Três grandezas diferentes, e é importante não confundi-las. (1) O cálculo do diagnóstico é uma estimativa sobre dado público, com teto. (2) A apuração do motor é o que a prova documental permite calcular candidato a candidato. (3) O crédito reconhecido é um conceito contábil (CPC 25): só existe quando a realização é praticamente certa, e nesta fase ele não é apurável. Um zero na linha 2 significa "nenhum documento de retenção foi fornecido" — não "não há crédito a recuperar".');

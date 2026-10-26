@@ -1,0 +1,203 @@
+{
+ "verbas": [
+  {
+   "rotina": "FOL",
+   "nome": "Folha de pagamento mensal",
+   "lancamentos": 26870,
+   "grupos": 26870,
+   "bruto": 117849397.33999778,
+   "base": 59191664.67000025,
+   "desconto": 37371007.05999968,
+   "taxaDesconto": 0.31710817283336296,
+   "abaixoPiso": 343,
+   "descontoZerado": 102,
+   "irrfPorLei": 9912652.098750114,
+   "inssPiso": 4439374.850249657,
+   "faltaPiso": 149620.3972499998,
+   "faltaTeto": 208881.99314999997
+  },
+  {
+   "rotina": "FER",
+   "nome": "Ferias",
+   "lancamentos": 720,
+   "grupos": 669,
+   "bruto": 2973134.580000003,
+   "base": 1315458.0499999975,
+   "desconto": 731241.4300000002,
+   "taxaDesconto": 0.24594965694422063,
+   "abaixoPiso": 72,
+   "descontoZerado": 3,
+   "irrfPorLei": 245706.40875,
+   "inssPiso": 98647.13024999984,
+   "faltaPiso": 18330.289500000014,
+   "faltaTeto": 32512.092200000006
+  },
+  {
+   "rotina": "FCO",
+   "nome": "Folha complementar",
+   "lancamentos": 2754,
+   "grupos": 1380,
+   "bruto": 7198091.779999994,
+   "base": 5651742.809999926,
+   "desconto": 2368749.2799999993,
+   "taxaDesconto": 0.32908017185632515,
+   "abaixoPiso": 78,
+   "descontoZerado": 2,
+   "irrfPorLei": 658752.2527499995,
+   "inssPiso": 423426.9847500026,
+   "faltaPiso": 19140.732000000004,
+   "faltaTeto": 38513.9222
+  },
+  {
+   "rotina": "DES",
+   "nome": "Desligamento",
+   "lancamentos": 91,
+   "grupos": 88,
+   "bruto": 1135215.55,
+   "base": 209172.84999999995,
+   "desconto": 60698.94000000001,
+   "taxaDesconto": 0.05346908787498551,
+   "abaixoPiso": 76,
+   "descontoZerado": 5,
+   "irrfPorLei": 224674.74875000014,
+   "inssPiso": 15687.963750000003,
+   "faltaPiso": 191045.85424999997,
+   "faltaTeto": 203382.7665
+  },
+  {
+   "rotina": "P13",
+   "nome": "13o - parcela final",
+   "lancamentos": 2918,
+   "grupos": 2420,
+   "bruto": 10537872.970000016,
+   "base": 6340768.22999997,
+   "desconto": 2458751.559999992,
+   "taxaDesconto": 0.2333252229363312,
+   "abaixoPiso": 52,
+   "descontoZerado": 17,
+   "irrfPorLei": 777053.644,
+   "inssPiso": 474920.1592499968,
+   "faltaPiso": 10329.42525,
+   "faltaTeto": 17148.88530000001
+  },
+  {
+   "rotina": "A13",
+   "nome": "13o - adiantamento",
+   "lancamentos": 2,
+   "grupos": 2,
+   "bruto": 1577.31,
+   "base": 4492.969999999999,
+   "desconto": 0,
+   "taxaDesconto": 0,
+   "abaixoPiso": 2,
+   "descontoZerado": 2,
+   "irrfPorLei": 0,
+   "inssPiso": 336.97274999999996,
+   "faltaPiso": 336.97274999999996,
+   "faltaTeto": 629.0158
+  }
+ ],
+ "porAno": [
+  {
+   "ano": 2021,
+   "lancamentos": 514,
+   "abaixoPiso": 22,
+   "descontoZerado": 13,
+   "base": 957199.949999999,
+   "desconto": 271235.2499999998,
+   "brutoSemDesconto": 63387.20000000001
+  },
+  {
+   "ano": 2022,
+   "lancamentos": 998,
+   "abaixoPiso": 498,
+   "descontoZerado": 498,
+   "base": 2077824.3199999915,
+   "desconto": 1030572.3699999999,
+   "brutoSemDesconto": 709234.2499999995
+  },
+  {
+   "ano": 2023,
+   "lancamentos": 487,
+   "abaixoPiso": 8,
+   "descontoZerado": 1,
+   "base": 1084137.6199999985,
+   "desconto": 355673.3700000005,
+   "brutoSemDesconto": 1320
+  },
+  {
+   "ano": 2024,
+   "lancamentos": 470,
+   "abaixoPiso": 11,
+   "descontoZerado": 1,
+   "base": 1100159.7199999993,
+   "desconto": 379530.7800000005,
+   "brutoSemDesconto": 1412
+  },
+  {
+   "ano": 2025,
+   "lancamentos": 449,
+   "abaixoPiso": 8,
+   "descontoZerado": 0,
+   "base": 1121446.6200000003,
+   "desconto": 421739.79000000015,
+   "brutoSemDesconto": 0
+  }
+ ],
+ "total": {
+  "lancamentos": 2918,
+  "abaixoPiso": 623,
+  "descontoZerado": 131,
+  "base": 6340768.229999989,
+  "desconto": 42990448.269999675,
+  "brutoSemDesconto": 775353.4499999997,
+  "faltaPiso": 388803.6709999998,
+  "faltaTeto": 501068.67515,
+  "grupos": 31429,
+  "bruto": 139695289.5299978
+ },
+ "irrf": [
+  {
+   "ano": 2021,
+   "cenario": 1454065.877999989,
+   "declarado": 2147065.45,
+   "diferenca": 692999.5720000111,
+   "outros": 4497898.099999995
+  },
+  {
+   "ano": 2022,
+   "cenario": 1904902.3389999922,
+   "declarado": 2817180.27,
+   "diferenca": 912277.9310000078,
+   "outros": 5700354.979999982
+  },
+  {
+   "ano": 2023,
+   "cenario": 2409544.200250001,
+   "declarado": 2979188.59,
+   "diferenca": 569644.3897499987,
+   "outros": 5683863.919999991
+  },
+  {
+   "ano": 2024,
+   "cenario": 2827489.4889999907,
+   "declarado": 4393330.73,
+   "diferenca": 1565841.2410000097,
+   "outros": 4885314.459999995
+  },
+  {
+   "ano": 2025,
+   "cenario": 3248546.262249994,
+   "declarado": 4925443.48,
+   "diferenca": 1676897.2177500064,
+   "outros": 5054229.850000063
+  }
+ ],
+ "totais": {
+  "cenario": 11844548.168499967,
+  "declarado": 17262208.520000003,
+  "outros": 25821661.310000025,
+  "bruto": 139948795.78000057,
+  "desconto": 43083869.83000003
+ }
+}

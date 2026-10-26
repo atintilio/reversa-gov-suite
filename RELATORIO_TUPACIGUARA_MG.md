@@ -14,7 +14,8 @@
 - **Folha de pagamento (5 anos):** 60 competências nominais + 5 lançamentos de 13º = **65 competências de apuração**
 - **Massa salarial bruta:** R$ 139.948.795,78 | salário-base R$ 72.894.936,81 | descontos R$ 43.083.869,83 (30.79% do bruto)
 - **Total recuperável preliminar (teto):** R$ 623.532,29 — IRRF sobre serviços a 1,5% sobre a base "Despesas Pagas" da DCA; **teto, não crédito reconhecido**
-- **Crédito recuperável apurado:** R$ 0,00 — 0 candidatos (nenhum documento de retenção foi fornecido)
+- **Apuração do motor sobre documentos:** 0 candidatos, R$ 0,00 apurado — nenhum documento de retenção foi fornecido: zero apurado não é zero de crédito
+- **Crédito reconhecido (CPC 25):** nada, e nada foi descartado — reconhecimento exige conferência humana e documento autorizado
 
 > **O que este relatório é:** radar e contexto a partir de fonte pública, mais a conferência de
 > coerência com o que o motor apura. **O que não é:** reconhecimento de crédito. Nenhum valor
@@ -168,11 +169,49 @@ A folha publicada traz **60 competências mensais** (202101 a 202512) e, dentro 
 |---|---|---|---|---:|---:|---|
 
 
-**Crédito recuperável apurado: R$ 0,00.** Nenhum documento de retenção (EFD-Reinf, planilha ou relatório de pagamentos) foi fornecido para este município — o motor trabalha por pagamento, então não há o que apurar ainda. Os documentos no processo são as DCAs do Siconfi, que servem de contextualização, não de prova de retenção. Isso é o produto funcionando como deve: **radar, não conclusão**.
+**Apuração do motor: 0 candidatos, R$ 0,00 apurado.** Nenhum documento de retenção (EFD-Reinf, planilha ou relatório de pagamentos) foi fornecido para este município — o motor trabalha por pagamento, então não há o que apurar ainda. Os documentos no processo são as DCAs do Siconfi, que servem de contextualização, não de prova de retenção. Isso é o produto funcionando como deve: **radar, não conclusão**.
 
 ---
 
-## 5. O que a fonte pública prova e o que não prova
+## 5. Oportunidades previdenciárias e de IRRF
+
+Duas perguntas, respondidas com cálculo: (1) a folha recebeu o tratamento legal do 13º e das verbas; (2) o IRRF retido está coerente com a base legal?
+
+### 5.1 Verbas previdenciárias — o teste de piso, por servidor-mês
+
+Lei 8.212/1991 art. 28 §7º: o 13º integra o salário-de-contribuição. O piso de cada grupo = a contribuição previdenciária (7,5% da base — piso progressivo válido em qualquer ano) + o IRRF da verba pela tabela mensal. Abaixo do piso, a conclusão é firme: a contribuição não foi recolhida.
+
+| Verba | Grupos | Bruto | Desconto | Taxa | Abaixo do piso | Zerados | Falta (piso) |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| FOL | 26870 | R$ 117.849.397,34 | R$ 37.371.007,06 | 31.71% | **343** | 102 | R$ 149.620,40 |
+| FER | 669 | R$ 2.973.134,58 | R$ 731.241,43 | 24.59% | **72** | 3 | R$ 18.330,29 |
+| FCO | 1380 | R$ 7.198.091,78 | R$ 2.368.749,28 | 32.91% | **78** | 2 | R$ 19.140,73 |
+| DES | 88 | R$ 1.135.215,55 | R$ 60.698,94 | 5.35% | **76** | 5 | R$ 191.045,85 |
+| P13 | 2420 | R$ 10.537.872,97 | R$ 2.458.751,56 | 23.33% | **52** | 17 | R$ 10.329,43 |
+| A13 | 2 | R$ 1.577,31 | R$ 0,00 | 0.00% | **2** | 2 | R$ 336,97 |
+| **Total** | **31429** | **R$ 139.695.289,53** | **R$ 42.990.448,27** | **30.77%** | **623** | **131** | **R$ 388.803,67** |
+
+**Contribuição previdenciária não recolhida: de R$ 388.803,67 (piso provado) a R$ 501.068,68 (teto).** FOL = folha mensal · FER = férias · FCO = folha complementar · DES = desligamento · P13 = 13º (pacote com o adiantamento).
+
+O caso mais grave é o **desligamento**: 76 de 88 abaixo do piso, com taxa efetiva de desconto de 5,35% contra 31,71% da folha mensal. São 131 grupos sem nenhum desconto. Impacto: o RPPS não recebeu a contribuição e o servidor não tem o tempo de contribuição. A confirmação item a item exige o eSocial (S-1200/S-1300).
+
+### 5.2 IRRF sobre a folha — o retido está coerente com a base legal
+
+Método: base = bruto da remuneração menos o desconto simplificado mensal (25% do limite da faixa de alíquota zero, que a fonte pagadora deve considerar quando mais favorável), aplicada à soma dos rendimentos do servidor no mês (RIR/2018 art. 677, §2º). O 13º é tributado em separado (art. 677, §3º).
+
+| Ano | IRRF (cenário desconto simplificado) | IRRF declarado na DCA | Diferença | Demais descontos |
+|---|---:|---:|---:|---:|
+| 2021 | R$ 1.454.065,88 | R$ 2.147.065,45 | R$ 692.999,57 | R$ 4.497.898,10 |
+| 2022 | R$ 1.904.902,34 | R$ 2.817.180,27 | R$ 912.277,93 | R$ 5.700.354,98 |
+| 2023 | R$ 2.409.544,20 | R$ 2.979.188,59 | R$ 569.644,39 | R$ 5.683.863,92 |
+| 2024 | R$ 2.827.489,49 | R$ 4.393.330,73 | R$ 1.565.841,24 | R$ 4.885.314,46 |
+| 2025 | R$ 3.248.546,26 | R$ 4.925.443,48 | R$ 1.676.897,22 | R$ 5.054.229,85 |
+| **5 anos** | **R$ 11.844.548,17** | **R$ 17.262.208,52** | **R$ 5.417.660,35** | **R$ 25.821.661,31** |
+
+O declarado fica acima do cenário do desconto simplificado e abaixo dos demais descontos (INSS, IR e consignações) — a ordem que a lei espera, já que a base real é o bruto menos as deduções legais (INSS e dependentes), maiores que o desconto simplificado. **Não há indício de retenção a menor do que a devida**; o que falta é a conferência rubrica a rubrica, que o eSocial entrega.
+
+---
+## 6. O que a fonte pública prova e o que não prova
 
 | Fonte | O que traz | O que **não** prova |
 |---|---|---|
@@ -183,7 +222,7 @@ A folha publicada traz **60 competências mensais** (202101 a 202512) e, dentro 
 
 ---
 
-## 6. Pendências para fechar o diagnóstico
+## 7. Pendências para fechar o diagnóstico
 
 1. **EFD-Reinf** (ou planilha de retenções) por ano — para as retenções sobre serviços com alíquota e destino;
 2. **eSocial da folha** (S-1000, S-1005, S-1010, S-1200, S-2299) — o motor rodou com o fixture sintético; a folha real permite apurar as teses (T006/T074/T010) com base e rubrica corretas;
@@ -192,7 +231,7 @@ A folha publicada traz **60 competências mensais** (202101 a 202512) e, dentro 
 
 ---
 
-## 7. Nota metodológica e proveniência
+## 8. Nota metodológica e proveniência
 
 | Fonte | Endereço | Capturado em | SHA-256 (16) |
 |---|---|---|---|
