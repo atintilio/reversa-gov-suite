@@ -143,7 +143,7 @@ function gerar(d) {
     doc.y = y + h; regua(doc.y);
   });
   doc.moveDown(1.4);
-  par('Pelo CPC 25, o crédito só é reconhecido contabilmente quando sua realização é praticamente certa: quando decorre diretamente da legislação, está assegurado por decisão judicial definitiva ou por habilitação perante a autoridade competente. Até lá, o valor é uma expectativa de recuperação.', { c: C.texto });
+  par('Pelo CPC 25, o crédito só é reconhecido contabilmente quando sua realização é praticamente certa: quando decorre diretamente da legislação, está assegurado por decisão judicial definitiva ou por habilitação perante a autoridade competente. Até lá, o valor é uma expectativa de recuperação. Este documento é um diagnóstico preliminar: ele estima o teto e aponta a prova que falta. Nada aqui é crédito reconhecido, e o motor não tem como reconhecer — essa é uma decisão humana, com documento autorizado.', { c: C.texto });
   doc.moveDown(1.2);
   doc.font('S').fontSize(9.5).fillColor(C.tinta).text('Fontes consideradas', M, doc.y); doc.moveDown(0.3);
   par('Siconfi — Demonstrativo da Aplicação dos Recursos (DCA) do Tesouro Nacional, com retenção de IRRF, ISSQN arrecadado e despesas com serviços de terceiros; portal de transparência do próprio município, com a folha de pagamento publicada; legislação municipal vigente (Código Tributário Municipal — CTM — com a base e as alíquotas do ISSQN, e as regras de retenção); e, quando disponíveis, eSocial, EFD-Reinf, ECD e DCTFWeb.', { c: C.muted, s: 9 });
@@ -161,9 +161,9 @@ function gerar(d) {
   y = doc.y;
   doc.rect(M, y, LW, 74).fill(C.fundo);
   doc.rect(M, y, 3, 74).fill(C.esmeralda);
-  doc.font('S').fontSize(8).fillColor(C.muted).text('TOTAL RECUPERÁVEL PRELIMINAR (TETO)', M + 16, y + 12, { characterSpacing: 0.8, lineBreak: false });
+  doc.font('S').fontSize(8).fillColor(C.muted).text('CÁLCULO DO DIAGNÓSTICO SOBRE DADO PÚBLICO — TETO (R$)', M + 16, y + 12, { characterSpacing: 0.8, lineBreak: false });
   doc.font('B').fontSize(24).fillColor(C.tinta).text(reais((rec.totalCents || 0) / 100), M + 16, y + 26, { lineBreak: false });
-  doc.font('R').fontSize(8.6).fillColor(C.texto).text('soma dos itens calculáveis · 5 anos · dado público do Siconfi · sem atualização monetária', M + 16, y + 57, { lineBreak: false });
+  doc.font('R').fontSize(8.6).fillColor(C.texto).text('estimativa do diagnóstico · 5 anos · dado público do Siconfi · sem atualização monetária · NÃO é crédito reconhecido', M + 16, y + 57, { lineBreak: false });
   doc.font('S').fontSize(8).fillColor(C.ouro).text('TETO, NÃO CRÉDITO', M + LW - 150, y + 12, { characterSpacing: 0.8, lineBreak: false, align: 'right' });
   doc.font('R').fontSize(8).fillColor(C.muted).text('A base inclui serviços com alíquota superior a 1,5% e itens isentos:\no valor real é igual ou menor que este teto.', M + LW - 150, y + 28, { width: 150, align: 'right', lineGap: 1.8 });
   doc.y = y + 90;
@@ -326,7 +326,7 @@ function gerar(d) {
 
   // ------------------------------------------------------------------ 5. diagnóstico consolidado
   secao('Diagnóstico Consolidado');
-  par('O quadro abaixo é o que o dado público sustenta hoje. O total recuperável é o teto do item calculável; o ISSQN permanece a dimensionar, porque a base de cálculo não existe no dado público — e ausência de base não é zero.');
+  par('Três grandezas diferentes, e é importante não confundi-las. (1) O cálculo do diagnóstico é uma estimativa sobre dado público, com teto. (2) A apuração do motor é o que a prova documental permite calcular candidato a candidato. (3) O crédito reconhecido é um conceito contábil (CPC 25): só existe quando a realização é praticamente certa, e nesta fase ele não é apurável. Um zero na linha 2 significa "nenhum documento de retenção foi fornecido" — não "não há crédito a recuperar".');
   doc.moveDown(1);
   const mx = [M, M + LW - 300, M + LW - 200, M + LW - 100], mw = 100;
   const celula = (t, i, yy, f = 'R', cor = C.texto) => doc.font(f).fontSize(9.2).fillColor(cor).text(t, i ? mx[i] : mx[0], yy, { width: i ? mw : 200, align: i ? 'right' : 'left', lineBreak: false });
@@ -345,14 +345,19 @@ function gerar(d) {
     doc.y = y + 19; regua(doc.y);
   });
   y = doc.y + 8;
-  celula('Total recuperável preliminar — teto (R$)', 0, y, 'S', C.tinta);
+  celula('Cálculo do diagnóstico sobre dado público — teto (R$)', 0, y, 'S', C.tinta);
   celula('—', 1, y); celula('—', 2, y);
   celula(num((rec.totalCents || 0) / 100), 3, y, 'S', C.tinta);
   doc.y = y + 19; regua(doc.y, C.tinta, 0.6);
   y = doc.y + 8;
-  celula('Crédito reconhecido pelo motor (R$)', 0, y, 'S', C.tinta);
+  celula('Apuração do motor sobre documentos — candidato apurado (R$)', 0, y, 'S', C.tinta);
   celula('—', 1, y); celula('—', 2, y);
   celula(num((diag.creditoRecuperavelCents || 0) / 100), 3, y, 'S', C.tinta);
+  doc.y = y + 19; regua(doc.y, C.tinta, 0.6);
+  y = doc.y + 8;
+  celula('Crédito reconhecido (CPC 25)', 0, y, 'S', C.tinta);
+  celula('—', 1, y); celula('—', 2, y);
+  celula('não apurável', 3, y, 'S', C.tinta);
   doc.y = y + 19; regua(doc.y, C.tinta, 0.6);
   doc.moveDown(1.2);
 
@@ -405,7 +410,7 @@ function gerar(d) {
     doc.font('R').fontSize(9).fillColor(C.texto).text(
       'Documentos no processo: 5 (as DCAs do Siconfi, 2021 a 2025) — documentos públicos de-contextualização do município.\n' +
       'Documentos de retenção (EFD-Reinf / planilha / relatório de pagamentos): nenhum.\n' +
-      'Candidatos apurados: 0.  Crédito reconhecido: R$ 0,00 — porque a prova documental não existe, e não porque o valor seja zero.',
+      'Candidatos apurados: 0. Valor apurado: R$ 0,00 — porque o documento de retenção não foi fornecido, e não porque o valor seja zero.\nCrédito reconhecido (CPC 25): nada, e nada foi descartado — o reconhecimento exige conferência humana e documento autorizado.',
       M + 16, y + 28, { width: LW - 32, lineGap: 2.6 });
     doc.y = y + 106;
     doc.moveDown(0.6);
