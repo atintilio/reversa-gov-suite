@@ -244,7 +244,8 @@ for (const [rot, nome] of Object.entries(ROTINAS)) {
     const ano = Math.floor(g.comp / 100);
     lanc += g.registros.length;
     bruto += g.bruto; base += g.base; desc += g.desconto;
-    const i = inssPiso(g.base, ano);
+    const eh13pkg = rot === 'P13';
+    const i = inssPiso(eh13pkg ? (g.base13 || g.base) : g.base, ano);
     const irrf = (rot === 'P13' || rot === 'A13')
       ? irrf13Calculo(g.bruto13 || g.bruto, g.comp)
       : irrfTabela(Math.max(0, g.bruto - descontoSimplificadoDoMes(g.comp)), tabelaDoMes(g.comp));
@@ -257,8 +258,23 @@ for (const [rot, nome] of Object.entries(ROTINAS)) {
     taxaDesconto: bruto ? desc / bruto : 0, abaixoPiso: abaixo, descontoZerado: zerado,
     irrfPorLei: irrfDue, inssPiso: inssDue, faltaPiso: faltaP, faltaTeto: faltaT });
 }
+// --- contribuicao nao recolhida por ano (rodada) e por mes
+const porAnoFalta = {};
+for (const g of porChave.values()) {
+  const ano = Math.floor(g.comp / 100);
+  if (!porAnoFalta[ano]) porAnoFalta[ano] = { ano, grupos: 0, abaixo: 0, falta: 0, faltaTeto: 0 };
+  const p = porAnoFalta[ano]; p.grupos++;
+  const eh13 = g.rot === 'P13' || g.rot === 'A13';
+  const base13 = g.rot === 'P13' ? g.base13 : g.base;
+  const bruto13 = g.rot === 'P13' ? g.bruto13 : g.bruto;
+  const i = inssPiso(eh13 ? base13 : g.base, ano);
+  const irrf = eh13 ? irrf13Calculo(bruto13, g.comp) : irrfTabela(Math.max(0, g.bruto - descontoSimplificadoDoMes(g.comp)), tabelaDoMes(g.comp));
+  const piso = i.piso + irrf;
+  if (g.desconto < piso - 0.01) { p.abaixo++; p.falta += piso - g.desconto; p.faltaTeto += Math.max(0, (i.teto + irrf) - g.desconto); }
+}
 const resultado = {
   verbas,
+  porAnoFalta: Object.values(porAnoFalta).sort((a, b) => a.ano - b.ano),
   porAno: porAno13,
   total: {
     lancamentos: n13, grupos: verbas.reduce((s2, v) => s2 + v.grupos, 0),
@@ -296,4 +312,12 @@ if (arqCsv) {
   fs.writeFileSync(arqCsv, linhas.map((l) => l.join(';')).join('\n'));
   console.log(`\n  memoria gravada: ${arqCsv}`);
 }
+console.log('\n\n  === 5) CONTRIBUICAO NAO RECOLHIDA POR ANO (rodada) ===\n');
+console.log('  ano | grupos | abaixo do piso | nao recolhida (piso) | por mes | por ano (media)');
+let tf = 0;
+for (const l of Object.values(porAnoFalta).sort((a, b) => a.ano - b.ano)) {
+  tf += l.falta;
+  console.log(`  ${l.ano} | ${String(l.grupos).padStart(6)} | ${String(l.abaixo).padStart(4)} | ${num(l.falta).padStart(14)} | ${num(l.falta / 12).padStart(10)} | ${num(l.falta).padStart(14)}`);
+}
+console.log(`  TOTAL  | ${String(Object.values(porAnoFalta).reduce((s2, l) => s2 + l.grupos, 0)).padStart(6)} | ${String(Object.values(porAnoFalta).reduce((s2, l) => s2 + l.abaixo, 0)).padStart(4)} | ${num(tf).padStart(14)} | media mensal R\$ ${num(tf / 60).padStart(10)} | media anual R\$ ${num(tf / 5).padStart(12)}`);
 console.log('\n  resultado estruturado gravado: tools/calcular-previdenciario-resultado.json');

@@ -187,11 +187,11 @@ Lei 8.212/1991 art. 28 §7º: o 13º integra o salário-de-contribuição. O pis
 | FER | 669 | R$ 2.973.134,58 | R$ 731.241,43 | 24.59% | **72** | 3 | R$ 18.330,29 |
 | FCO | 1380 | R$ 7.198.091,78 | R$ 2.368.749,28 | 32.91% | **78** | 2 | R$ 19.140,73 |
 | DES | 88 | R$ 1.135.215,55 | R$ 60.698,94 | 5.35% | **76** | 5 | R$ 191.045,85 |
-| P13 | 2420 | R$ 10.537.872,97 | R$ 2.458.751,56 | 23.33% | **52** | 17 | R$ 10.329,43 |
+| P13 | 2420 | R$ 10.537.872,97 | R$ 2.458.751,56 | 23.33% | **51** | 17 | R$ 10.320,34 |
 | A13 | 2 | R$ 1.577,31 | R$ 0,00 | 0.00% | **2** | 2 | R$ 336,97 |
-| **Total** | **31429** | **R$ 139.695.289,53** | **R$ 42.990.448,27** | **30.77%** | **623** | **131** | **R$ 388.803,67** |
+| **Total** | **31429** | **R$ 139.695.289,53** | **R$ 42.990.448,27** | **30.77%** | **622** | **131** | **R$ 388.794,58** |
 
-**Contribuição previdenciária não recolhida: de R$ 388.803,67 (piso provado) a R$ 501.068,68 (teto).** FOL = folha mensal · FER = férias · FCO = folha complementar · DES = desligamento · P13 = 13º (pacote com o adiantamento).
+**Contribuição previdenciária não recolhida: de R$ 388.794,58 (piso provado) a R$ 500.902,03 (teto).** FOL = folha mensal · FER = férias · FCO = folha complementar · DES = desligamento · P13 = 13º (pacote com o adiantamento).
 
 O caso mais grave é o **desligamento**: 76 de 88 abaixo do piso, com taxa efetiva de desconto de 5,35% contra 31,71% da folha mensal. São 131 grupos sem nenhum desconto. Impacto: o RPPS não recebeu a contribuição e o servidor não tem o tempo de contribuição. A confirmação item a item exige o eSocial (S-1200/S-1300).
 

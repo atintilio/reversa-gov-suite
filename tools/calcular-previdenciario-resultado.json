@@ -73,12 +73,12 @@
    "base": 6340768.22999997,
    "desconto": 2458751.559999992,
    "taxaDesconto": 0.2333252229363312,
-   "abaixoPiso": 52,
+   "abaixoPiso": 51,
    "descontoZerado": 17,
    "irrfPorLei": 777053.644,
-   "inssPiso": 474920.1592499968,
-   "faltaPiso": 10329.42525,
-   "faltaTeto": 17148.88530000001
+   "inssPiso": 397830.54224999616,
+   "faltaPiso": 10320.33525,
+   "faltaTeto": 16982.235300000008
   },
   {
    "rotina": "A13",
@@ -95,6 +95,43 @@
    "inssPiso": 336.97274999999996,
    "faltaPiso": 336.97274999999996,
    "faltaTeto": 629.0158
+  }
+ ],
+ "porAnoFalta": [
+  {
+   "ano": 2021,
+   "grupos": 6710,
+   "abaixo": 188,
+   "falta": 89964.60125000004,
+   "faltaTeto": 121391.05605000007
+  },
+  {
+   "ano": 2022,
+   "grupos": 6452,
+   "abaixo": 132,
+   "falta": 68172.0245,
+   "faltaTeto": 90595.48465000001
+  },
+  {
+   "ano": 2023,
+   "grupos": 6290,
+   "abaixo": 94,
+   "falta": 69133.33125,
+   "faltaTeto": 85432.16055000002
+  },
+  {
+   "ano": 2024,
+   "grupos": 6123,
+   "abaixo": 114,
+   "falta": 93082.85050000004,
+   "faltaTeto": 114793.62984999997
+  },
+  {
+   "ano": 2025,
+   "grupos": 5897,
+   "abaixo": 92,
+   "falta": 68104.80075000002,
+   "faltaTeto": 88060.67825000001
   }
  ],
  "porAno": [
@@ -149,12 +186,12 @@
   "grupos": 31429,
   "bruto": 139695289.5299978,
   "desconto": 42990448.269999675,
-  "abaixoPiso": 623,
+  "abaixoPiso": 622,
   "descontoZerado": 131,
   "base": 6340768.229999989,
   "brutoSemDesconto": 775353.4499999997,
-  "faltaPiso": 388803.6709999998,
-  "faltaTeto": 501068.67515
+  "faltaPiso": 388794.58099999983,
+  "faltaTeto": 500902.02515
  },
  "irrf": [
   {
