@@ -523,11 +523,23 @@ function gerar(d) {
   celula(num((diag.creditoRecuperavelCents || 0) / 100), 3, y, 'S', C.tinta);
   doc.y = y + 19; regua(doc.y, C.tinta, 0.6);
   y = doc.y + 8;
+  celula('Passivo patronal estimado — INSS/RGPS 2024–2025 (R$)', 0, y, 'S', C.tinta);
+  celula('—', 1, y); celula('—', 2, y);
+  celula(num(gap2425Total), 3, y, 'S', C.tinta);
+  doc.y = y + 19; regua(doc.y);
+  y = doc.y + 8;
+  celula('Contribuição retida e não repassada — folha 5 anos (R$)', 0, y, 'S', C.tinta);
+  celula('—', 1, y); celula('—', 2, y);
+  celula(num((prev.total.faltaPiso || 0)) + ' – ' + num((prev.total.faltaTeto || 0)), 3, y, 'S', C.tinta);
+  doc.y = y + 19; regua(doc.y, C.tinta, 0.6);
+  y = doc.y + 8;
   celula('Crédito reconhecido (CPC 25)', 0, y, 'S', C.tinta);
   celula('—', 1, y); celula('—', 2, y);
   celula('não apurável', 3, y, 'S', C.tinta);
   doc.y = y + 19; regua(doc.y, C.tinta, 0.6);
-  doc.moveDown(1.2);
+  doc.moveDown(0.5);
+  par('O passivo patronal e a faixa de contribuição retida aparecem em linhas próprias porque são grandezas de naturezas diferentes — um é o que o município deve ao regime, o outro é o que o servidor tem direito e o município não repassou. Somar os dois, ou somá-los ao IRRF sobre serviços, criaria um número artificial. A coluna "crédito reconhecido" continua vazia de propósito: reconhecimento exige prova documental e revisão humana.', { s: 8.4, c: C.muted });
+  doc.moveDown(0.8);
 
   subtitulo('Próximos passos');
   const passos = [
@@ -546,7 +558,7 @@ function gerar(d) {
     doc.y += 6;
   });
   doc.moveDown(0.6);
-  par('Fontes indisponíveis permanecem registradas como indisponíveis: Tribunal de Contas do Estado de Minas Gerais (CAPMG), CadPrev, PNCP e TCU não responderam a partir do ambiente de coleta. Isso não zera o dado: apenas o marca como faltante.', { s: 8.6, c: C.muted });
+  par('Fontes indisponíveis permanecem registradas como indisponíveis: o Tribunal de Contas do Estado de Minas Gerais (CAPMG) não respondeu ao ambiente de coleta (egress bloqueado e cota de CAPTCHA), e a consulta pública do CadPrev também. Isso não zera o dado: apenas o marca como faltante. As demais fontes responderam: PNCP (329 contratos de 2024 a 2026, com verificação item a item pendente), TCU (2 registros no processo 034.869/2016-6), Siconfi/DCA (5 exercícios), portal de transparência (folha de 65 competências) e a base oficial de estatísticas do RPPS.', { s: 8.6, c: C.muted });
 
   // ------------------------------------------------------------------ 6. apuração pelo motor
   secao('Apuração pelo motor Reversa');
